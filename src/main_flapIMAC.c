@@ -3,6 +3,11 @@
 #include <SDL/SDL.h>
 
 #include "geometry.h"
+#include "color.h"
+#include "physics.h"
+#include "statistics.h"
+#include "level.h"
+#include "player.h"
 
 static unsigned int WINDOW_WIDTH = 1;
 static unsigned int WINDOW_HEIGHT = 1;
