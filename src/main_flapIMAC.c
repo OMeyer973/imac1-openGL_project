@@ -3,7 +3,6 @@
 #include <SDL/SDL.h>
 
 #include "geometry.h"
-#include "flapIMAC.h"
 
 static unsigned int WINDOW_WIDTH = 1;
 static unsigned int WINDOW_HEIGHT = 1;
