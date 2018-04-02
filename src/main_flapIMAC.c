@@ -14,6 +14,8 @@ static unsigned int WINDOW_HEIGHT = 1;
 static const unsigned int BIT_PER_PIXEL = 32;
 
 int main(int argc, char** argv) {
+
+    makeLevelFromPPM("img/test.ppm");    
     /*
     // Initialisation de la SDL
     if(-1 == SDL_Init(SDL_INIT_VIDEO)) {

@@ -23,9 +23,17 @@ typedef struct shipStat {
 	int burst; //is the ship shooting bursts of bullets ?
 } ShipStat;
 
+typedef struct bonusStat {
+	BoundingBox spriteBox; //size of sprite
+	int textureID; //id of the texture in memory
+	BoundingBox hitBox; //size of hitbox
+	int hp; //nb of bonus health points
+	float shootDelayMult; //multiplier of the delay between 2 shots
+} BonusStat;
 
-#define NBFOETYPES 6
-#define NBBULLETTYPES 6
+
+#define NBFOETYPES 8
+#define NBBULLETTYPES 8
 
 static ShipStat foeStats[NBFOETYPES]; 
 	//TODO : à définir
