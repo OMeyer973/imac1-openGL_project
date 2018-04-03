@@ -1,7 +1,14 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <stdlib.h>
+#include <stdio.h>  
+#include <string.h>
+#include <dirent.h>
+#include <time.h> 
 
+#include "main_functions.h"
 #include "geometry.h"
 #include "color.h"
 #include "physics.h"
@@ -9,13 +16,19 @@
 #include "level.h"
 #include "player.h"
 
-static unsigned int WINDOW_WIDTH = 1;
-static unsigned int WINDOW_HEIGHT = 1;
-static const unsigned int BIT_PER_PIXEL = 32;
+
+void resizeViewport() {
+    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(-1., 1., -1., 1.);
+    SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_RESIZABLE);
+}
+
 
 int main(int argc, char** argv) {
-
-    makeLevelFromPPM("img/test.ppm");    
+    
+    makeLevelFromPPM("map/test.ppm");
     /*
     // Initialisation de la SDL
     if(-1 == SDL_Init(SDL_INIT_VIDEO)) {
@@ -23,45 +36,66 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     }
 
-    // Création de la fenêtre SDL
-    SDL_Surface* screen = NULL;
-    if(NULL == (screen = SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_DOUBLEBUF))) {
+    // Ouverture d'une fenêtre et création d'un contexte OpenGL
+    if(NULL == SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_RESIZABLE)) {
         fprintf(stderr, "Impossible d'ouvrir la fenetre. Fin du programme.\n");
         return EXIT_FAILURE;
     }
-    SDL_WM_SetCaption("flapIMAC ", NULL);
-
-    // Création d'une surface SDL dans laquelle le raytracer dessinera
-    SDL_Surface* framebuffer = NULL;
-    if(NULL == (framebuffer = SDL_CreateRGBSurface(SDL_SWSURFACE, WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, 0, 0, 0, 0))) {
-        fprintf(stderr, "Erreur d'allocation pour le framebuffer. Fin du programme.\n");
-        return EXIT_FAILURE;
-    }
-    // Nettoyage du framebuffer par une couleur de fond (noir)
-    SDL_FillRect(framebuffer, NULL, SDL_MapRGB(framebuffer->format, 0, 0, 0));
+    SDL_WM_SetCaption("flapIMAC", NULL);
+    resizeViewport();
 
 
-    // Création de la scène
-    Scene scene = createScene();
-
-    // Ajout d'objets dans la scène
-    // ...
-
+    //Boucle de dessin
     int loop = 1;
+    glClearColor(0.1, 0.1, 0.1 ,1.0);
     while(loop) {
 
-        SDL_BlitSurface(framebuffer, NULL, screen, NULL);
-        SDL_Flip(screen);
+        Uint32 startTime = SDL_GetTicks();
+
+        // Code de dessin
+        glClear(GL_COLOR_BUFFER_BIT);
+        //drawBG();
+        //drawwalls();
+        //drawbonuses();
+        //drawfoes();
+        //drawplayer();
+        //drawVFX();
+        //drawfriendlymissiles();
+        //drawfoemissiles();
+
+        // Fin du code de dessin
 
         SDL_Event e;
         while(SDL_PollEvent(&e)) {
-            if(e.type == SDL_QUIT) {
-                loop = 0;
-                break;
+
+            switch(e.type) {
+
+                case SDL_QUIT:
+                    loop = 0;
+                    break;
+
+                case SDL_VIDEORESIZE:
+                    WINDOW_WIDTH = e.resize.w;
+                    WINDOW_HEIGHT = e.resize.h;
+                    resizeViewport();
+
+                default:
+                    break;
             }
         }
-    }
 
+        SDL_GL_SwapBuffers();
+        Uint32 elapsedTime = SDL_GetTicks() - startTime;
+        if(elapsedTime < FRAMERATE_MILLISECONDS) {
+            SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
+        }
+    }
+    
+
+    // Libération des données GPU
+    //glDeleteTextures(1, &textureID);
+
+    // Liberation des ressources associées à la SDL
     SDL_Quit();
 
     return EXIT_SUCCESS;

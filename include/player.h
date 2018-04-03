@@ -19,9 +19,9 @@ typedef struct controls {
 static Controls playerControls;
 	//TODO : initialiser les valeurs par défaut
 
-static ShipStat playerShip; //stats of the player ship
+static Entity playerShip; //stats of the player ship
 	//TODO : initialiser les valeurs par défaut
-static BulletStat playerBullet; //stats of the bulets shot by the player
+static Entity playerBullet; //stats of the bulets shot by the player
 	//TODO : initialiser les valeurs par défaut
 
 #endif

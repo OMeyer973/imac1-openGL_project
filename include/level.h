@@ -5,27 +5,23 @@
 
 //Description of the level : walls, enemy ships, bulets in the air etc...
 
-typedef struct wall {
-	BoundingBox spriteBox; //size of sprite
-	BoundingBox hitBox; //size of hitbox
-	int textureID;
-} Wall;
+typedef struct entity {
+	BoundingBox spriteBox;  //general : size of sprite
+	int textureID; 			//general : id of the texture in the gluint textures list
+	BoundingBox hitBox; 	//general : size of hitbox
+	int type;				//general : type of entity : mob - wall - bonus - bullet-  animation
+	
+	int subType;			//mob - bullet - bonus : sub-type of entity
+	int hp; 				//mob : nb of health points - bonus : nb of bonus hp - bullet : damage caused by the bullet
+	int bulletType; 		//mob : id of bullet to  instantiate when shooting 
+	float speed; 			//mob - bullet : speed of movement
+	float delay; 			//mob : delay between 2 shots - bonus : new delay between 2 shots - annimation : remaining time of animation
+	int shootAnglesNb; 		//mob : nb of shooting angles
+	float* shootAngles; 	//mob : array of shooting angles
 
-typedef struct foe {
-	BoundingBox spriteBox; //size & position of sprite
-	BoundingBox hitBox; //size & position of hitbox
-	int hp; //nb of health points
-	int foeType; //id of foe to look for additional info in correct foeStat 
-	int bulletType; //id of bullet to look for infos when instantiating a bullet 
-	struct foe* nextFoe; //next foe in the list of foes
-} Foe, *FoeList;
+	struct entity* next;	//next entity in the linked list
+} Entity, *EntityList;
 
-typedef struct bonus {
-	BoundingBox spriteBox; //size & position of sprite
-	BoundingBox hitBox; //size & position of hitbox
-	int BonusType; //id of foe to look for additional info in correct bonusStat 
-	struct bonus* nextBonus; //next bonus in the list of foes
-} Bonus, *BonusList;
 
 //values describing objects in ppm file (r channel)
 #define WALL 0
@@ -33,9 +29,9 @@ typedef struct bonus {
 #define FOE 200
 
 
-static FoeList foes; //chained list of foes in the level
+static EntityList mobs; //linked list of foes in the level
 	//TODO : ne pas déclarer ici, mais dans une fonction d'initialisation du niveau
-static Wall walls[]; //fixed-lenght list of walls in the level7
+static EntityList walls; //linked list of walls in the level7
 	//TODO : ne pas déclarer ici, mais dans une fonction d'initialisation du niveau
 
 

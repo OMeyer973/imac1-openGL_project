@@ -37,8 +37,8 @@ int makeLevelFromPPM(char* filename) {
 				g = tmpc;
 				if (fscanf(in,"%c", &tmpc) == EOF) return 0;
 				b = tmpc;
-				/* //debug : re-draw the basic image in ascii to be sure we didn't do stupid things
-					if (tmp == -1) printf(" ");
+				/*//debug : re-draw the basic image in ascii to be sure we didn't do stupid things
+					if (r == -1) printf(" ");
 					else printf("#");
 					if (x % imgw == 0) {
 						printf("\n");
