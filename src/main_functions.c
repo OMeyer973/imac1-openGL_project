@@ -13,7 +13,7 @@
 
 
 int getImgId(char* filename) {
-    //Lretourne l'id de l'image à partir de son nom de fichier (inscrit dans les 2 premiers caractères)
+    //retourne l'id de l'image à partir de son nom de fichier (inscrit dans les 2 premiers caractères)
     //si les 2 premiers caractère sont des entier, on calcule et on retourne
     if ('0' <= filename[0] && filename[0] <= '9' &&
     	'0' <= filename[1] && filename[1] <= '9') {

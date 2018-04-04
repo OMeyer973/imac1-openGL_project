@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "level.h"
 
@@ -58,17 +59,17 @@ int makeLevelFromPPM(char* filename) {
 	return 1;
 }
 
-int addObjectToLevel(int x, int y, int obj, int type){
+int addObjectToLevel(int x, int y, int type, int subType){
 	//add an object to the level in correct list
-	switch(obj){
-		case WALL:
-			addWall(x, y, type);
+	switch(type){
+		case PPMWALL:
+			addWall(x, y, subType);
 			break;
-		case BONUS:
-			addBonus(x, y, type);
+		case PPMBONUS:
+			addBonus(x, y, subType);
 			break;
-		case FOE:
-			addFoe(x, y, type);
+		case PPMMOB:
+			addMob(x, y, subType);
 			break;
 		default:
 			return 0;
@@ -85,6 +86,7 @@ int addBonus(int x, int y, int type){
 	return 0;
 }
 
-int addFoe(int x, int y, int type){
+int addMob(int x, int y, int type){
 	return 0;
 }
+

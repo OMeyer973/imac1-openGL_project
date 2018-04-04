@@ -5,14 +5,12 @@
 
 // Statistics of the differents ships types
 
-
 #define NBFOETYPES 8
 #define NBBULLETTYPES 8
 
-static EntityList foeStats[NBFOETYPES]; 
+//static EntityList foeStats[NBFOETYPES]; 
 	//TODO : à définir
-static EntityList bulletStats[NBBULLETTYPES]; 
+//static EntityList bulletStats[NBBULLETTYPES]; 
 	//TODO : à définir
-
 
 #endif

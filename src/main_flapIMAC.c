@@ -14,7 +14,8 @@
 #include "physics.h"
 #include "statistics.h"
 #include "level.h"
-#include "player.h"
+#include "entity.h"
+
 
 
 void resizeViewport() {
@@ -28,8 +29,54 @@ void resizeViewport() {
 
 int main(int argc, char** argv) {
     
+    //mes tests de back tu peux tout commenter si tu veux (c'est pour ça que j'utilise que des // pour les commentaires ! comme ça tu peux encadrer tout ce que tu veux aps avec des /* */)
+    //test de la fonction de chargement
     makeLevelFromPPM("map/test.ppm");
+
+    //test de de l'allocation d'entity
+    BoundingBox spriteBox;
+    spriteBox.sw.x = 0;
+    spriteBox.sw.y = 0;
+    spriteBox.ne.x = 1;
+    spriteBox.ne.y = 1;
+    float shootAngles[4] = {0.0,1.0,20.0};
+
+    EntityList testList = instantiateEntity(
+        spriteBox,
+        0,
+        spriteBox,
+        1,
+        2,
+        100,
+        3,
+        3.1,
+        4.1,
+        4,
+        shootAngles);
+
+    printEntity(testList);
+    EntityList testList2 = copyEntity(testList);
+    testList2->textureID = 2;
+
+    EntityList testList3 = copyEntity(testList);
+    testList3->textureID = 3;
+
+    EntityList testList4 = copyEntity(testList);
+    testList4->textureID = 4;
+
+
+    addEntityEnd(&testList, testList2);
+    addEntityStart(&testList, testList4);
+    addEntityEnd(&testList, testList3);
+    printEntity(testList);
+
+    removeEntity(&(testList->next->next->next));
+    printEntity(testList);
+    //fin de mes tests lol
+
+
     /*
+    //vrai code
     // Initialisation de la SDL
     if(-1 == SDL_Init(SDL_INIT_VIDEO)) {
         fprintf(stderr, "Impossible d'initialiser la SDL. Fin du programme.\n");
@@ -54,6 +101,7 @@ int main(int argc, char** argv) {
 
         // Code de dessin
         glClear(GL_COLOR_BUFFER_BIT);
+        //TODO
         //drawBG();
         //drawwalls();
         //drawbonuses();
