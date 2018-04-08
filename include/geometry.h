@@ -1,15 +1,18 @@
 #ifndef GEOMETRY_H_
 #define GEOMETRY_H_
 
+#include <stdio.h>
+#include <math.h>
+
 //Basic geometry elements & functions
 
 typedef struct vec2 {
 	float x, y;
 } Vec2, Point2D, Vector2D;
 
-Point2D pointXYZ(float x, float y); 
+Point2D pointXY(float x, float y); 
 	//Construit le point (x, y)
-Vector2D vectorXYZ(float x, float y); 
+Vector2D vectorXY(float x, float y); 
 	//Construit le vecteur (x, y) 
 Vector2D vector(Point2D A, Point2D B);
 	//Construit le vecteur AB = B − A  

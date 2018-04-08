@@ -1,15 +1,13 @@
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <stdlib.h>
-#include <stdio.h>  
-#include <string.h>
-#include <dirent.h>
-#include <time.h> 
+#include "graphics.h"
 
 
-#include "main_functions.h"
+void resizeViewport() {
+    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluOrtho2D(-1., 1., -1., 1.);
+    SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_RESIZABLE);
+}
 
 
 int getImgId(char* filename) {
@@ -25,6 +23,7 @@ int getImgId(char* filename) {
 
 
 int isLoaded (SDL_Surface* image) {
+    //returns 1 if the image is correctly loaded
     if (image == NULL) {
         printf("Texture loading failed\n");
         SDL_Quit();

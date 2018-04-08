@@ -11,6 +11,8 @@ typedef struct boundingBox {
 	Point2D sw, ne;
 } BoundingBox;
 
+BoundingBox boundingBoxSWNE(float s, float w, float n, float e);
+	//returns a boundingbox defined by its sides
 int colision(BoundingBox A, BoundingBox B);
 	//returns true if the 2 bounding boxes overlap
 

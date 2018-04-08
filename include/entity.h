@@ -9,6 +9,7 @@
 
 typedef struct entity {
 	//structure describing an entity : wall - mob - bonus - bullet - VFX 
+	Point2D center;			//general : position of the entity
 	BoundingBox spriteBox;  //general : size of sprite
 	int textureID; 			//general : id of the texture in the gluint textures list
 	BoundingBox hitBox; 	//general : size of hitbox
@@ -29,6 +30,7 @@ typedef struct entity {
 //FUNCTIONS
 
 EntityList instantiateEntity (
+		Point2D center,
 		BoundingBox spriteBox, 
 		int textureID, 
 		BoundingBox hitBox,
@@ -39,7 +41,8 @@ EntityList instantiateEntity (
 		float speed,
 		float delay,
 		int shootAnglesNb,
-		float* shootAngles);
+		float* shootAngles
+	);
 	//instantiate an entity according to the given parameters and return it's adress
 EntityList copyEntity (EntityList orig);
 	//instantiate an entity with the same parameters as the one given as argument and return it's adress

@@ -1,22 +1,27 @@
 #ifndef LEVEL_H_
 #define LEVEL_H_
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "physics.h"
+#include "entity.h"
+#include "statistics.h"
 
 //Description of the level : walls, enemy ships, bulets in the air etc...
 
+//width & height of the level grid
 
-//values describing objects in ppm file (r channel)
-#define PPMWALL 0
-#define PPMBONUS 100
-#define PPMMOB 200
+extern int level_w;
+extern int level_h;
 
+//different entities in the level
 
-//static EntityList mobs; //linked list of mobs in the level
-	//TODO : ne pas déclarer ici, mais dans une fonction d'initialisation du niveau
-//static EntityList walls; //linked list of walls in the level
-	//TODO : ne pas déclarer ici, mais dans une fonction d'initialisation du niveau
-
+extern EntityList level_walls;
+extern EntityList level_mobs;
+extern EntityList level_bonuses;
+extern EntityList level_mobBulets;
+extern EntityList level_playerBulets;
 
 int makeLevelFromPPM(char* filename);
 	//takes a PPM filepath as input and add objects to the 3 lists describing a level : walls list, foes list, bonus list

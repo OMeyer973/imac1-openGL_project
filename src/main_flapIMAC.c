@@ -8,7 +8,7 @@
 #include <dirent.h>
 #include <time.h> 
 
-#include "main_functions.h"
+#include "graphics.h"
 #include "geometry.h"
 #include "color.h"
 #include "physics.h"
@@ -16,24 +16,41 @@
 #include "level.h"
 #include "entity.h"
 
+//global variables
+//graphics
+unsigned int WINDOW_WIDTH = 1;
+unsigned int WINDOW_HEIGHT = 1;
+const unsigned int BIT_PER_PIXEL = 32;
+const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
+
+//statistics
+Entity stats_mobs[NBMOBTYPES];
+Entity stats_bounses[NBBONUSTYPES];
+Entity stats_bullets[NBBULLETTYPES];
+
+//level
+int level_w = 0;
+int level_h = 0;
+
+EntityList level_walls;
+EntityList level_mobs;
+EntityList level_bonuses;
+EntityList level_mobBulets;
+EntityList level_playerBulets;
 
 
-void resizeViewport() {
-    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluOrtho2D(-1., 1., -1., 1.);
-    SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_RESIZABLE);
-}
 
 
 int main(int argc, char** argv) {
-    
     //mes tests de back tu peux tout commenter si tu veux (c'est pour ça que j'utilise que des // pour les commentaires ! comme ça tu peux encadrer tout ce que tu veux aps avec des /* */)
     //test de la fonction de chargement
     makeLevelFromPPM("map/test.ppm");
-
+    printf("level grid : %d, %d\n",level_w, level_h);
     //test de de l'allocation d'entity
+    /*
+    Point2D center;
+    center.x = 3;
+    center.y = 4;
     BoundingBox spriteBox;
     spriteBox.sw.x = 0;
     spriteBox.sw.y = 0;
@@ -42,6 +59,7 @@ int main(int argc, char** argv) {
     float shootAngles[4] = {0.0,1.0,20.0};
 
     EntityList testList = instantiateEntity(
+        center,
         spriteBox,
         0,
         spriteBox,
@@ -72,8 +90,13 @@ int main(int argc, char** argv) {
 
     removeEntity(&(testList->next->next->next));
     printEntity(testList);
-    //fin de mes tests lol
+    */
+    //tests des stats
+    initMobsStats();
+    printEntity(&(stats_mobs[0]));
+    printEntity(&(stats_mobs[1]));
 
+    //fin de mes tests lol
 
     /*
     //vrai code
