@@ -18,8 +18,8 @@
 
 //global variables
 //graphics
-unsigned int WINDOW_WIDTH = 1;
-unsigned int WINDOW_HEIGHT = 1;
+unsigned int WINDOW_WIDTH = 600;
+unsigned int WINDOW_HEIGHT = 400;
 const unsigned int BIT_PER_PIXEL = 32;
 const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
 
@@ -39,8 +39,8 @@ EntityList level_bonuses;
 EntityList level_mobBulets;
 EntityList level_playerBulets;
 
-
-
+const char* filename = "img/mob1.png";
+GLuint textureID;
 
 int main(int argc, char** argv) {
     //mes tests de back tu peux tout commenter si tu veux (c'est pour ça que j'utilise que des // pour les commentaires ! comme ça tu peux encadrer tout ce que tu veux aps avec des /* */)
@@ -103,7 +103,7 @@ int main(int argc, char** argv) {
 
     //fin de mes tests lol
 
-    /*
+    
     //vrai code
     // Initialisation de la SDL
     if(-1 == SDL_Init(SDL_INIT_VIDEO)) {
@@ -116,8 +116,33 @@ int main(int argc, char** argv) {
         fprintf(stderr, "Impossible d'ouvrir la fenetre. Fin du programme.\n");
         return EXIT_FAILURE;
     }
-    SDL_WM_SetCaption("flapIMAC", NULL);
+    SDL_WM_SetCaption("Fimac-o-fish", NULL);
     resizeViewport();
+
+// Chargement et traitement de la texture
+    SDL_Surface* image = IMG_Load(filename);
+    if (!isLoaded(image)) return 0;
+    
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    
+    // Envoie des données texture à la carte graphique
+    glTexImage2D(
+        GL_TEXTURE_2D,
+        0,
+        GL_RGBA,
+        image->w,
+        image->h,
+        0,
+        GL_RGBA,
+        GL_UNSIGNED_BYTE,
+        image->pixels);
+    
+    // Libération des données CPU
+    SDL_FreeSurface(image);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    
 
 
     //Boucle de dessin
@@ -128,7 +153,8 @@ int main(int argc, char** argv) {
         Uint32 startTime = SDL_GetTicks();
 
         // Code de dessin
-        glClear(GL_COLOR_BUFFER_BIT);
+         glClear(GL_COLOR_BUFFER_BIT);
+   
         //TODO
         //drawBG();
         //drawwalls();
@@ -138,6 +164,20 @@ int main(int argc, char** argv) {
         //drawVFX();
         //drawfriendlymissiles();
         //drawfoemissiles();
+        //drawmobs();
+
+
+
+        // Code de dessin
+        glClear(GL_COLOR_BUFFER_BIT);
+       
+        glPushMatrix();
+            glTranslatef(0.5,0.5,0);
+            glScalef(0.5,0.5,1);
+            drawTexturedSquare(textureID);
+        glPopMatrix();
+        // Fin du code de dessin
+
 
         // Fin du code de dessin
 
@@ -175,5 +215,5 @@ int main(int argc, char** argv) {
     SDL_Quit();
 
     return EXIT_SUCCESS;
-    */
+    
 }

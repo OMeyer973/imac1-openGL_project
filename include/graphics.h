@@ -18,6 +18,11 @@ extern unsigned int WINDOW_HEIGHT;
 extern const unsigned int BIT_PER_PIXEL;
 extern const Uint32 FRAMERATE_MILLISECONDS;
 
+void resizeViewport();
+int isLoaded (SDL_Surface* image);
+void drawTexturedSquare(GLuint textureID);
+
+
 
 
 #endif

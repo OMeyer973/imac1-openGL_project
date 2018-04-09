@@ -22,8 +22,8 @@ int getImgId(char* filename) {
 }
 
 
+
 int isLoaded (SDL_Surface* image) {
-    //returns 1 if the image is correctly loaded
     if (image == NULL) {
         printf("Texture loading failed\n");
         SDL_Quit();
@@ -64,8 +64,9 @@ int getSurfaces(char* dirPath, GLuint textureIDs[]) {
             printf("Loading tex %s\n", strTmp);
             
             textures[i] = IMG_Load(strTmp);
-            if (!isLoaded(textures[i])) return 0;
-
+            if (!isLoaded(textures[i])) return 0;   
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             glBindTexture(GL_TEXTURE_2D, textureIDs[i]);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
@@ -89,3 +90,23 @@ int getSurfaces(char* dirPath, GLuint textureIDs[]) {
     closedir(d);
     return 1;
     }
+
+
+    void drawTexturedSquare(GLuint textureID) {
+        glEnable(GL_TEXTURE_2D);
+         glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glBindTexture(GL_TEXTURE_2D, textureID);        
+            glBegin(GL_QUADS);
+                glTexCoord2f(0, 1);
+                glVertex2f(-0.5,-0.5);
+                glTexCoord2f(0, 0);
+                glVertex2f(-0.5,0.5);
+                glTexCoord2f(1, 0);
+                glVertex2f(0.5,0.5);
+                glTexCoord2f(1, 1);
+                glVertex2f(0.5,-0.5);
+            glEnd();
+        glDisable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, 0);
+}
