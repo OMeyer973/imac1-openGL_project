@@ -77,7 +77,9 @@ int addObjectToLevel(int x, int y, int type, int subType){
 
 int addWall(int x, int y, int subType){
 	if (subType < NBWALLTYPES){
-		addEntityEnd(&level_walls, copyEntity(&stats_walls[subType]));
+		EntityList tmpEntity = copyEntity(&stats_walls[subType]);
+		tmpEntity->center = pointXY(x,y);
+		addEntityEnd(&level_walls, tmpEntity);
 		return 1;
 	}
 	printf("tried to add invalid mob at %d %d\n", x,y);
@@ -86,7 +88,9 @@ int addWall(int x, int y, int subType){
 
 int addBonus(int x, int y, int subType){
 	if (subType < NBBONUSTYPES){
-		addEntityEnd(&level_bonuses, copyEntity(&stats_bonuses[subType]));
+		EntityList tmpEntity = copyEntity(&stats_bonuses[subType]);
+		tmpEntity->center = pointXY(x,y);
+		addEntityEnd(&level_bonuses, tmpEntity);
 		return 1;
 	}
 	printf("tried to add invalid bonus at %d %d\n", x,y);
@@ -95,7 +99,9 @@ int addBonus(int x, int y, int subType){
 
 int addMob(int x, int y, int subType){
 	if (subType < NBMOBTYPES){
-		addEntityEnd(&level_mobs, copyEntity(&stats_mobs[subType]));
+		EntityList tmpEntity = copyEntity(&stats_mobs[subType]);
+		tmpEntity->center = pointXY(x,y);
+		addEntityEnd(&level_mobs, tmpEntity);
 		return 1;
 	}
 	printf("tried to add invalid mob at %d %d\n", x,y);
