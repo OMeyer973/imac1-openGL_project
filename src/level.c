@@ -42,9 +42,9 @@ int makeLevelFromPPM(char* filename) {
 						printf("\n");
 					} */
 				/*PPM image format : 
-					r encodes the object : wall (0) or bonus (100) or foe (200)
+					r encodes the object : wall or bonus or foe (50 by 50)
 					v encodes the type of the object (for foe or bonus, cf stats) : encoded 10 by 10, hence the division */
-				addObjectToLevel(x, y, r/50, g/10);
+				addObjectToLevel(x, y, r / 50, g / 10);
 			}
 		}
 		fclose(in);
@@ -75,15 +75,30 @@ int addObjectToLevel(int x, int y, int type, int subType){
 	return 1;
 }
 
-int addWall(int x, int y, int type){
+int addWall(int x, int y, int subType){
+	if (subType < NBWALLTYPES){
+		addEntityEnd(&level_walls, copyEntity(&stats_walls[subType]));
+		return 1;
+	}
+	printf("tried to add invalid mob at %d %d\n", x,y);
 	return 0;
 }
 
-int addBonus(int x, int y, int type){
+int addBonus(int x, int y, int subType){
+	if (subType < NBBONUSTYPES){
+		addEntityEnd(&level_bonuses, copyEntity(&stats_bonuses[subType]));
+		return 1;
+	}
+	printf("tried to add invalid bonus at %d %d\n", x,y);
 	return 0;
 }
 
-int addMob(int x, int y, int type){
+int addMob(int x, int y, int subType){
+	if (subType < NBMOBTYPES){
+		addEntityEnd(&level_mobs, copyEntity(&stats_mobs[subType]));
+		return 1;
+	}
+	printf("tried to add invalid mob at %d %d\n", x,y);
 	return 0;
 }
 

@@ -24,8 +24,9 @@ const unsigned int BIT_PER_PIXEL = 32;
 const Uint32 FRAMERATE_MILLISECONDS = 1000 / 60;
 
 //statistics
+Entity stats_walls[NBWALLTYPES];
 Entity stats_mobs[NBMOBTYPES];
-Entity stats_bounses[NBBONUSTYPES];
+Entity stats_bonuses[NBBONUSTYPES];
 Entity stats_bullets[NBBULLETTYPES];
 
 //level
@@ -43,9 +44,17 @@ EntityList level_playerBulets;
 
 int main(int argc, char** argv) {
     //mes tests de back tu peux tout commenter si tu veux (c'est pour ça que j'utilise que des // pour les commentaires ! comme ça tu peux encadrer tout ce que tu veux aps avec des /* */)
+    
+    //tests des stats
+    initMobsStats();
+    //printEntity(&(stats_mobs[0]));
+    //printEntity(&(stats_mobs[1]));
+
     //test de la fonction de chargement
     makeLevelFromPPM("map/test.ppm");
     printf("level grid : %d, %d\n",level_w, level_h);
+
+    printEntity(level_mobs);
     //test de de l'allocation d'entity
     /*
     Point2D center;
@@ -91,10 +100,6 @@ int main(int argc, char** argv) {
     removeEntity(&(testList->next->next->next));
     printEntity(testList);
     */
-    //tests des stats
-    initMobsStats();
-    printEntity(&(stats_mobs[0]));
-    printEntity(&(stats_mobs[1]));
 
     //fin de mes tests lol
 

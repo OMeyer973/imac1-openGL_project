@@ -28,7 +28,9 @@ int makeLevelFromPPM(char* filename);
 int addObjectToLevel(int x, int y, int obj, int type);
 	//add an object to the level in correct list
 
-int addWall(int x, int y, int type);
-int addBonus(int x, int y, int type);
-int addFoe(int x, int y, int type);
+
+int addWall(int x, int y, int subType);
+int addBonus(int x, int y, int subType);
+int addMob(int x, int y, int subType);
+
 #endif
