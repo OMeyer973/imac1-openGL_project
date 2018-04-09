@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
     //printEntity(&(stats_mobs[1]));
 
     //test de la fonction de chargement
-    makeLevelFromPPM("map/test.ppm");
+    makeLevelFromPPM("map/level1.ppm");
     printf("level grid : %d, %d\n",level_w, level_h);
 
     printEntity(level_mobs);

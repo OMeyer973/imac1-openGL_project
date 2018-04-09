@@ -29,22 +29,21 @@ int makeLevelFromPPM(char* filename) {
 		for (y=0; y < level_h; y++) {
 			for (x=0; x < level_w; x++) {
 				//getting the 3 colors channels for the current pixel
-				if (fscanf(in,"%c", &tmpc) == EOF) return 0;
-				r = tmpc; //we scan a char and get it's ascii value simply with "int" = "char"
-				if (fscanf(in,"%c", &tmpc) == EOF) return 0;
-				g = tmpc;
-				if (fscanf(in,"%c", &tmpc) == EOF) return 0;
-				b = tmpc;
+				if (fscanf(in,"%d", &r) == EOF) return 0;
+				if (fscanf(in,"%d", &g) == EOF) return 0;
+				if (fscanf(in,"%d", &b) == EOF) return 0;
 				/*//debug : re-draw the basic image in ascii to be sure we didn't do stupid things
 					if (r == -1) printf(" ");
 					else printf("#");
 					if (x % level_w == 0) {
 						printf("\n");
 					} */
-				/*PPM image format : 
-					r encodes the object : wall or bonus or foe (50 by 50)
-					v encodes the type of the object (for foe or bonus, cf stats) : encoded 10 by 10, hence the division */
-				addObjectToLevel(x, y, r / 50, g / 10);
+				//if the pixel is not white (background color), add an object
+				if (r < 250 || g < 250 || b < 250)
+					/*PPM image format : 
+						r encodes the object : wall or bonus or foe (50 by 50)
+						v encodes the type of the object (for foe or bonus, cf stats) : encoded 20 by 20, hence the division */
+					addObjectToLevel(x, y, r / 50, g / 20);
 			}
 		}
 		fclose(in);
@@ -69,6 +68,7 @@ int addObjectToLevel(int x, int y, int type, int subType){
 			addMob(x, y, subType);
 			break;
 		default:
+			//printf("tried to add invalid object of type %d at %d %d\n", type, x, y);
 			return 0;
 			break;
 	}
@@ -82,7 +82,7 @@ int addWall(int x, int y, int subType){
 		addEntityEnd(&level_walls, tmpEntity);
 		return 1;
 	}
-	printf("tried to add invalid mob at %d %d\n", x,y);
+	printf("tried to add invalid wall of subtype %d at %d %d\n", subType, x, y);
 	return 0;
 }
 
@@ -93,7 +93,7 @@ int addBonus(int x, int y, int subType){
 		addEntityEnd(&level_bonuses, tmpEntity);
 		return 1;
 	}
-	printf("tried to add invalid bonus at %d %d\n", x,y);
+	printf("tried to add invalid bonus of subtype %d at %d %d\n", subType, x, y);
 	return 0;
 }
 
@@ -104,7 +104,7 @@ int addMob(int x, int y, int subType){
 		addEntityEnd(&level_mobs, tmpEntity);
 		return 1;
 	}
-	printf("tried to add invalid mob at %d %d\n", x,y);
+	printf("tried to add invalid mob of subtype %d at %d %d\n", subType, x, y);
 	return 0;
 }
 
