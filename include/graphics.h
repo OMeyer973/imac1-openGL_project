@@ -20,7 +20,9 @@ extern const Uint32 FRAMERATE_MILLISECONDS;
 
 void resizeViewport();
 int isLoaded (SDL_Surface* image);
+int getSurfaces(char* dirPath, GLuint textureIDs[]);
 void drawTexturedSquare(GLuint textureID);
+
 
 
 

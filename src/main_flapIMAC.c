@@ -39,8 +39,26 @@ EntityList level_bonuses;
 EntityList level_mobBulets;
 EntityList level_playerBulets;
 
-const char* filename = "img/mob1.png";
-GLuint textureID;
+char* dirpath = "img/";
+GLuint textures[NBTEXTURES];
+
+
+void drawmobs(EntityList liste)
+{         while(liste != NULL)
+        {
+
+            glPushMatrix();
+            glTranslatef(liste->center.x,liste->center.y,0);
+            glScalef(( liste->hitBox.ne.x-liste->hitBox.sw.x),(liste->hitBox.ne.y-liste->hitBox.sw.y),1);
+            drawTexturedSquare(textures[10]);
+   
+        glPopMatrix();
+            liste = liste->next;
+        }
+       
+}
+
+
 
 int main(int argc, char** argv) {
     //mes tests de back tu peux tout commenter si tu veux (c'est pour ça que j'utilise que des // pour les commentaires ! comme ça tu peux encadrer tout ce que tu veux aps avec des /* */)
@@ -119,30 +137,9 @@ int main(int argc, char** argv) {
     SDL_WM_SetCaption("Fimac-o-fish", NULL);
     resizeViewport();
 
-// Chargement et traitement de la texture
-    SDL_Surface* image = IMG_Load(filename);
-    if (!isLoaded(image)) return 0;
-    
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    
-    // Envoie des données texture à la carte graphique
-    glTexImage2D(
-        GL_TEXTURE_2D,
-        0,
-        GL_RGBA,
-        image->w,
-        image->h,
-        0,
-        GL_RGBA,
-        GL_UNSIGNED_BYTE,
-        image->pixels);
-    
-    // Libération des données CPU
-    SDL_FreeSurface(image);
-    glBindTexture(GL_TEXTURE_2D, 0);
-    
+// Remplissage du tableau de textures 
+
+        getSurfaces(dirpath,textures);
 
 
     //Boucle de dessin
@@ -154,7 +151,7 @@ int main(int argc, char** argv) {
 
         // Code de dessin
          glClear(GL_COLOR_BUFFER_BIT);
-   
+            
         //TODO
         //drawBG();
         //drawwalls();
@@ -164,22 +161,18 @@ int main(int argc, char** argv) {
         //drawVFX();
         //drawfriendlymissiles();
         //drawfoemissiles();
-        //drawmobs();
+
 
 
 
         // Code de dessin
         glClear(GL_COLOR_BUFFER_BIT);
-       
-        glPushMatrix();
-            glTranslatef(0.5,0.5,0);
-            glScalef(0.5,0.5,1);
-            drawTexturedSquare(textureID);
-        glPopMatrix();
-        // Fin du code de dessin
+
+        // Dessin des mobs 
+        drawmobs(level_mobs);
 
 
-        // Fin du code de dessin
+   
 
         SDL_Event e;
         while(SDL_PollEvent(&e)) {
