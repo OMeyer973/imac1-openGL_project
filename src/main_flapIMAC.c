@@ -32,6 +32,7 @@ Entity stats_bullets[NBBULLETTYPES];
 //level
 int level_w = 0;
 int level_h = 0;
+float xplayer = -3, yplayer = 0;
 
 EntityList level_walls;
 EntityList level_mobs;
@@ -41,6 +42,10 @@ EntityList level_playerBulets;
 
 char* dirpath = "img/";
 GLuint textures[NBTEXTURES];
+int keyUp=0;
+int keyDown=0;
+int keyRight=0;
+int keyLeft=0;
 
 
 void drawmobs(EntityList liste)
@@ -66,7 +71,7 @@ void drawWalls(EntityList liste)
             glPushMatrix();
             glTranslatef(liste->center.x,liste->center.y,0);
             glScalef(( liste->hitBox.ne.x-liste->hitBox.sw.x),(liste->hitBox.ne.y-liste->hitBox.sw.y),1);
-            drawTexturedSquare(textures[4]); // Murs verticaux à ajouter
+            drawTexturedSquare(textures[4]); // Murs verticaaux à ajouter
         glPopMatrix();
             liste = liste->next;
         }
@@ -89,9 +94,22 @@ void drawBG()
             drawTexturedSquare(textures[1]);
    
         glPopMatrix();
+}
+
+
+void drawplayer()
+{
+       glPushMatrix();
+
+            glTranslatef(xplayer,yplayer,0);
+            drawTexturedSquare(textures[4]);
+   
+        glPopMatrix();
 
 
 }
+
+
 
 
 int main(int argc, char** argv) {
@@ -199,20 +217,29 @@ int main(int argc, char** argv) {
 
 
 
-        // Code de dessin
-        glClear(GL_COLOR_BUFFER_BIT);
 
 
 
         // Background
-
-
         drawBG();
         // Dessin des mobs 
         drawmobs(level_mobs);
+
+        // Dessin des obstacles 
         drawWalls(level_walls);
 
-   
+
+        // Dessin du joueur
+        drawplayer();
+        
+        if (keyUp)
+            yplayer+=0.1;
+        if (keyDown)
+            yplayer-=0.1;
+        if (keyRight)
+            xplayer+=0.1;
+        if (keyLeft)
+            xplayer-=0.1;
 
         SDL_Event e;
         while(SDL_PollEvent(&e)) {
@@ -228,8 +255,49 @@ int main(int argc, char** argv) {
                     WINDOW_HEIGHT = e.resize.h;
                     resizeViewport();
 
+                    case SDL_KEYDOWN:
+                    printf("touche pressée (code = %d)\n", e.key.keysym.sym);
+                    
+                    if (e.key.keysym.sym==273){
+                         keyUp=1;
+                    }
+                     if (e.key.keysym.sym==274){
+                         keyDown=1;
+                    }
+                     if (e.key.keysym.sym==275){
+                         keyRight=1;
+                    }
+                     if (e.key.keysym.sym==276){
+                         keyLeft=1;
+                    }
+
+                    break;
+
+                         case SDL_KEYUP:
+                    printf("touche pressée (code = %d)\n", e.key.keysym.sym);
+                    
+                    if (e.key.keysym.sym==273){
+                         keyUp=0;
+                    }
+                     if (e.key.keysym.sym==274){
+                         keyDown=0;
+                    }
+                     if (e.key.keysym.sym==275){
+                         keyRight=0;
+                    }
+                     if (e.key.keysym.sym==276){
+                         keyLeft=0;
+                    }
+
+                    break;
+
+
+
+
                 default:
                     break;
+
+
             }
         }
 
