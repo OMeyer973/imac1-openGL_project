@@ -110,7 +110,30 @@ void drawplayer()
 }
 
 
+void controlsMouvment()
+{
+        if ((yplayer>=-4. && yplayer<=4. && xplayer>=-4. && xplayer<=4.))        
+            if (keyUp)
+                yplayer+=0.1;
+            if (keyDown)
+                yplayer-=0.1;
+            if (keyRight)
+                xplayer+=0.1;
+            if (keyLeft)
+                xplayer-=0.1;
 
+        else if (yplayer>4)
+            yplayer=4;
+        else if (yplayer<-4)
+            yplayer=-4;
+
+        else if (xplayer>4)
+            xplayer=4;
+        else if (xplayer<-4)
+            xplayer=-4;
+
+
+}
 
 int main(int argc, char** argv) {
     //mes tests de back tu peux tout commenter si tu veux (c'est pour ça que j'utilise que des // pour les commentaires ! comme ça tu peux encadrer tout ce que tu veux aps avec des /* */)
@@ -125,6 +148,7 @@ int main(int argc, char** argv) {
     printf("level grid : %d, %d\n",level_w, level_h);
 
     printEntity(level_mobs);
+    printEntity(level_walls);
     //test de de l'allocation d'entity
     /*
     Point2D center;
@@ -231,16 +255,7 @@ int main(int argc, char** argv) {
 
         // Dessin du joueur
         drawplayer();
-        
-        if (keyUp)
-            yplayer+=0.1;
-        if (keyDown)
-            yplayer-=0.1;
-        if (keyRight)
-            xplayer+=0.1;
-        if (keyLeft)
-            xplayer-=0.1;
-
+        controlsMouvment();
         SDL_Event e;
         while(SDL_PollEvent(&e)) {
 
@@ -270,6 +285,9 @@ int main(int argc, char** argv) {
                      if (e.key.keysym.sym==276){
                          keyLeft=1;
                     }
+                     if (e.key.keysym.sym==27){
+                         loop=0;
+                    }
 
                     break;
 
@@ -288,7 +306,6 @@ int main(int argc, char** argv) {
                      if (e.key.keysym.sym==276){
                          keyLeft=0;
                     }
-
                     break;
 
 
