@@ -50,7 +50,7 @@ void drawmobs(EntityList liste)
             glPushMatrix();
             glTranslatef(liste->center.x,liste->center.y,0);
             glScalef(( liste->hitBox.ne.x-liste->hitBox.sw.x),(liste->hitBox.ne.y-liste->hitBox.sw.y),1);
-            drawTexturedSquare(textures[10]);
+            drawTexturedSquare(textures[0]);
    
         glPopMatrix();
             liste = liste->next;
@@ -58,6 +58,40 @@ void drawmobs(EntityList liste)
        
 }
 
+
+void drawWalls(EntityList liste)
+{         while(liste != NULL)
+        {
+
+            glPushMatrix();
+            glTranslatef(liste->center.x,liste->center.y,0);
+            glScalef(( liste->hitBox.ne.x-liste->hitBox.sw.x),(liste->hitBox.ne.y-liste->hitBox.sw.y),1);
+            drawTexturedSquare(textures[4]); // Murs verticaux à ajouter
+        glPopMatrix();
+            liste = liste->next;
+        }
+       
+       // Murs haut et bas tous le temps 
+        glPushMatrix();
+        glScalef(8,8,1);
+        drawTexturedSquare(textures[2]);
+        drawTexturedSquare(textures[3]);
+
+        glPopMatrix();
+
+}
+
+
+void drawBG()
+{
+       glPushMatrix();
+             glScalef(8,8,1);
+            drawTexturedSquare(textures[1]);
+   
+        glPopMatrix();
+
+
+}
 
 
 int main(int argc, char** argv) {
@@ -168,9 +202,15 @@ int main(int argc, char** argv) {
         // Code de dessin
         glClear(GL_COLOR_BUFFER_BIT);
 
+
+
+        // Background
+
+
+        drawBG();
         // Dessin des mobs 
         drawmobs(level_mobs);
-
+        drawWalls(level_walls);
 
    
 

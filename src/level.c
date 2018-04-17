@@ -3,7 +3,7 @@
 //functions for handling a level
 
 int makeLevelFromPPM(char* filename) {
-	//takes a PPM filepath as input and add objects to the 3 lists describing a level : walls list, foes list, bonus list
+	//takes a PPM filepath as input and add objects to the 3 lists describing a level : walls list, mobs list, bonus list
 	printf("lecture du fichier PPM ... \n");
 	FILE *in = NULL;
 	in = fopen(filename, "r");
