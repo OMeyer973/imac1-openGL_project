@@ -2,19 +2,35 @@
 #define PHYSICS_H_
 
 #include "geometry.h"
+#include "entity.h"
+
+extern int keyRight;
+extern int keyLeft;
+extern int keyUp;
+extern int keyDown;
+
+extern float player_speed;
+extern float input_angle;
+
+extern Entity player;
 
 //define physics elements : bounding boxes, internections
 
-typedef struct boundingBox {
-	//the 2 bounding box corners : north-west & south-east
-	//sw.x < ne.x, sw.y < ne.y
-	Point2D sw, ne;
-} BoundingBox;
 
 BoundingBox boundingBoxSWNE(float s, float w, float n, float e);
 	//returns a boundingbox defined by its sides
 int colision(BoundingBox A, BoundingBox B);
 	//returns true if the 2 bounding boxes overlap
+int colision(BoundingBox A, BoundingBox B);
+	//returns true if the 2 bounding boxes overlap
+float lerp(float a, float b, float f);
+    //linear interpolation between a and b at 100 * f percents
+void moveEntity(Entity* entity, int dt, float angle, float speed);
+    //moves the entity at the given angle and speed
+void movePlayer(int dt);
+    //player.angle = lerp (player.angle, input_angle, 0.5);
+void getAngleFromKeys();
+    //assign the input angle between 0 - 2PI in function of which arrow keys are pressed
 
 
 #endif

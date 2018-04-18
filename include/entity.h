@@ -1,11 +1,17 @@
 #ifndef ENTITY_H_
 #define ENTITY_H_
 
-#include "physics.h"
+#include "geometry.h"
 
 //Description of the level : walls, enemy ships, bulets in the air etc...
 
 //STRUCTURE
+typedef struct boundingBox {
+	//the 2 bounding box corners : north-west & south-east
+	//sw.x < ne.x, sw.y < ne.y
+	Point2D sw, ne;
+} BoundingBox;
+
 
 typedef struct entity {
 	//structure describing an entity : wall - mob - bonus - bullet - VFX 
@@ -18,6 +24,7 @@ typedef struct entity {
 	int subType;			//mob - bullet - bonus : sub-type of entity
 	int hp; 				//mob : nb of health points - bonus : nb of bonus hp - bullet : damage caused by the bullet
 	int bulletType; 		//mob : id of bullet to  instantiate when shooting 
+	float angle; 			//mob - bullet : facing direction
 	float speed; 			//mob - bullet : speed of movement - bonus - new bullet speed of movement
 	float delay; 			//mob : delay between 2 shots - bonus : new delay between 2 shots - VFX : remaining time of animation
 	int shootAnglesNb; 		//mob : nb of shooting angles
@@ -38,6 +45,7 @@ EntityList instantiateEntity (
 		int subType,
 		int hp,
 		int bulletType,
+		float angle,
 		float speed,
 		float delay,
 		int shootAnglesNb,

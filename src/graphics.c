@@ -134,7 +134,7 @@ void drawEntityList(EntityList list) {
             glScalef(
                 (list->hitBox.ne.x-list->hitBox.sw.x) * game_h / level_h,
                 (list->hitBox.ne.y-list->hitBox.sw.y) * game_h / level_h,1);
-
+            glRotatef(list->angle / 2 / M_PI * 360,0,0,1);
             drawTexturedSquare(textures[list->textureID]);
         glPopMatrix();
         list = list->next;

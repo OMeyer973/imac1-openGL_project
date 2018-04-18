@@ -1,5 +1,27 @@
 #include "statistics.h"
 
+void initPlayer() {
+    //initialize the player at the begining of a level
+    Point2D origin = pointXY(2,level_h/2);
+    BoundingBox tmpSpriteBox = boundingBoxSWNE(-1,-1,1,1);
+    BoundingBox tmpHitBox = boundingBoxSWNE(-1,-1,1,1);
+    float tmpShootAngles[1] = {0};
+    Entity tmpEntity  = *instantiateEntity (
+        origin,         //Point2D anchor
+        tmpSpriteBox,   //BoundingBox spriteBox
+        4,              //int textureID 
+        tmpHitBox,      //BoundingBox hitBox        
+        TYPEPLAYER,     //int type
+        0,              //int subType
+        30,             //int hp
+        0,              //int bulletType
+        0,              //float angle
+        1.1,            //float speed
+        0.5,            //float delay
+        1,              //int shootAnglesNb
+        tmpShootAngles);//float* shootAngles
+    player = tmpEntity;
+}
 
 void initMobsStats() {
     //initialize the mob statistics array
@@ -17,6 +39,7 @@ void initMobsStats() {
         0,              //int subType
         30,             //int hp
         0,              //int bulletType
+        0,              //float angle
         1.1,            //float speed
         0.5,            //float delay
         2,              //int shootAnglesNb
@@ -34,6 +57,7 @@ void initMobsStats() {
         1,              //int subType
         50,             //int hp
         1,              //int bulletType
+        0,              //float angle
         0.4,            //float speed
         0.5,            //float delay
         3,              //int shootAnglesNb

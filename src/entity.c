@@ -14,6 +14,7 @@ EntityList instantiateEntity (
 		int subType,
 		int hp,
 		int bulletType,
+		float angle,
 		float speed,
 		float delay,
 		int shootAnglesNb,
@@ -23,20 +24,21 @@ EntityList instantiateEntity (
 	EntityList list;
 	list = (Entity*)malloc(sizeof(Entity));
 	if (list != NULL) {
-		list->anchor = anchor;
-		list->spriteBox = spriteBox;
-		list->textureID = textureID;
-		list->hitBox = hitBox;
-		list->type = type;
-		list->subType = subType;
-		list->hp = hp;
-		list->bulletType = bulletType;
-		list->speed = speed;
-		list->delay = delay;
+		list->anchor 		= anchor;
+		list->spriteBox 	= spriteBox;
+		list->textureID 	= textureID;
+		list->hitBox 		= hitBox;
+		list->type 			= type;
+		list->subType 		= subType;
+		list->hp 			= hp;
+		list->bulletType 	= bulletType;
+		list->angle 		= angle;
+		list->speed 		= speed;
+		list->delay 		= delay;
 		list->shootAnglesNb = shootAnglesNb;
-		list->shootAngles = shootAngles;
-		list->next = NULL;
-		list->prev = NULL;
+		list->shootAngles 	= shootAngles;
+		list->next 			= NULL;
+		list->prev 			= NULL;
 	} else printf("malloc error\n");
 	return list;
 }
@@ -54,6 +56,7 @@ EntityList copyEntity (EntityList orig) {
 		list->subType 		= orig->subType;
 		list->hp 			= orig->hp;
 		list->bulletType 	= orig->bulletType;
+		list->angle 		= orig->angle;
 		list->speed 		= orig->speed;
 		list->delay 		= orig->delay;
 		list->shootAnglesNb = orig->shootAnglesNb;
@@ -124,6 +127,7 @@ void printEntity(EntityList list) {
 			list->hitBox.ne.y);
 		printf("  type, subtype : %d, %d\n", list->type, list->subType);
 		printf("  hp ---------- : %d\n",list->hp);
+		printf("  angle, speed  : %f, %f\n",list->angle, list->speed);
 		printf("  bulletType -- : %d\n",list->bulletType);
 		printf("  delay ------- : %f\n",list->delay);
 		printf("  shoot angles  : %d : { ",list->shootAnglesNb);

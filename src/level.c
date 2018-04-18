@@ -76,6 +76,7 @@ int addObjectToLevel(int x, int y, int type, int subType){
 }
 
 int addWall(int x, int y, int subType){
+	printf("adding wall\n");
 	if (subType < NBWALLTYPES){
 		EntityList tmpEntity = copyEntity(&stats_walls[subType]);
 		tmpEntity->anchor = pointXY(x,y);
@@ -87,6 +88,7 @@ int addWall(int x, int y, int subType){
 }
 
 int addBonus(int x, int y, int subType){
+	printf("adding bonus\n");
 	if (subType < NBBONUSTYPES){
 		EntityList tmpEntity = copyEntity(&stats_bonuses[subType]);
 		tmpEntity->anchor = pointXY(x,y);
@@ -98,6 +100,7 @@ int addBonus(int x, int y, int subType){
 }
 
 int addMob(int x, int y, int subType){
+	printf("adding mob\n");
 	if (subType < NBMOBTYPES){
 		EntityList tmpEntity = copyEntity(&stats_mobs[subType]);
 		tmpEntity->anchor = pointXY(x,y);
