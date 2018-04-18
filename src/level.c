@@ -43,7 +43,7 @@ int makeLevelFromPPM(char* filename) {
 					/*PPM image format : 
 						r encodes the object : wall or bonus or foe (50 by 50)
 						v encodes the type of the object (for foe or bonus, cf stats) : encoded 20 by 20, hence the division */
-					addObjectToLevel(x, y, r / 50, g / 20);
+					addObjectToLevel(x, level_h - y, r / 50, g / 20);
 			}
 		}
 		fclose(in);
@@ -78,7 +78,7 @@ int addObjectToLevel(int x, int y, int type, int subType){
 int addWall(int x, int y, int subType){
 	if (subType < NBWALLTYPES){
 		EntityList tmpEntity = copyEntity(&stats_walls[subType]);
-		tmpEntity->center = pointXY(x,y);
+		tmpEntity->anchor = pointXY(x,y);
 		addEntityEnd(&level_walls, tmpEntity);
 		return 1;
 	}
@@ -89,7 +89,7 @@ int addWall(int x, int y, int subType){
 int addBonus(int x, int y, int subType){
 	if (subType < NBBONUSTYPES){
 		EntityList tmpEntity = copyEntity(&stats_bonuses[subType]);
-		tmpEntity->center = pointXY(x,y);
+		tmpEntity->anchor = pointXY(x,y);
 		addEntityEnd(&level_bonuses, tmpEntity);
 		return 1;
 	}
@@ -100,7 +100,7 @@ int addBonus(int x, int y, int subType){
 int addMob(int x, int y, int subType){
 	if (subType < NBMOBTYPES){
 		EntityList tmpEntity = copyEntity(&stats_mobs[subType]);
-		tmpEntity->center = pointXY(x,y);
+		tmpEntity->anchor = pointXY(x,y);
 		addEntityEnd(&level_mobs, tmpEntity);
 		return 1;
 	}

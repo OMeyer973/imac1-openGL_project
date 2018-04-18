@@ -6,7 +6,7 @@
 //functions for handling linked list of entities
 
 EntityList instantiateEntity (
-		Point2D center,
+		Point2D anchor,
 		BoundingBox spriteBox, 
 		int textureID, 
 		BoundingBox hitBox,
@@ -23,7 +23,7 @@ EntityList instantiateEntity (
 	EntityList list;
 	list = (Entity*)malloc(sizeof(Entity));
 	if (list != NULL) {
-		list->center = center;
+		list->anchor = anchor;
 		list->spriteBox = spriteBox;
 		list->textureID = textureID;
 		list->hitBox = hitBox;
@@ -46,7 +46,7 @@ EntityList copyEntity (EntityList orig) {
 	EntityList list;
 	list = (Entity*)malloc(sizeof(Entity));
 	if (list != NULL) {
-		list->center 		= orig->center;
+		list->anchor 		= orig->anchor;
 		list->spriteBox 	= orig->spriteBox;
 		list->textureID 	= orig->textureID;
 		list->hitBox 		= orig->hitBox;
@@ -109,8 +109,8 @@ void printEntity(EntityList list) {
 	//prints all the parameters of an entity
 	printf("=================\nEntity list :\n");
 	while(list != NULL) {
-		printf("  -----------------\n  center ------ : %f, %f\n",
-			list->center.x, list->center.y);
+		printf("  -----------------\n  anchor ------ : %f, %f\n",
+			list->anchor.x, list->anchor.y);
 		printf("  sprite ------ : %d ( %f, %f - %f, %f )\n",
 			list->textureID,
 			list->spriteBox.sw.x, 

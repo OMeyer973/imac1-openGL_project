@@ -2,10 +2,11 @@
 
 
 void resizeViewport() {
+    //initial viewport setup
     glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(-4, 4., -4., 4.);
+    gluOrtho2D(0, screen_w, 0, screen_h);
     SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_RESIZABLE);
 }
 
@@ -21,9 +22,8 @@ int getImgId(char* filename) {
     return -1;
 }
 
-
-
 int isLoaded (SDL_Surface* image) {
+    //returns 1 if the SDL-Surface is corectly loaded
     if (image == NULL) {
         printf("Texture loading failed\n");
         SDL_Quit();
@@ -92,23 +92,72 @@ int getSurfaces(char* dirPath, GLuint textureIDs[]) {
     }
 
 
-    void drawTexturedSquare(GLuint textureID) {
-        glEnable(GL_TEXTURE_2D);
-         glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glBindTexture(GL_TEXTURE_2D, textureID);        
-            glBegin(GL_QUADS);
-                glTexCoord2f(0, 1);
-                glVertex2f(-0.5,-0.5);
-                glTexCoord2f(0, 0);
-                glVertex2f(-0.5,0.5);
-                glTexCoord2f(1, 0);
-                glVertex2f(0.5,0.5);
-                glTexCoord2f(1, 1);
-                glVertex2f(0.5,-0.5);
-            glEnd();
-        glDisable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, 0);
+void drawTexturedSquare(GLuint textureID) {
+    //draws a textured square of size 1x1
+    glEnable(GL_TEXTURE_2D);
+     glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBindTexture(GL_TEXTURE_2D, textureID);        
+        glBegin(GL_QUADS);
+            glTexCoord2f(0, 1);
+            glVertex2f(-0.5,-0.5);
+            glTexCoord2f(0, 0);
+            glVertex2f(-0.5,0.5);
+            glTexCoord2f(1, 0);
+            glVertex2f(0.5,0.5);
+            glTexCoord2f(1, 1);
+            glVertex2f(0.5,-0.5);
+        glEnd();
+    glDisable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 
+void setViewToGameSpace() {
+    //sets the wiew to the origin of the game space
+    glPushMatrix();
+        glTranslatef(0, border_bottom, 0);
+}
+
+void exitview() {
+    //exit a certain view (game space for example)
+    glPopMatrix();
+}
+
+void drawEntityList(EntityList list) {
+    //draws a list of entities on screen. the view must be setup to gamespace prior to this function call
+    while(list != NULL) {
+        glPushMatrix();
+            glTranslatef(
+                (list->anchor.x + (list->hitBox.ne.x+list->hitBox.sw.x)/2) * game_w / level_h,
+                (list->anchor.y + (list->hitBox.ne.y+list->hitBox.sw.y)/2) * game_h / (level_h+0.5), 0);
+            glScalef(
+                (list->hitBox.ne.x-list->hitBox.sw.x) * game_h / level_h,
+                (list->hitBox.ne.y-list->hitBox.sw.y) * game_h / level_h,1);
+
+            drawTexturedSquare(textures[list->textureID]);
+        glPopMatrix();
+        list = list->next;
+    }       
+}
+
+
+void drawBorders() {
+    //draws the top & bottom borders background needs to be in screen space prior to call (!not gamespace!)
+    glPushMatrix();
+        glTranslatef(screen_w/2, screen_h/2,0);
+        glScalef(screen_w, screen_h,1);
+        drawTexturedSquare(textures[2]);
+        drawTexturedSquare(textures[3]);
+    glPopMatrix();
+}
+
+
+void drawBG() {
+    //draws the background of the game space
+    glPushMatrix();
+        glTranslatef(game_w/2, game_h/2,0);
+        glScalef(game_w, game_h,1);
+        drawTexturedSquare(textures[1]);
+    glPopMatrix();
+}

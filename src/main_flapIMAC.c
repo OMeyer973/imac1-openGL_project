@@ -32,7 +32,6 @@ Entity stats_bullets[NBBULLETTYPES];
 //level
 int level_w = 0;
 int level_h = 0;
-float xplayer = -3, yplayer = 0;
 
 EntityList level_walls;
 EntityList level_mobs;
@@ -40,99 +39,47 @@ EntityList level_bonuses;
 EntityList level_mobBulets;
 EntityList level_playerBulets;
 
-char* dirpath = "img/";
+//screen layout
+float screen_w = 1080;
+float screen_h = 720;
+float screen_ratio = 16/9;
+float game_w = 1080;
+float game_h = 520;
+float border_bottom = 100;
+float border_top = 100;
+
+
+//textures
+char* textures_dir = "img/";
 GLuint textures[NBTEXTURES];
+
+//player
+float xplayer = -3, yplayer = 0;
 int keyUp=0;
 int keyDown=0;
 int keyRight=0;
 int keyLeft=0;
 
+void controlsMouvment() {
+    if ((yplayer>=-4. && yplayer<=4. && xplayer>=-4. && xplayer<=4.))        
+        if (keyUp)
+            yplayer+=0.1;
+        if (keyDown)
+            yplayer-=0.1;
+        if (keyRight)
+            xplayer+=0.1;
+        if (keyLeft)
+            xplayer-=0.1;
 
-void drawmobs(EntityList liste)
-{         while(liste != NULL)
-        {
+    else if (yplayer>4)
+        yplayer=4;
+    else if (yplayer<-4)
+        yplayer=-4;
 
-            glPushMatrix();
-            glTranslatef(liste->center.x,liste->center.y,0);
-            glScalef(( liste->hitBox.ne.x-liste->hitBox.sw.x),(liste->hitBox.ne.y-liste->hitBox.sw.y),1);
-            drawTexturedSquare(textures[0]);
-   
-        glPopMatrix();
-            liste = liste->next;
-        }
-       
-}
-
-
-void drawWalls(EntityList liste)
-{         while(liste != NULL)
-        {
-
-            glPushMatrix();
-            glTranslatef(liste->center.x,liste->center.y,0);
-            glScalef(( liste->hitBox.ne.x-liste->hitBox.sw.x),(liste->hitBox.ne.y-liste->hitBox.sw.y),1);
-            drawTexturedSquare(textures[4]); // Murs verticaaux à ajouter
-        glPopMatrix();
-            liste = liste->next;
-        }
-       
-       // Murs haut et bas tous le temps 
-        glPushMatrix();
-        glScalef(8,8,1);
-        drawTexturedSquare(textures[2]);
-        drawTexturedSquare(textures[3]);
-
-        glPopMatrix();
-
-}
-
-
-void drawBG()
-{
-       glPushMatrix();
-             glScalef(8,8,1);
-            drawTexturedSquare(textures[1]);
-   
-        glPopMatrix();
-}
-
-
-void drawplayer()
-{
-       glPushMatrix();
-
-            glTranslatef(xplayer,yplayer,0);
-            drawTexturedSquare(textures[4]);
-   
-        glPopMatrix();
-
-
-}
-
-
-void controlsMouvment()
-{
-        if ((yplayer>=-4. && yplayer<=4. && xplayer>=-4. && xplayer<=4.))        
-            if (keyUp)
-                yplayer+=0.1;
-            if (keyDown)
-                yplayer-=0.1;
-            if (keyRight)
-                xplayer+=0.1;
-            if (keyLeft)
-                xplayer-=0.1;
-
-        else if (yplayer>4)
-            yplayer=4;
-        else if (yplayer<-4)
-            yplayer=-4;
-
-        else if (xplayer>4)
-            xplayer=4;
-        else if (xplayer<-4)
-            xplayer=-4;
-
-
+    else if (xplayer>4)
+        xplayer=4;
+    else if (xplayer<-4)
+        xplayer=-4;
 }
 
 int main(int argc, char** argv) {
@@ -151,9 +98,9 @@ int main(int argc, char** argv) {
     printEntity(level_walls);
     //test de de l'allocation d'entity
     /*
-    Point2D center;
-    center.x = 3;
-    center.y = 4;
+    Point2D anchor;
+    anchor.x = 3;
+    anchor.y = 4;
     BoundingBox spriteBox;
     spriteBox.sw.x = 0;
     spriteBox.sw.y = 0;
@@ -162,7 +109,7 @@ int main(int argc, char** argv) {
     float shootAngles[4] = {0.0,1.0,20.0};
 
     EntityList testList = instantiateEntity(
-        center,
+        anchor,
         spriteBox,
         0,
         spriteBox,
@@ -211,18 +158,15 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     }
     SDL_WM_SetCaption("Fimac-o-fish", NULL);
-    resizeViewport();
 
-// Remplissage du tableau de textures 
-
-        getSurfaces(dirpath,textures);
-
+    // Remplissage du tableau de textures 
+    getSurfaces(textures_dir,textures);
 
     //Boucle de dessin
     int loop = 1;
+    resizeViewport();
     glClearColor(0.1, 0.1, 0.1 ,1.0);
     while(loop) {
-
         Uint32 startTime = SDL_GetTicks();
 
         // Code de dessin
@@ -239,23 +183,21 @@ int main(int argc, char** argv) {
         //drawfoemissiles();
 
 
+        setViewToGameSpace();
+            // Background
+            drawBG(); 
+            // Dessin des mobs 
+            drawEntityList(level_mobs);
 
 
+            // Dessin du joueur
 
+            controlsMouvment();
+        exitview();
+        
+        //dessin des bordures de UI
+        drawBorders();
 
-
-        // Background
-        drawBG();
-        // Dessin des mobs 
-        drawmobs(level_mobs);
-
-        // Dessin des obstacles 
-        drawWalls(level_walls);
-
-
-        // Dessin du joueur
-        drawplayer();
-        controlsMouvment();
         SDL_Event e;
         while(SDL_PollEvent(&e)) {
 
