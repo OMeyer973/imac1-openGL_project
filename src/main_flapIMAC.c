@@ -72,26 +72,6 @@ int keyRight=0;
 int keyLeft=0;
 float input_angle = 0;
 
-
-void clampPlayerToGame() {
-    float d = game_box.sw.x - player.anchor.x - player.hitBox.sw.x;
-    if (d > 0)
-        player.anchor.x += d;
-    else {
-        d = game_box.ne.x - player.anchor.x - player.hitBox.ne.x;
-        if (d < 0)
-            player.anchor.x += d;
-    }
-    d = game_box.sw.y - player.anchor.y - player.hitBox.sw.y;
-    if (d > 0)
-        player.anchor.y += d;
-    else {
-        d = game_box.ne.y - player.anchor.y - player.hitBox.ne.y;
-        if (d < 0)
-            player.anchor.y += d;    
-    }    
-}
-
 void update(int dt);
     //all of the game physics calculations for the time dt.
 void render();

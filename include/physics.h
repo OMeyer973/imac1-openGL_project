@@ -13,6 +13,8 @@ extern int keyDown;
 extern float player_speed;
 extern float input_angle;
 
+extern BoundingBox game_box;
+
 extern Entity player;
 
 //define physics elements : bounding boxes, internections
@@ -32,6 +34,7 @@ void movePlayer(int dt);
     //player.angle = lerp (player.angle, input_angle, 0.5);
 void getAngleFromKeys();
     //assign the input angle between 0 - 2PI in function of which arrow keys are pressed
-
+void clampPlayerToGame();
+	//makes sure that the player stays inside the game space
 
 #endif
