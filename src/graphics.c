@@ -151,24 +151,35 @@ void drawSquare() {
     glEnd();
 }
 
-void drawListHitBoxes(EntityList list) {
-    //draws a list of entities on screen. the view must be setup to gamespace prior to this function call
+void drawBoundinBox(BoundingBox box) {
+    //draws a bounding box on screen. the view must be setup to the box parent (entity anchor) prior to this function call
     glColor3ub(255, 0, 0);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPushMatrix();
+        glTranslatef(
+            (box.ne.x+box.sw.x) / 2 * game_scale,
+            (box.ne.y+box.sw.y) / 2 * game_scale, 0);
+        glScalef(
+            (box.ne.x-box.sw.x) * game_scale,
+            (box.ne.y-box.sw.y) * game_scale,1);
+        drawSquare();
+    glPopMatrix();
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glColor3ub(255, 255, 255);
+}
+
+void drawEntityListHitBoxes(EntityList list) {
+    //draws a list of entities bounding boxes. the view must be setup to gamespace prior to this function call
     while(list != NULL) {
         glPushMatrix();
             glTranslatef(
-                (list->anchor.x + (list->hitBox.ne.x+list->hitBox.sw.x)/2) * game_scale,
-                (list->anchor.y + (list->hitBox.ne.y+list->hitBox.sw.y)/2) * game_scale, 0);
-            glScalef(
-                (list->hitBox.ne.x-list->hitBox.sw.x) * game_scale,
-                (list->hitBox.ne.y-list->hitBox.sw.y) * game_scale,1);
+                list->anchor.x * game_scale,
+                list->anchor.y * game_scale, 0);
+                drawBoundinBox(list->hitBox);
             drawSquare();
         glPopMatrix();
         list = list->next;
     }
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    glColor3ub(255, 255, 255);
 }
 
 

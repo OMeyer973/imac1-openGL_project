@@ -66,7 +66,10 @@ void drawEntityList(EntityList list);
 void drawSquare();
     //dessine un carré de 1x1 centré sur l'origine
 
-void drawListHitBoxes(EntityList list);
+void drawBoundinBox(BoundingBox box);
+    //draws a bounding box on screen. the view must be setup to the box parent (entity anchor) prior to this function call
+
+void drawEntityListHitBoxes(EntityList list);
     //draws a list of entities on screen. the view must be setup to gamespace prior to this function call
 
 void drawBorders();

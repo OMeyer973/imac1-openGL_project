@@ -36,6 +36,8 @@ Entity stats_bullets[NBBULLETTYPES];
 int level_w = 0;
 int level_h = 0;
 
+BoundingBox game_box;
+
 EntityList level_walls;
 EntityList level_mobs;
 EntityList level_bonuses;
@@ -45,9 +47,10 @@ EntityList level_playerBulets;
 //screen layout
 float screen_w = 1080;
 float screen_h = 720;
-float screen_ratio = 16/9;
+float screen_ratio = 1080.0/720;
 float game_w = 1080;
 float game_h = 520;
+float game_ratio = 1080.0/520;
 float game_scale = 1; // = game_h / (level_h+1), à initialiser
 float border_bottom = 100;
 float border_top = 100;
@@ -69,6 +72,25 @@ int keyRight=0;
 int keyLeft=0;
 float input_angle = 0;
 
+
+void clampPlayerToGame() {
+    float d = game_box.sw.x - player.anchor.x - player.hitBox.sw.x;
+    if (d > 0)
+        player.anchor.x += d;
+    else {
+        d = game_box.ne.x - player.anchor.x - player.hitBox.ne.x;
+        if (d < 0)
+            player.anchor.x += d;
+    }
+    d = game_box.sw.y - player.anchor.y - player.hitBox.sw.y;
+    if (d > 0)
+        player.anchor.y += d;
+    else {
+        d = game_box.ne.y - player.anchor.y - player.hitBox.ne.y;
+        if (d < 0)
+            player.anchor.y += d;    
+    }    
+}
 
 void update(int dt);
     //all of the game physics calculations for the time dt.
@@ -99,7 +121,10 @@ int main(int argc, char** argv) {
     //chargement du niveau
     makeLevelFromPPM("map/level1.ppm");
     printf("level grid : %d, %d\n",level_w, level_h);
+    
     game_scale = game_h / (level_h+1);
+    game_box = boundingBoxSWNE(0, 0.01, (float)level_h+1, (level_h+1) * game_ratio - 0.01);
+
     printEntity(level_mobs);
     printEntity(level_walls);
 
@@ -145,6 +170,7 @@ void update(int dt) {
     //all of the game physics calculations for the time dt.
     getAngleFromKeys();
     movePlayer(dt);
+    clampPlayerToGame();
 
 }
 
@@ -169,11 +195,13 @@ void render() {
 
         //dessin du joueur
         drawEntityList(&player);
-        drawListHitBoxes(&player);
+        drawEntityListHitBoxes(&player);
 
         // Dessin des mobs 
         drawEntityList(level_mobs);
-        drawListHitBoxes(level_mobs);
+        drawEntityListHitBoxes(level_mobs);
+
+        drawBoundinBox(game_box);
 
     exitview();
     

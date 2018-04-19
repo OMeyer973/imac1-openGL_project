@@ -2,8 +2,8 @@
 
 BoundingBox boundingBoxSWNE(float s, float w, float n, float e) {
 	//returns a boundingbox defined by its sides
-	Point2D sw = pointXY(s,w);
-	Point2D ne = pointXY(n,e);
+	Point2D sw = pointXY(w,s);
+	Point2D ne = pointXY(e,n);
 	BoundingBox boundingBox;
 	boundingBox.sw = sw;
 	boundingBox.ne = ne;
