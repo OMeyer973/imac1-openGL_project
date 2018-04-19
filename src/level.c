@@ -76,10 +76,9 @@ int addObjectToLevel(int x, int y, int type, int subType){
 }
 
 int addWall(int x, int y, int subType){
-	printf("adding wall\n");
+	//printf("adding wall\n");
 	if (subType < NBWALLTYPES){
 		printf("subtype %d\n", subType);
-		printEntity(stats_walls);
 		EntityList tmpEntity = copyEntity(&stats_walls[subType]);
 		tmpEntity->anchor = pointXY(x,y);
 		addEntityEnd(&level_walls, tmpEntity);
@@ -90,7 +89,7 @@ int addWall(int x, int y, int subType){
 }
 
 int addBonus(int x, int y, int subType){
-	printf("adding bonus\n");
+	//printf("adding bonus\n");
 	if (subType < NBBONUSTYPES){
 		EntityList tmpEntity = copyEntity(&stats_bonuses[subType]);
 		tmpEntity->anchor = pointXY(x,y);
@@ -102,7 +101,7 @@ int addBonus(int x, int y, int subType){
 }
 
 int addMob(int x, int y, int subType){
-	printf("adding mob\n");
+	//printf("adding mob\n");
 	if (subType < NBMOBTYPES){
 		EntityList tmpEntity = copyEntity(&stats_mobs[subType]);
 		tmpEntity->anchor = pointXY(x,y);
@@ -113,3 +112,15 @@ int addMob(int x, int y, int subType){
 	return 0;
 }
 
+void addPlayerBullet() {
+	//add a bullet to the playerbullets list
+	int i =0;
+	printf("shootanglesnb %d\n",player.shootAnglesNb );
+	for (i=0; i<player.shootAnglesNb; i++) {
+		printf("%d, player.shootAnglesNb[%d] %f\n",i,i,player.shootAngles[i]);
+	    EntityList tmpEntity = copyEntity(&stats_bullets[player.bulletType]);
+	    tmpEntity->anchor = pointXY(player.anchor.x,player.anchor.y);
+	    tmpEntity->angle = player.angle + player.shootAngles[i];
+	    addEntityStart(&level_playerBullets, tmpEntity);
+	}
+}

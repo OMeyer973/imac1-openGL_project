@@ -70,7 +70,8 @@ EntityList copyEntity (EntityList orig) {
 void addEntityStart(EntityList* list, EntityList entity) {
 	//adds the entity at the start of the list (only use with entity->next == NULL or the next entity will be lost in memory)
 	entity->next = *list;
-	(*list)->prev = entity;
+	if (*list != NULL)
+		(*list)->prev = entity;
 	*list = entity;
 }
 

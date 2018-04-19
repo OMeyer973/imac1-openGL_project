@@ -6,16 +6,17 @@
 
 // Statistics of the differents ships types
 //identifiants des types d'entités
-#define TYPEPLAYER 3
 #define TYPEWALL 0
 #define TYPEBONUS 1
 #define TYPEMOB 2
+#define TYPEPLAYER 3
+#define TYPEBULLET 4
 
 //nombre de chaque type d'entité
 #define NBWALLTYPES 1
 #define NBMOBTYPES 2
 #define NBBONUSTYPES 0
-#define NBBULLETTYPES 0
+#define NBBULLETTYPES 1
 
 extern Entity player;
 extern Entity stats_walls[NBWALLTYPES];

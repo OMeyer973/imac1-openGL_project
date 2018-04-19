@@ -88,6 +88,16 @@ void keepPlayerOutOfWall(Entity wall) {
 	}
 }
 
+void moveBulletsList(EntityList* list, int dt) {
+	//moves all the bullets in the list according to their given speed
+    EntityList tmp = *list;
+    while (tmp != NULL) {
+        moveEntity(tmp, dt, tmp->angle, tmp->speed);
+        tmp = tmp->next;
+    }
+}
+
+
 void wallsPushPlayer() {
 	//make sure the player is pushed by the walls
 	EntityList tmp = level_walls;

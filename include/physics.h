@@ -37,4 +37,7 @@ void keepPlayerOutOfWall(Entity wall);
 	//makes sure that the player stays out of the given bounding box (for the walls)
 void wallsPushPlayer();
 	//make sure the player is pushed by the walls
+void moveBulletsList(EntityList* list, int dt);
+	//moves all the bullets in the list according to their given speed
+    
 #endif

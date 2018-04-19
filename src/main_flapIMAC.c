@@ -24,7 +24,7 @@ int loop = 1;
 unsigned int WINDOW_WIDTH = 1080;
 unsigned int WINDOW_HEIGHT = 720;
 const unsigned int BIT_PER_PIXEL = 32;
-const Uint32 FRAMERATE_MILLISECONDS = 1000 / 40;
+const Uint32 FRAMERATE_MILLISECONDS = 1000 / 30;
 
 //statistics
 Entity stats_walls[NBWALLTYPES];
@@ -42,7 +42,7 @@ EntityList level_walls;
 EntityList level_mobs;
 EntityList level_bonuses;
 EntityList level_mobBulets;
-EntityList level_playerBulets;
+EntityList level_playerBullets;
 
 //screen layout
 float screen_w = 1080;
@@ -68,8 +68,9 @@ Entity player;
 float player_speed = 0;
 int keyUp=0;
 int keyDown=0;
-int keyRight=0;
-int keyLeft=0;
+int keyRight = 0;
+int keyLeft = 0;
+int player_shooting = 0;
 float input_angle = 0;
 
 void update(int dt);
@@ -98,6 +99,7 @@ int main(int argc, char** argv) {
     //initialisation des stats
     initMobsStats();
     initWallsStats();
+    initBulletsStats();
 
     //chargement du niveau
     makeLevelFromPPM("map/level1.ppm");
@@ -107,7 +109,7 @@ int main(int argc, char** argv) {
     game_box = boundingBoxSWNE(0, 0.01, (float)level_h+1, (level_h+1) * game_ratio - 0.01);
 
     //printEntity(level_mobs);
-    printEntity(level_walls);
+    //printEntity(level_walls);
 
     // Remplissage du tableau de textures 
     getSurfaces(textures_dir,textures);
@@ -143,17 +145,18 @@ int main(int argc, char** argv) {
     // Liberation des ressources associées à la SDL
     SDL_Quit();
 
-    return EXIT_SUCCESS;
-    
+    return EXIT_SUCCESS;   
 }
 
 void update(int dt) {
     //all of the game physics calculations for the time dt.
     getAngleFromKeys();
     movePlayer(dt);
+    if (player_shooting)
+        addPlayerBullet();
+    moveBulletsList(&level_playerBullets, dt); 
     wallsPushPlayer();
     keepPlayerInBox(game_box);
-
 }
 
 void render() {
@@ -175,17 +178,21 @@ void render() {
         // Background
         drawBG(); 
 
-        //dessin du joueur
+        // drawing player
         drawEntityList(&player);
         drawEntityListHitBoxes(&player);
 
-        // Dessin des mobs 
+        // drawing mobs 
         drawEntityList(level_mobs);
         drawEntityListHitBoxes(level_mobs);
 
-        // Dessin des murs
+        // drawing walls
         drawEntityList(level_walls);
         drawEntityListHitBoxes(level_walls);
+
+        // drawing bullets
+        drawEntityList(level_playerBullets);
+        drawEntityListHitBoxes(level_playerBullets);
 
         drawBoundinBox(game_box);
 
@@ -229,9 +236,12 @@ void events(SDL_Event e) {
                      keyLeft = 1;
                      keyRight = 0;
                 }
+                if (e.key.keysym.sym==32){
+                     player_shooting = 1;
+                }
                  if (e.key.keysym.sym==27){
                      loop=0;
-                }
+                }    
 
                 break;
 
@@ -249,6 +259,10 @@ void events(SDL_Event e) {
                 }
                  if (e.key.keysym.sym==276){
                      keyLeft=0;
+                }
+
+                if (e.key.keysym.sym==32){
+                     player_shooting = 0;
                 }
                 break;
 
