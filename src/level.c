@@ -117,10 +117,12 @@ void addPlayerBullet() {
 	int i =0;
 	printf("shootanglesnb %d\n",player.shootAnglesNb );
 	for (i=0; i<player.shootAnglesNb; i++) {
-		printf("%d, player.shootAnglesNb[%d] %f\n",i,i,player.shootAngles[i]);
+		printf("player.angle %f player.shootAngles[%d] %f\n",player.angle,i,player.shootAngles[i]);
 	    EntityList tmpEntity = copyEntity(&stats_bullets[player.bulletType]);
+	    
 	    tmpEntity->anchor = pointXY(player.anchor.x,player.anchor.y);
 	    tmpEntity->angle = player.angle + player.shootAngles[i];
+	    
 	    addEntityStart(&level_playerBullets, tmpEntity);
 	}
 }

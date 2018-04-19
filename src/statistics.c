@@ -5,7 +5,7 @@ void initPlayer() {
     Point2D anchor = pointXY(2,level_h/2);
     BoundingBox tmpSpriteBox = boundingBoxSWNE(-1,-1,1,1);
     BoundingBox tmpHitBox = boundingBoxSWNE(-0.6,-0.7,0.6,0.7);
-    float tmpShootAngles[3] = {0, 3/8, -3/8};
+    float tmpShootAngles[3] = {0.0, M_PI/4, -M_PI/4};
     Entity tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox

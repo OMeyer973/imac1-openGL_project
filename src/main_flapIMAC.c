@@ -49,11 +49,11 @@ float screen_w = 1080;
 float screen_h = 720;
 float screen_ratio = 1080.0/720;
 float game_w = 1080;
-float game_h = 520;
-float game_ratio = 1080.0/520;
+float game_h = 600;
+float game_ratio = 1080.0/600;
 float game_scale = 1; // = game_h / (level_h+1), à initialiser
-float border_bottom = 100;
-float border_top = 100;
+float border_bottom = 80;
+float border_top = 40;
 
 //textures
 char* textures_dir = "img/";
@@ -174,9 +174,9 @@ void render() {
     //drawfriendlymissiles();
     //drawmobsmissiles();
 
+    drawBG(); 
     setViewToGameSpace();
         // Background
-        drawBG(); 
 
         // drawing player
         drawEntityList(&player);

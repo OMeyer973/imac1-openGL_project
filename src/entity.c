@@ -36,7 +36,10 @@ EntityList instantiateEntity (
 		list->speed 		= speed;
 		list->delay 		= delay;
 		list->shootAnglesNb = shootAnglesNb;
-		list->shootAngles 	= shootAngles;
+		int i = 0;
+		for (i=0; i< shootAnglesNb; i++) {
+			list->shootAngles[i] = shootAngles[i];
+		}
 		list->next 			= NULL;
 		list->prev 			= NULL;
 	} else printf("malloc error\n");
@@ -48,6 +51,8 @@ EntityList copyEntity (EntityList orig) {
 	EntityList list;
 	list = (Entity*)malloc(sizeof(Entity));
 	if (list != NULL) {
+		*list = *orig;
+		/*
 		list->anchor 		= orig->anchor;
 		list->spriteBox 	= orig->spriteBox;
 		list->textureID 	= orig->textureID;
@@ -61,6 +66,7 @@ EntityList copyEntity (EntityList orig) {
 		list->delay 		= orig->delay;
 		list->shootAnglesNb = orig->shootAnglesNb;
 		list->shootAngles 	= orig->shootAngles;
+		*/
 		list->next = NULL;
 		list->prev = NULL;		
 	} else printf("malloc error\n");

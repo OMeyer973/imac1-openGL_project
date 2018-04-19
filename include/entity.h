@@ -28,7 +28,7 @@ typedef struct entity {
 	float speed; 			//mob - bullet : speed of movement - bonus - new bullet speed of movement
 	float delay; 			//mob : delay between 2 shots - bonus : new delay between 2 shots - VFX : remaining time of animation
 	int shootAnglesNb; 		//mob : nb of shooting angles
-	float* shootAngles; 	//mob : array of shooting angles
+	float shootAngles[16]; 	//mob : array of shooting angles
 
 	struct entity* next;	//next entity in the linked list
 	struct entity* prev;	//previous entity in the linked list (used to simplify the remove function)
