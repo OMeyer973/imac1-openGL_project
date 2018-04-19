@@ -10,13 +10,6 @@ BoundingBox boundingBoxSWNE(float s, float w, float n, float e) {
 	return boundingBox;
 }
 
-int colision(BoundingBox A, BoundingBox B) {
-	//returns true if the 2 bounding boxes overlap
-	return
-		(A.sw.x <= B.ne.x &&  B.sw.x <= A.ne.x &&
-		 A.sw.y <= B.ne.y &&  B.sw.y <= A.ne.y);
-}
-
 float lerp(float a, float b, float f) {
     //linear interpolation between a and b at 100 * f percents
     return a * (1 - f) + (b * f);
@@ -67,14 +60,7 @@ void keepPlayerInBox(BoundingBox box) {
             player.anchor.y += d;    
     }    
 }
-/*
-int colision(BoundingBox A, BoundingBox B) {
-	//returns true if the 2 bounding boxes overlap
-	return
-		(A.sw.x <= B.ne.x &&  B.sw.x <= A.ne.x &&
-		 A.sw.y <= B.ne.y &&  B.sw.y <= A.ne.y);
-}
-*/
+
 void keepPlayerOutOfWall(Entity wall) {
 	//makes sure that the player stays out of the given bounding box (for the walls)
     

@@ -23,10 +23,6 @@ extern Entity player;
 
 BoundingBox boundingBoxSWNE(float s, float w, float n, float e);
 	//returns a boundingbox defined by its sides
-int colision(BoundingBox A, BoundingBox B);
-	//returns true if the 2 bounding boxes overlap
-int colision(BoundingBox A, BoundingBox B);
-	//returns true if the 2 bounding boxes overlap
 float lerp(float a, float b, float f);
     //linear interpolation between a and b at 100 * f percents
 void moveEntity(Entity* entity, int dt, float angle, float speed);
