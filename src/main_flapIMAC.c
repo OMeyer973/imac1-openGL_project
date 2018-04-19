@@ -97,6 +97,7 @@ int main(int argc, char** argv) {
 
     //initialisation des stats
     initMobsStats();
+    initWallsStats();
 
     //chargement du niveau
     makeLevelFromPPM("map/level1.ppm");
@@ -105,7 +106,7 @@ int main(int argc, char** argv) {
     game_scale = game_h / (level_h+1);
     game_box = boundingBoxSWNE(0, 0.01, (float)level_h+1, (level_h+1) * game_ratio - 0.01);
 
-    printEntity(level_mobs);
+    //printEntity(level_mobs);
     printEntity(level_walls);
 
     // Remplissage du tableau de textures 
@@ -150,7 +151,8 @@ void update(int dt) {
     //all of the game physics calculations for the time dt.
     getAngleFromKeys();
     movePlayer(dt);
-    clampPlayerToGame();
+    wallsPushPlayer();
+    keepPlayerInBox(game_box);
 
 }
 
@@ -180,6 +182,10 @@ void render() {
         // Dessin des mobs 
         drawEntityList(level_mobs);
         drawEntityListHitBoxes(level_mobs);
+
+        // Dessin des murs
+        drawEntityList(level_walls);
+        drawEntityListHitBoxes(level_walls);
 
         drawBoundinBox(game_box);
 

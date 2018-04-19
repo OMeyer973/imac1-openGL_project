@@ -48,23 +48,66 @@ void getAngleFromKeys() {
 }
 
 
-
-void clampPlayerToGame() {
-	//makes sure that the player stays inside the game space
-    float d = game_box.sw.x - player.anchor.x - player.hitBox.sw.x;
+void keepPlayerInBox(BoundingBox box) {
+	//makes sure that the player stays inside the given bounding box (the game box)
+    float d = box.sw.x - player.anchor.x - player.hitBox.sw.x;
     if (d > 0)
         player.anchor.x += d;
     else {
-        d = game_box.ne.x - player.anchor.x - player.hitBox.ne.x;
+        d = box.ne.x - player.anchor.x - player.hitBox.ne.x;
         if (d < 0)
             player.anchor.x += d;
     }
-    d = game_box.sw.y - player.anchor.y - player.hitBox.sw.y;
+    d = box.sw.y - player.anchor.y - player.hitBox.sw.y;
     if (d > 0)
         player.anchor.y += d;
     else {
-        d = game_box.ne.y - player.anchor.y - player.hitBox.ne.y;
+        d = box.ne.y - player.anchor.y - player.hitBox.ne.y;
         if (d < 0)
             player.anchor.y += d;    
     }    
 }
+/*
+int colision(BoundingBox A, BoundingBox B) {
+	//returns true if the 2 bounding boxes overlap
+	return
+		(A.sw.x <= B.ne.x &&  B.sw.x <= A.ne.x &&
+		 A.sw.y <= B.ne.y &&  B.sw.y <= A.ne.y);
+}
+*/
+void keepPlayerOutOfWall(Entity wall) {
+	//makes sure that the player stays out of the given bounding box (for the walls)
+    
+    float dw = wall.anchor.x + wall.hitBox.sw.x - player.anchor.x - player.hitBox.ne.x;
+    float de = wall.anchor.x + wall.hitBox.ne.x - player.anchor.x - player.hitBox.sw.x;
+    float ds = wall.anchor.y + wall.hitBox.sw.y - player.anchor.y - player.hitBox.ne.y;
+    float dn = wall.anchor.y + wall.hitBox.ne.y - player.anchor.y - player.hitBox.sw.y;
+    //we calculate the distance between the 4 sides of the player & the 4 sides of the wall
+	
+	if (dw < 0 && de > 0 && ds < 0 && dn > 0) {
+		//if the player & wall collide
+
+    	//minimum of the 4 distances
+    	float m = fmin(fmin(-dw, de), fmin(-ds, dn))+0.001;
+    	//we push the player out of the wall in the direction of the minimum distance
+    	if (-dw <= m)
+        	player.anchor.x += dw;
+    	else if (de <= m)
+        	player.anchor.x += de;
+    	else if (-ds <= m)
+        	player.anchor.y += ds;
+    	else if (dn <= m)
+        	player.anchor.y += dn;
+        	
+	}
+}
+
+void wallsPushPlayer() {
+	//make sure the player is pushed by the walls
+	EntityList tmp = level_walls;
+	while (tmp != NULL) {
+		keepPlayerOutOfWall(*tmp);
+		tmp = tmp->next;
+	}
+}
+

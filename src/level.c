@@ -78,6 +78,8 @@ int addObjectToLevel(int x, int y, int type, int subType){
 int addWall(int x, int y, int subType){
 	printf("adding wall\n");
 	if (subType < NBWALLTYPES){
+		printf("subtype %d\n", subType);
+		printEntity(stats_walls);
 		EntityList tmpEntity = copyEntity(&stats_walls[subType]);
 		tmpEntity->anchor = pointXY(x,y);
 		addEntityEnd(&level_walls, tmpEntity);
