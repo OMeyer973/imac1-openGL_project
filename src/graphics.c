@@ -129,11 +129,11 @@ void drawEntityList(EntityList list) {
     while(list != NULL) {
         glPushMatrix();
             glTranslatef(
-                (list->anchor.x + (list->hitBox.ne.x+list->hitBox.sw.x)/2) * game_w / level_h,
-                (list->anchor.y + (list->hitBox.ne.y+list->hitBox.sw.y)/2) * game_h / (level_h+0.5), 0);
+                (list->anchor.x + (list->spriteBox.ne.x+list->spriteBox.sw.x)/2) * game_scale,
+                (list->anchor.y + (list->spriteBox.ne.y+list->spriteBox.sw.y)/2) * game_scale, 0);
             glScalef(
-                (list->hitBox.ne.x-list->hitBox.sw.x) * game_h / level_h,
-                (list->hitBox.ne.y-list->hitBox.sw.y) * game_h / level_h,1);
+                (list->spriteBox.ne.x-list->spriteBox.sw.x) * game_scale,
+                (list->spriteBox.ne.y-list->spriteBox.sw.y) * game_scale,1);
             glRotatef(list->angle / 2 / M_PI * 360,0,0,1);
             drawTexturedSquare(textures[list->textureID]);
         glPopMatrix();
@@ -141,9 +141,39 @@ void drawEntityList(EntityList list) {
     }       
 }
 
+void drawSquare() {
+    //dessine un carré de 1x1 centré sur l'origine
+    glBegin(GL_QUADS);
+        glVertex2f(-0.5,-0.5);
+        glVertex2f(-0.5,0.5);
+        glVertex2f(0.5,0.5);
+        glVertex2f(0.5,-0.5);
+    glEnd();
+}
+
+void drawListHitBoxes(EntityList list) {
+    //draws a list of entities on screen. the view must be setup to gamespace prior to this function call
+    glColor3ub(255, 0, 0);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    while(list != NULL) {
+        glPushMatrix();
+            glTranslatef(
+                (list->anchor.x + (list->hitBox.ne.x+list->hitBox.sw.x)/2) * game_scale,
+                (list->anchor.y + (list->hitBox.ne.y+list->hitBox.sw.y)/2) * game_scale, 0);
+            glScalef(
+                (list->hitBox.ne.x-list->hitBox.sw.x) * game_scale,
+                (list->hitBox.ne.y-list->hitBox.sw.y) * game_scale,1);
+            drawSquare();
+        glPopMatrix();
+        list = list->next;
+    }
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glColor3ub(255, 255, 255);
+}
+
 
 void drawBorders() {
-    //draws the top & bottom borders background needs to be in screen space prior to call (!not gamespace!)
+    //draws the top & bottom borders -> needs to be in screen space prior to call (!not gamespace!)
     glPushMatrix();
         glTranslatef(screen_w/2, screen_h/2,0);
         glScalef(screen_w, screen_h,1);

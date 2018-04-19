@@ -11,7 +11,6 @@
 #include <dirent.h>
 #include <time.h> 
 
-#define NBTEXTURES 10
 extern unsigned int WINDOW_WIDTH;
 extern unsigned int WINDOW_HEIGHT;
 extern const unsigned int BIT_PER_PIXEL;
@@ -29,11 +28,13 @@ extern float screen_h;
 extern float screen_ratio;
 extern float game_w;
 extern float game_h;
+extern float game_scale;
 extern float border_bottom;
 extern float border_top;
 
 
 //textures
+#define NBTEXTURES 10
 extern char* textures_dir;
 extern GLuint textures[NBTEXTURES];
 
@@ -61,6 +62,13 @@ void exitview();
 
 void drawEntityList(EntityList list);
     //draws a list of entities on screen. the view must be setup to gamespace prior to this function call
+
+void drawSquare();
+    //dessine un carré de 1x1 centré sur l'origine
+
+void drawListHitBoxes(EntityList list);
+    //draws a list of entities on screen. the view must be setup to gamespace prior to this function call
+
 void drawBorders();
     //draws the top & bottom borders background needs to be in screen space prior to call (!not gamespace!)
 void drawBG();

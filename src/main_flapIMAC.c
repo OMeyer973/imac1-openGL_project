@@ -48,6 +48,7 @@ float screen_h = 720;
 float screen_ratio = 16/9;
 float game_w = 1080;
 float game_h = 520;
+float game_scale = 1; // = game_h / (level_h+1), à initialiser
 float border_bottom = 100;
 float border_top = 100;
 
@@ -98,6 +99,7 @@ int main(int argc, char** argv) {
     //chargement du niveau
     makeLevelFromPPM("map/level1.ppm");
     printf("level grid : %d, %d\n",level_w, level_h);
+    game_scale = game_h / (level_h+1);
     printEntity(level_mobs);
     printEntity(level_walls);
 
@@ -167,9 +169,11 @@ void render() {
 
         //dessin du joueur
         drawEntityList(&player);
+        drawListHitBoxes(&player);
 
         // Dessin des mobs 
         drawEntityList(level_mobs);
+        drawListHitBoxes(level_mobs);
 
     exitview();
     
