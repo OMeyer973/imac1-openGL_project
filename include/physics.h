@@ -5,13 +5,12 @@
 #include "geometry.h"
 #include "entity.h"
 
-extern int keyRight;
-extern int keyLeft;
-extern int keyUp;
-extern int keyDown;
+extern int player_goX;
+extern int player_goY;
 
 extern float player_speed;
 extern float input_angle;
+extern int player_holdAngle;
 
 extern EntityList level_walls;	
 extern BoundingBox game_box;

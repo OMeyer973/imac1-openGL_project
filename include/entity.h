@@ -27,6 +27,7 @@ typedef struct entity {
 	float angle; 			//mob - bullet : facing direction
 	float speed; 			//mob - bullet : speed of movement - bonus - new bullet speed of movement
 	float delay; 			//mob : delay between 2 shots - bonus : new delay between 2 shots - VFX : remaining time of animation
+	float time;				//mob : used to delay shots entity internal time
 	int shootAnglesNb; 		//mob : nb of shooting angles
 	float shootAngles[16]; 	//mob : array of shooting angles
 

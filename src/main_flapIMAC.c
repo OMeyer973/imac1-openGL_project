@@ -63,14 +63,19 @@ GLuint textures[NBTEXTURES];
 int curr_frame_tick = 0;
 int prev_frame_tick = 0;
 
-//player
-Entity player;
-float player_speed = 0;
+//input
 int keyUp=0;
 int keyDown=0;
 int keyRight = 0;
 int keyLeft = 0;
+
+//player
+Entity player;
+float player_speed = 0;
+int player_goX=0; //1 if going right, -1 if going left
+int player_goY=0; //1 if going up, -1 if going down
 int player_shooting = 0;
+int player_holdAngle = 0; //does the player want to stay at the angle it is ?
 float input_angle = 0;
 
 void update(int dt);
@@ -152,8 +157,15 @@ void update(int dt) {
     //all of the game physics calculations for the time dt.
     getAngleFromKeys();
     movePlayer(dt);
-    if (player_shooting)
-        addPlayerBullet();
+
+    if (player_shooting) {
+        player.time += dt;
+        if (player.time > player.delay) {
+            addPlayerBullet();
+            player.time -= player.delay;
+        }
+    }
+    
     moveBulletsList(&level_playerBullets, dt); 
     wallsPushPlayer();
     keepPlayerInBox(game_box);
@@ -221,25 +233,28 @@ void events(SDL_Event e) {
                 printf("touche pressée (code = %d)\n", e.key.keysym.sym);
                 
                 if (e.key.keysym.sym==273){
-                     keyUp = 1;
-                     keyDown = 0;
+                    keyUp = 1;
+                    player_goY = 1;
                 }
                  if (e.key.keysym.sym==274){
-                     keyDown = 1;
-                     keyUp = 0;
+                    keyDown = 1;
+                    player_goY = -1;
                 }
                  if (e.key.keysym.sym==275){
-                     keyRight = 1;
-                     keyLeft = 0;
+                    keyRight = 1;
+                    player_goX = 1;
                 }
                  if (e.key.keysym.sym==276){
-                     keyLeft = 1;
-                     keyRight = 0;
+                    keyLeft = 1;
+                    player_goX = -1;
                 }
-                if (e.key.keysym.sym==32){
+                if (e.key.keysym.sym==32){ //space
                      player_shooting = 1;
                 }
-                 if (e.key.keysym.sym==27){
+                if (e.key.keysym.sym==304){ //shift
+                     player_holdAngle = 1;
+                }
+                 if (e.key.keysym.sym==27){ ///escape
                      loop=0;
                 }    
 
@@ -248,21 +263,36 @@ void events(SDL_Event e) {
             case SDL_KEYUP:
                 printf("touche levée (code = %d)\n", e.key.keysym.sym);
                 
-                if (e.key.keysym.sym==273){
-                     keyUp=0;
+                if (e.key.keysym.sym == 273){
+                    keyUp = 0;
+                    player_goY = 0;
+                    if (keyDown)
+                        player_goY = -1;
                 }
-                 if (e.key.keysym.sym==274){
-                     keyDown=0;
+                 if (e.key.keysym.sym == 274){
+                    keyDown=0;
+                    player_goY = 0;
+                    if (keyUp)
+                        player_goY = 1;
                 }
-                 if (e.key.keysym.sym==275){
-                     keyRight=0;
+                 if (e.key.keysym.sym == 275){
+                     keyRight = 0;
+                     player_goX = 0;
+                     if (keyLeft)
+                        player_goX = -1;
                 }
-                 if (e.key.keysym.sym==276){
-                     keyLeft=0;
+                 if (e.key.keysym.sym == 276){
+                     keyLeft = 0;
+                     player_goX = 0;
+                     if (keyRight)
+                        player_goX = 1;
                 }
 
-                if (e.key.keysym.sym==32){
+                if (e.key.keysym.sym == 32){ //space
                      player_shooting = 0;
+                }
+                if (e.key.keysym.sym==304){ //shift
+                     player_holdAngle = 0;
                 }
                 break;
 

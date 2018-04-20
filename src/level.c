@@ -122,7 +122,6 @@ void addPlayerBullet() {
 	    
 	    tmpEntity->anchor = pointXY(player.anchor.x,player.anchor.y);
 	    tmpEntity->angle = player.angle + player.shootAngles[i];
-	    
 	    addEntityStart(&level_playerBullets, tmpEntity);
 	}
 }

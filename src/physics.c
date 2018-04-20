@@ -22,10 +22,11 @@ void moveEntity(Entity* entity, int dt, float angle, float speed) {
 }
 
 void movePlayer(int dt) {
-    //player.angle = lerp (player.angle, input_angle, 0.5);
-    if (keyUp || keyDown || keyRight || keyLeft) {
-        player.angle = atan2(lerp(sin(player.angle), sin(input_angle), 0.5),
-                            lerp(cos(player.angle), cos(input_angle), 0.5));
+    if (player_goX || player_goY){
+        if  (!player_holdAngle) {
+		    player.angle = atan2(lerp(sin(player.angle), player_goY, 0.5),
+        						lerp(cos(player.angle), player_goX, 0.5));
+        }
         player_speed = lerp (player_speed, player.speed, 0.5);
     } else
         player_speed = lerp (player_speed, 0, 0.5);
@@ -36,8 +37,8 @@ void movePlayer(int dt) {
 void getAngleFromKeys() {
     //assign the input angle between 0 - 2PI in function of which arrow keys are pressed
     //atan 2 donne un angle à partir d'un vecteur (y,x)
-    if (keyUp || keyDown || keyRight || keyLeft)
-    	input_angle = atan2(keyUp - keyDown, keyRight - keyLeft);
+    if (player_goX || player_goY) //note : for a int --> 0 = false; anything else = true (ie -1 = true)
+    	input_angle = atan2(player_goY, player_goX);
 }
 
 
