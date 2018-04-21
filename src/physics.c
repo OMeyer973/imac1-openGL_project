@@ -108,3 +108,23 @@ void wallsPushPlayer() {
 	}
 }
 
+void entityListShootsBullet(EntityList list, EntityList* bulletList, int dt) {
+	//manage the shooting in the dt time interval for the given entity list and add the bullets to the given bulletList 
+	while (list != NULL) {
+        list->time += dt;
+        if (list->time > list->delay) {
+			int i =0;
+			//printf("shootanglesnb %d\n",list->shootAnglesNb);
+			for (i=0; i<list->shootAnglesNb; i++) {
+				//printf("list->angle %f list->shootAngles[%d] %f\n",list->angle,i,list->shootAngles[i]);
+			    EntityList tmpEntity = copyEntity(&stats_bullets[list->bulletType]);
+			    
+			    tmpEntity->anchor = pointXY(list->anchor.x,list->anchor.y);
+			    tmpEntity->angle = list->angle + list->shootAngles[i];
+			    addEntityStart(bulletList, tmpEntity);
+			}
+            list->time -= list->delay;
+		}
+		list = list->next;
+	}
+}

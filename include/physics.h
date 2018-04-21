@@ -2,8 +2,8 @@
 #define PHYSICS_H_
 
 #include <math.h>
-#include "geometry.h"
 #include "entity.h"
+#include "statistics.h"
 
 extern int player_goX;
 extern int player_goY;
@@ -38,5 +38,6 @@ void wallsPushPlayer();
 	//make sure the player is pushed by the walls
 void moveBulletsList(EntityList* list, int dt);
 	//moves all the bullets in the list according to their given speed
-    
+void entityListShootsBullet(EntityList list, EntityList* bulletList, int dt);
+	//manage the shooting in the dt time interval for the given entity list and add the bullets to the given bulletList 
 #endif

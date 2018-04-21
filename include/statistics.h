@@ -2,7 +2,7 @@
 #define STATISTICS_H_
 
 #include "level.h"
-#include "physics.h"
+#include "entity.h"
 
 // Statistics of the differents ships types
 //identifiants des types d'entités

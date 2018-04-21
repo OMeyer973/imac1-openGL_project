@@ -32,6 +32,4 @@ int addObjectToLevel(int x, int y, int obj, int type);
 int addWall(int x, int y, int subType);
 int addBonus(int x, int y, int subType);
 int addMob(int x, int y, int subType);
-void addPlayerBullet();
-	//add a bullet to the playerbullets list
 #endif

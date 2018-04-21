@@ -29,7 +29,7 @@ void initMobsStats() {
     BoundingBox tmpSpriteBox = boundingBoxSWNE(-0.5,-0.5,0.5,0.5);
     BoundingBox tmpHitBox = boundingBoxSWNE(-0.4,-0.4,0.4,0.4);
     //MOB 0
-    float tmpShootAngles0[2] = {0,0.8};
+    float tmpShootAngles0[1] = {M_PI};
     Entity tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
@@ -42,12 +42,12 @@ void initMobsStats() {
         0,              //float angle (radians)
         1.1,            //float speed
         1000,           //float delay (in ms)
-        2,              //int shootAnglesNb
+        1,              //int shootAnglesNb
         tmpShootAngles0);//float* shootAngles
     stats_mobs[0] = tmpEntity;
 
     //MOB 1
-    float tmpShootAngles1[3] = {0,0.5,-0.5};
+    //float tmpShootAngles1[1] = {0};
     tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
@@ -56,12 +56,12 @@ void initMobsStats() {
         TYPEMOB,        //int type
         1,              //int subType
         50,             //int hp
-        1,              //int bulletType
+        0,              //int bulletType
         M_PI,           //float angle (radians)
         0.4,            //float speed
-        0.5,            //float delay (in ms)
-        3,              //int shootAnglesNb
-        tmpShootAngles1);//float* shootAngles
+        1000,            //float delay (in ms)
+        0,              //int shootAnglesNb
+        NULL);//float* shootAngles
     stats_mobs[1] = tmpEntity;
 }
 

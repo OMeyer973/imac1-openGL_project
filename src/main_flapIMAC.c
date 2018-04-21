@@ -159,14 +159,12 @@ void update(int dt) {
     movePlayer(dt);
 
     if (player_shooting) {
-        player.time += dt;
-        if (player.time > player.delay) {
-            addPlayerBullet();
-            player.time -= player.delay;
-        }
+            entityListShootsBullet(&player, &level_playerBullets, dt);
     }
+    entityListShootsBullet(level_mobs, &level_mobBulets, dt);
     
     moveBulletsList(&level_playerBullets, dt); 
+    moveBulletsList(&level_mobBulets, dt); 
     wallsPushPlayer();
     keepPlayerInBox(game_box);
 }
@@ -206,6 +204,9 @@ void render() {
         drawEntityList(level_playerBullets);
         drawEntityListHitBoxes(level_playerBullets);
 
+        drawEntityList(level_mobBulets);
+        drawEntityListHitBoxes(level_mobBulets);
+        
         drawBoundinBox(game_box);
 
     exitview();
@@ -249,13 +250,15 @@ void events(SDL_Event e) {
                     player_goX = -1;
                 }
                 if (e.key.keysym.sym==32){ //space
-                     player_shooting = 1;
+                    player_shooting = 1;
+                    player.time = player.delay*0.8; 
+                    //so that the player can shoot a bit faster if he presses several times the button instead of holding it down 
                 }
                 if (e.key.keysym.sym==304){ //shift
-                     player_holdAngle = 1;
+                    player_holdAngle = 1;
                 }
                  if (e.key.keysym.sym==27){ ///escape
-                     loop=0;
+                    loop=0;
                 }    
 
                 break;
