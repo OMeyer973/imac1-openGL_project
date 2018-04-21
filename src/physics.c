@@ -128,3 +128,31 @@ void entityListShootsBullet(EntityList list, EntityList* bulletList, int dt) {
 		list = list->next;
 	}
 }
+
+int collision(Entity A, Entity B) {
+	//Are the 2 entity overlaping ?
+	return (A.anchor.x + A.hitBox.sw.x < B.anchor.x + B.hitBox.ne.x &&
+			A.anchor.x + A.hitBox.ne.x > B.anchor.x + B.hitBox.sw.x &&
+			A.anchor.y + A.hitBox.sw.y < B.anchor.y + B.hitBox.ne.y &&
+			A.anchor.y + A.hitBox.ne.y > B.anchor.y + B.hitBox.sw.y);
+}
+
+void bulletsDamageList(EntityList bulletList, EntityList* victimList) {
+	//browse the bullet list & damage the victimList if they touch a bullet
+	while (bulletList != NULL) {		
+		EntityList tmpVictimList = *victimList;
+		while (tmpVictimList != NULL) {		
+
+			if (collision(*bulletList, *tmpVictimList)) {
+				printf("collision\n");
+				tmpVictimList->hp -= bulletList->hp;
+				if (tmpVictimList->hp <= 0)
+					removeEntity(victimList, &tmpVictimList);			
+			}
+			if (tmpVictimList != NULL)	
+				tmpVictimList = tmpVictimList->next;
+		}
+	if (bulletList != NULL)	
+		bulletList = bulletList->next;
+	}
+}

@@ -167,6 +167,8 @@ void update(int dt) {
     moveBulletsList(&level_mobBulets, dt); 
     wallsPushPlayer();
     keepPlayerInBox(game_box);
+
+    bulletsDamageList(level_playerBullets, &level_mobs);
 }
 
 void render() {

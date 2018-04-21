@@ -18,7 +18,7 @@ void initPlayer() {
         0,              //float angle (radians)
         1.1,            //float speed
         400,            //float delay (in ms)
-        3,              //int shootAnglesNb
+        1,              //int shootAnglesNb
         tmpShootAngles);//float* shootAngles
     player = tmpEntity;
 }
@@ -108,7 +108,7 @@ void initBulletsStats() {
         10,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
-        2,              //float speed
+        1,              //float speed
         1,              //float delay (in ms)
         0,              //int shootAnglesNb
         NULL);          //float* shootAngles

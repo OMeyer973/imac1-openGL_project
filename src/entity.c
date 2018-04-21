@@ -81,7 +81,7 @@ void addEntityEnd(EntityList* list, EntityList entity) {
 		*list = entity;
 	}
 }
-
+/*
 void removeEntity(EntityList* entity) {
 	//remove the entity from the list it belongs to
 	if (*entity != NULL) {
@@ -94,10 +94,40 @@ void removeEntity(EntityList* entity) {
 			(*entity) = (*entity)->next;
 			(*entity)->prev = tmp;
 		} else  {
-			//if the entity is the lase in the list
+			//if the entity is the last in the list
 			//printf("last\n");
 			free(*entity);
 			*entity = NULL;
+		}
+	}
+}
+*/
+void removeEntity(EntityList* list, EntityList* entity) {
+	//remove the entity from the list it belongs to
+	if (*entity != NULL) {
+		
+		int isNext = ((*entity)->next != NULL);
+		int isPrev = ((*entity)->prev != NULL);
+		EntityList tmpNext = (*entity)->next;
+		EntityList tmpPrev = (*entity)->prev;
+		
+		free(*entity);
+		*entity = NULL;
+		
+		if (isPrev) {
+			if (isNext) {
+				tmpPrev->next = tmpNext;
+				tmpNext->prev = tmpPrev;
+			} else
+				tmpPrev->next = NULL;
+		}
+
+		if (!isPrev) {
+			if (isNext) {
+				*list = tmpNext;
+				(*list)->prev = NULL;
+			} else
+				*list = NULL;
 		}
 	}
 }
