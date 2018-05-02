@@ -26,8 +26,10 @@ typedef struct entity {
 	int bulletType; 		//mob : id of bullet to  instantiate when shooting 
 	float angle; 			//mob - bullet : facing direction
 	float speed; 			//mob - bullet : speed of movement - bonus - new bullet speed of movement
-	float delay; 			//mob : delay between 2 shots - bonus : new delay between 2 shots - VFX : remaining time of animation
-	float time;				//mob : used to delay shots entity internal time
+	float shootDelay; 		//mob : delay between 2 shots - bonus : new delay between 2 shots - VFX : second time, may be used for animation
+	float shootTime;		//mob : entity internal time used to compute shots delay
+	float invDelay; 		//mob : delay during wich the entity is invincible - bonus : new invDelay to affect the player - VFX : remaining time of animation
+	float invTime;			//mob : entity internal time used to compute invicible time
 	int shootAnglesNb; 		//mob : nb of shooting angles
 	float shootAngles[16]; 	//mob : array of shooting angles
 
@@ -48,7 +50,8 @@ EntityList instantiateEntity (
 		int bulletType,
 		float angle,
 		float speed,
-		float delay,
+		float shootDelay,
+		float invDelay,
 		int shootAnglesNb,
 		float* shootAngles
 	);

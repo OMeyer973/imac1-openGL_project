@@ -36,10 +36,14 @@ void keepPlayerOutOfWall(Entity wall);
 	//makes sure that the player stays out of the given bounding box (for the walls)
 void wallsPushPlayer();
 	//make sure the player is pushed by the walls
+void doBulletsPhysics(EntityList list,  int dt,  EntityList targetList);
+	// do all of the physics computation for the given bulletList during the time dt, and affecting the target list
 void moveBulletsList(EntityList* list, int dt);
 	//moves all the bullets in the list according to their given speed
-void entityListShootsBullet(EntityList list, EntityList* bulletList, int dt);
-	//manage the shooting in the dt time interval for the given entity list and add the bullets to the given bulletList 
+void doMobsPhysics(EntityList list, int dt, EntityList* bulletList);
+	// do all of the physics computation for the given Mob list during the time dt, and affecting the target list
+void entityShootsBullet(EntityList entity, int dt, EntityList* bulletList);
+	//manage the shooting in the dt time interval for the given entity and add the bullet to the given bulletList 
 int collision(Entity A, Entity B);
 	//Are the 2 entity overlaping ?
 

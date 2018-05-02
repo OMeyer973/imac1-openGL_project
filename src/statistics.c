@@ -17,7 +17,8 @@ void initPlayer() {
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
-        400,            //float delay (in ms)
+        400,            //float shootDelay (in ms)
+        400,            //float invDelay (in ms)
         1,              //int shootAnglesNb
         tmpShootAngles);//float* shootAngles
     player = tmpEntity;
@@ -41,7 +42,8 @@ void initMobsStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
-        1000,           //float delay (in ms)
+        1000,           //float shootDelay (in ms)
+        100,            //float invDelay (in ms)
         1,              //int shootAnglesNb
         tmpShootAngles0);//float* shootAngles
     stats_mobs[0] = tmpEntity;
@@ -59,7 +61,8 @@ void initMobsStats() {
         0,              //int bulletType
         M_PI,           //float angle (radians)
         0.4,            //float speed
-        1000,            //float delay (in ms)
+        1000,            //float shootDelay (in ms)
+        100,            //float invDelay (in ms)
         0,              //int shootAnglesNb
         NULL);//float* shootAngles
     stats_mobs[1] = tmpEntity;
@@ -86,7 +89,8 @@ void initWallsStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
-        0.5,            //float delay (in ms)
+        0.5,            //float shootDelay (in ms)
+        100,            //float invDelay (in ms)
         2,              //int shootAnglesNb
         tmpShootAngles0);//float* shootAngles
     stats_walls[0] = tmpEntity;
@@ -109,7 +113,8 @@ void initBulletsStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         1,              //float speed
-        1,              //float delay (in ms)
+        1,              //float shootDelay (in ms)
+        100,            //float invDelay (in ms)
         0,              //int shootAnglesNb
         NULL);          //float* shootAngles
     stats_bullets[0] = tmpEntity;

@@ -16,7 +16,8 @@ EntityList instantiateEntity (
 		int bulletType,
 		float angle,
 		float speed,
-		float delay,
+		float shootDelay,
+		float invDelay,
 		int shootAnglesNb,
 		float* shootAngles
 	) {
@@ -34,8 +35,10 @@ EntityList instantiateEntity (
 		list->bulletType 	= bulletType;
 		list->angle 		= angle;
 		list->speed 		= speed;
-		list->delay 		= delay;
-		list->time  		= 0.0;
+		list->shootDelay	= shootDelay;
+		list->shootTime  	= 0.0;
+		list->invDelay		= invDelay;
+		list->invTime   	= 0.0;
 		list->shootAnglesNb = shootAnglesNb;
 		int i = 0;
 		for (i=0; i< shootAnglesNb; i++) {
@@ -81,27 +84,7 @@ void addEntityEnd(EntityList* list, EntityList entity) {
 		*list = entity;
 	}
 }
-/*
-void removeEntity(EntityList* entity) {
-	//remove the entity from the list it belongs to
-	if (*entity != NULL) {
-		//printf("not null\n");
-		if ((*entity)->next != NULL) {
-			//if the entity is not the last in the list
-			//printf("not last\n");
-			EntityList tmp = (*entity)->prev;
-			free(*entity);
-			(*entity) = (*entity)->next;
-			(*entity)->prev = tmp;
-		} else  {
-			//if the entity is the last in the list
-			//printf("last\n");
-			free(*entity);
-			*entity = NULL;
-		}
-	}
-}
-*/
+
 void removeEntity(EntityList* list, EntityList* entity) {
 	//remove the entity from the list it belongs to
 	if (*entity != NULL) {
@@ -153,7 +136,7 @@ void printEntity(EntityList list) {
 		printf("  hp ---------- : %d\n",list->hp);
 		printf("  angle, speed  : %f, %f\n",list->angle, list->speed);
 		printf("  bulletType -- : %d\n",list->bulletType);
-		printf("  delay ------- : %f\n",list->delay);
+		printf("  shootDelay -- : %f\n",list->shootDelay);
 		printf("  shoot angles  : %d : { ",list->shootAnglesNb);
 		int i = 0;
 		for (i=0; i<list->shootAnglesNb; i++) {

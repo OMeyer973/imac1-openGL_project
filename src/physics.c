@@ -10,9 +10,19 @@ BoundingBox boundingBoxSWNE(float s, float w, float n, float e) {
 	return boundingBox;
 }
 
+//------------ GENERAL FUNCTIONS ------------//
+
 float lerp(float a, float b, float f) {
     //linear interpolation between a and b at 100 * f percents
     return a * (1 - f) + (b * f);
+}
+
+int collision(Entity A, Entity B) {
+	//Are the 2 entity overlaping ?
+	return (A.anchor.x + A.hitBox.sw.x < B.anchor.x + B.hitBox.ne.x &&
+			A.anchor.x + A.hitBox.ne.x > B.anchor.x + B.hitBox.sw.x &&
+			A.anchor.y + A.hitBox.sw.y < B.anchor.y + B.hitBox.ne.y &&
+			A.anchor.y + A.hitBox.ne.y > B.anchor.y + B.hitBox.sw.y);
 }
 
 void moveEntity(Entity* entity, int dt, float angle, float speed) {
@@ -21,18 +31,7 @@ void moveEntity(Entity* entity, int dt, float angle, float speed) {
     entity->anchor.y += (float)dt/200 * speed * sin(angle);
 }
 
-void movePlayer(int dt) {
-    if (player_goX || player_goY){
-        if  (!player_holdAngle) {
-		    player.angle = atan2(lerp(sin(player.angle), player_goY, 0.5),
-        						lerp(cos(player.angle), player_goX, 0.5));
-        }
-        player_speed = lerp (player_speed, player.speed, 0.5);
-    } else
-        player_speed = lerp (player_speed, 0, 0.5);
-        
-    moveEntity(&player, dt, input_angle, player_speed);
-}
+//------------ PLAYER FUNCTIONS ------------//
 
 void getAngleFromKeys() {
     //assign the input angle between 0 - 2PI in function of which arrow keys are pressed
@@ -41,6 +40,18 @@ void getAngleFromKeys() {
     	input_angle = atan2(player_goY, player_goX);
 }
 
+void movePlayer(int dt) {
+    if (player_goX || player_goY){
+        if  (!player_holdAngle) {
+		    player.angle = atan2(lerp(sin(player.angle), player_goY, 0.5),
+        						 lerp(cos(player.angle), player_goX, 0.5));
+        }
+        player_speed = lerp (player_speed, player.speed, 0.5);
+    } else
+        player_speed = lerp (player_speed, 0, 0.5);
+        
+    moveEntity(&player, dt, input_angle, player_speed);
+}
 
 void keepPlayerInBox(BoundingBox box) {
 	//makes sure that the player stays inside the given bounding box (the game box)
@@ -85,19 +96,8 @@ void keepPlayerOutOfWall(Entity wall) {
         	player.anchor.y += ds;
     	else if (dn <= m)
         	player.anchor.y += dn;
-        	
 	}
 }
-
-void moveBulletsList(EntityList* list, int dt) {
-	//moves all the bullets in the list according to their given speed
-    EntityList tmp = *list;
-    while (tmp != NULL) {
-        moveEntity(tmp, dt, tmp->angle, tmp->speed);
-        tmp = tmp->next;
-    }
-}
-
 
 void wallsPushPlayer() {
 	//make sure the player is pushed by the walls
@@ -108,51 +108,72 @@ void wallsPushPlayer() {
 	}
 }
 
-void entityListShootsBullet(EntityList list, EntityList* bulletList, int dt) {
-	//manage the shooting in the dt time interval for the given entity list and add the bullets to the given bulletList 
-	while (list != NULL) {
-        list->time += dt;
-        if (list->time > list->delay) {
-			int i =0;
-			//printf("shootanglesnb %d\n",list->shootAnglesNb);
-			for (i=0; i<list->shootAnglesNb; i++) {
-				//printf("list->angle %f list->shootAngles[%d] %f\n",list->angle,i,list->shootAngles[i]);
-			    EntityList tmpEntity = copyEntity(&stats_bullets[list->bulletType]);
-			    
-			    tmpEntity->anchor = pointXY(list->anchor.x,list->anchor.y);
-			    tmpEntity->angle = list->angle + list->shootAngles[i];
-			    addEntityStart(bulletList, tmpEntity);
-			}
-            list->time -= list->delay;
+//------------ BULLETS FUNCTIONS ------------//
+
+void hurtEntity(EntityList entity, float dmg) {
+	// hurt the entity if touched by a bullet or else
+	if (entity->invTime <= 0) {
+		entity->invTime = entity->invDelay;
+		entity->hp -= dmg;
+	}
+}
+/*
+void killEntity() {
+	if (entity->hp <= 0)
+		removeEntity(targetList, &tmpTargetList);
+}
+*/
+void bulletDamageList(Entity bullet, EntityList* targetList) {
+	// damage the targetList if they touch a bullet
+	EntityList tmpTargetList = *targetList;
+	while (tmpTargetList != NULL) {		
+
+		if (collision(bullet, *tmpTargetList)) {
+			hurtEntity(tmpTargetList, bullet.hp);
+			if (tmpTargetList->hp <= 0)
+				removeEntity(targetList, &tmpTargetList);
 		}
-		list = list->next;
+		if (tmpTargetList != NULL)	
+			tmpTargetList = tmpTargetList->next;
 	}
 }
 
-int collision(Entity A, Entity B) {
-	//Are the 2 entity overlaping ?
-	return (A.anchor.x + A.hitBox.sw.x < B.anchor.x + B.hitBox.ne.x &&
-			A.anchor.x + A.hitBox.ne.x > B.anchor.x + B.hitBox.sw.x &&
-			A.anchor.y + A.hitBox.sw.y < B.anchor.y + B.hitBox.ne.y &&
-			A.anchor.y + A.hitBox.ne.y > B.anchor.y + B.hitBox.sw.y);
+void doBulletsPhysics(EntityList list, int dt, EntityList targetList) {
+	// do all of the physics computation for the given bulletList during the time dt, and affecting the target list
+    EntityList tmp = list;
+    while (tmp != NULL) {
+        moveEntity(tmp, dt, tmp->angle, tmp->speed);
+        bulletDamageList(*list, &targetList);
+        tmp = tmp->next;
+    }
 }
 
-void bulletsDamageList(EntityList bulletList, EntityList* victimList) {
-	//browse the bullet list & damage the victimList if they touch a bullet
-	while (bulletList != NULL) {		
-		EntityList tmpVictimList = *victimList;
-		while (tmpVictimList != NULL) {		
+//------------ MOBS (and player) FUNCTIONS ------------//
 
-			if (collision(*bulletList, *tmpVictimList)) {
-				printf("collision\n");
-				tmpVictimList->hp -= bulletList->hp;
-				if (tmpVictimList->hp <= 0)
-					removeEntity(victimList, &tmpVictimList);			
-			}
-			if (tmpVictimList != NULL)	
-				tmpVictimList = tmpVictimList->next;
+void doMobsPhysics(EntityList list, int dt, EntityList* bulletList) {
+	// do all of the physics computation for the given Mob list during the time dt, and affecting the target list
+    EntityList tmp = list;
+    while (tmp != NULL) {
+    	entityShootsBullet(tmp, dt, bulletList);
+        tmp = tmp->next;
+    }
+}
+
+void entityShootsBullet(EntityList entity, int dt, EntityList* bulletList) {
+	//manage the shooting in the dt time interval for the given entity and add the bullet to the given bulletList 
+    if (entity->shootTime < 0) {
+		int i =0;
+		//printf("shootanglesnb %d\n",entity->shootAnglesNb);
+		for (i=0; i<entity->shootAnglesNb; i++) {
+			//printf("entity->angle %f entity->shootAngles[%d] %f\n",entity->angle,i,entity->shootAngles[i]);
+		    EntityList tmpEntity = copyEntity(&stats_bullets[entity->bulletType]);
+		    
+		    tmpEntity->anchor = pointXY(entity->anchor.x,entity->anchor.y);
+		    tmpEntity->angle = entity->angle + entity->shootAngles[i];
+		    addEntityStart(bulletList, tmpEntity);
 		}
-	if (bulletList != NULL)	
-		bulletList = bulletList->next;
+        entity->shootTime += entity->shootDelay;
 	}
+    entity->shootTime -= dt;
 }
+
