@@ -161,10 +161,11 @@ void update(int dt) {
     if (player_shooting) {
             entityShootsBullet(&player, dt, &level_playerBullets);
     }
-    doMobsPhysics(level_mobs, dt, &level_mobBullets);
+    doMobsPhysics(&level_mobs, dt, &level_mobBullets);
 
-    doBulletsPhysics(level_playerBullets, dt,  level_mobs);
-    doBulletsPhysics(level_mobBullets, dt,  &player);
+    doBulletsPhysics(&level_playerBullets, dt,  &level_mobs);
+    EntityList pPlayer = &player; 
+    doBulletsPhysics(&level_mobBullets, dt,  &pPlayer);
     wallsPushPlayer();
     keepPlayerInBox(game_box);
 
@@ -252,7 +253,7 @@ void events(SDL_Event e) {
                 }
                 if (e.key.keysym.sym==32){ //space
                     player_shooting = 1;
-                    player.shootTime = player.shootDelay*0.1; 
+                    player.shootTime = player.shootDelay*0.05; 
                     //so that the player can shoot a bit faster if he presses several times the button instead of holding it down 
                 }
                 if (e.key.keysym.sym==304){ //shift

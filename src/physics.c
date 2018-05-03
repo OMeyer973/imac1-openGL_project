@@ -112,50 +112,57 @@ void wallsPushPlayer() {
 
 void hurtEntity(EntityList entity, float dmg) {
 	// hurt the entity if touched by a bullet or else
-	if (entity->invTime <= 0) {
+	//if (entity->invTime <= 0) {
 		entity->invTime = entity->invDelay;
 		entity->hp -= dmg;
-	}
+	//}
 }
-/*
-void killEntity() {
-	if (entity->hp <= 0)
-		removeEntity(targetList, &tmpTargetList);
+
+void killDeadEntity(EntityList* entity, EntityList* list) {
+    // check if an entity is dead and kill it
+	if ((*entity)->hp <= 0)
+		removeEntity(entity, list);
 }
-*/
-void bulletDamageList(Entity bullet, EntityList* targetList) {
+
+void bulletDamageList(Entity* bullet, EntityList* targetList) {
 	// damage the targetList if they touch a bullet
 	EntityList tmpTargetList = *targetList;
 	while (tmpTargetList != NULL) {		
 
-		if (collision(bullet, *tmpTargetList)) {
-			hurtEntity(tmpTargetList, bullet.hp);
-			if (tmpTargetList->hp <= 0)
-				removeEntity(targetList, &tmpTargetList);
+		if (collision(*bullet, *tmpTargetList)) {
+            printf("collision\n");
+			hurtEntity(tmpTargetList, bullet->hp);
+            bullet->hp = 0;
+            printf("tmpTargetList->hp %d\n", tmpTargetList->hp );
+
 		}
 		if (tmpTargetList != NULL)	
 			tmpTargetList = tmpTargetList->next;
 	}
 }
 
-void doBulletsPhysics(EntityList list, int dt, EntityList targetList) {
+void doBulletsPhysics(EntityList* list, int dt, EntityList* targetList) {
 	// do all of the physics computation for the given bulletList during the time dt, and affecting the target list
-    EntityList tmp = list;
+    EntityList tmp = *list;
     while (tmp != NULL) {
         moveEntity(tmp, dt, tmp->angle, tmp->speed);
-        bulletDamageList(*list, &targetList);
-        tmp = tmp->next;
+        bulletDamageList(tmp, targetList);
+        killDeadEntity(&tmp, list);
+        if (tmp != NULL)
+            tmp = tmp->next;
     }
 }
 
 //------------ MOBS (and player) FUNCTIONS ------------//
 
-void doMobsPhysics(EntityList list, int dt, EntityList* bulletList) {
-	// do all of the physics computation for the given Mob list during the time dt, and affecting the target list
-    EntityList tmp = list;
+void doMobsPhysics(EntityList* list, int dt, EntityList* bulletList) {
+    // do all of the physics computation for the given Mob list during the time dt, and affecting the target list
+    EntityList tmp = *list;
     while (tmp != NULL) {
-    	entityShootsBullet(tmp, dt, bulletList);
-        tmp = tmp->next;
+        entityShootsBullet(tmp, dt, bulletList);
+        killDeadEntity(&tmp, list);
+        if (tmp != NULL)
+            tmp = tmp->next;
     }
 }
 

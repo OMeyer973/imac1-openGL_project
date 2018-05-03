@@ -85,7 +85,7 @@ void addEntityEnd(EntityList* list, EntityList entity) {
 	}
 }
 
-void removeEntity(EntityList* list, EntityList* entity) {
+void removeEntity(EntityList* entity, EntityList* list) {
 	//remove the entity from the list it belongs to
 	if (*entity != NULL) {
 		

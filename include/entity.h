@@ -64,7 +64,7 @@ void addEntityStart(EntityList* list, EntityList entity);
 	//adds the entity at the start of the list (only use with entity->next == NULL or the next entity will be lost in memory)
 void addEntityEnd(EntityList* list, EntityList entity);
 	//adds the entity at the end of the list (only use with entity->next == NULL or the next entity will be lost in memory)
-void removeEntity(EntityList* list, EntityList* entity);
+void removeEntity(EntityList* entity, EntityList* list);
 	//remove the entity from the list it belongs to
 
 #endif
