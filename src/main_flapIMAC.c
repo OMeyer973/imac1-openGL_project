@@ -35,7 +35,7 @@ Entity stats_bullets[NBBULLETTYPES];
 //level
 int level_w = 0;
 int level_h = 0;
-float level_windowSpeed=0.005;
+float level_windowSpeed=0.002;
 float level_windowOffset=0.00;
 float level_bgSpeed=0.75;
 

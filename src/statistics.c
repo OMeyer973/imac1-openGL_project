@@ -39,7 +39,7 @@ void initMobsStats() {
         TYPEMOB,        //int type
         0,              //int subType
         30,             //int hp
-        0,              //int bulletType
+        1,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
         1000,           //float shootDelay (in ms)
@@ -58,7 +58,7 @@ void initMobsStats() {
         TYPEMOB,        //int type
         1,              //int subType
         50,             //int hp
-        0,              //int bulletType
+        1,              //int bulletType
         M_PI,           //float angle (radians)
         0.4,            //float speed
         1000,            //float shootDelay (in ms)
@@ -118,6 +118,23 @@ void initBulletsStats() {
         0,              //int shootAnglesNb
         NULL);          //float* shootAngles
     stats_bullets[0] = tmpEntity;
+
+    Entity tmpEntity2  = *instantiateEntity (
+        anchor,         //Point2D anchor
+        tmpSpriteBox,   //BoundingBox spriteBox
+        5,              //int textureID 
+        tmpHitBox,      //BoundingBox hitBox        
+        TYPEBULLET,     //int type
+        0,              //int subType
+        10,             //int hp
+        0,              //int bulletType
+        0,              //float angle (radians)
+        0.7,              //float speed
+        1,              //float shootDelay (in ms)
+        100,            //float invDelay (in ms)
+        0,              //int shootAnglesNb
+        NULL);          //float* shootAngles
+    stats_bullets[1]=tmpEntity2;
 
 }
 
