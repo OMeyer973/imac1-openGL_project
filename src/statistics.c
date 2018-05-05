@@ -112,11 +112,12 @@ void initBulletsStats() {
         10,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
-        1,              //float speed
+        5,              //float speed
         1,              //float shootDelay (in ms)
         100,            //float invDelay (in ms)
         0,              //int shootAnglesNb
         NULL);          //float* shootAngles
     stats_bullets[0] = tmpEntity;
+
 }
 
