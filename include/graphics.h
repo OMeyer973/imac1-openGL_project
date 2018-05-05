@@ -22,6 +22,10 @@ extern float screen_h;
 extern int level_w;
 extern int level_h;
 
+extern float level_windowSpeed;
+extern float level_windowOffset;
+
+
 //screen layout
 extern float screen_w;
 extern float screen_h;

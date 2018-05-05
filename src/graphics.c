@@ -114,7 +114,7 @@ void drawTexturedSquare(GLuint textureID) {
 
 
 void setViewToGameSpace() {
-    //sets the wiew to the origin of the game space
+    //sets the view to the origin of the game space
     glPushMatrix();
         glTranslatef(0, border_bottom, 0);
 }
@@ -187,18 +187,32 @@ void drawBorders() {
     //draws the top & bottom borders -> needs to be in screen space prior to call (!not gamespace!)
     glPushMatrix();
         glTranslatef(screen_w/2, screen_h/2,0);
+        glTranslatef(-(level_windowOffset*game_scale),0,0);
         glScalef(screen_w, screen_h,1);
         drawTexturedSquare(textures[2]);
         drawTexturedSquare(textures[3]);
     glPopMatrix();
+    
+  
 }
 
 
 void drawBG() {
     //draws the background of the game space
     glPushMatrix();
+        glTranslatef(-(level_windowOffset*game_scale)/1.5,0,0);
+
         glTranslatef(screen_w/2, screen_h/2,0);
         glScalef(screen_w, screen_h,1);
         drawTexturedSquare(textures[1]);
     glPopMatrix();
-}
+
+    glPushMatrix();
+        glTranslatef(-(level_windowOffset*game_scale)/1.5,0,0);
+
+        glTranslatef(screen_w*1.5, screen_h/2,0);
+        glScalef(screen_w, screen_h,1);
+        drawTexturedSquare(textures[7]);
+    glPopMatrix();
+
+  }

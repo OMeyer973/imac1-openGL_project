@@ -35,6 +35,8 @@ Entity stats_bullets[NBBULLETTYPES];
 //level
 int level_w = 0;
 int level_h = 0;
+float level_windowSpeed=0.001;
+float level_windowOffset=0.00;
 
 BoundingBox game_box;
 
@@ -136,7 +138,6 @@ int main(int argc, char** argv) {
 
         SDL_Event e;
         events(e);
-
         SDL_GL_SwapBuffers();
         Uint32 elapsedTime = SDL_GetTicks() - curr_frame_tick;
         if(elapsedTime < FRAMERATE_MILLISECONDS) {
@@ -168,7 +169,10 @@ void update(int dt) {
     doBulletsPhysics(&level_mobBullets, dt,  &pPlayer);
     wallsPushPlayer();
     keepPlayerInBox(game_box);
-
+    level_windowOffset+=level_windowSpeed*dt;
+    game_box.sw.x+=level_windowSpeed*dt;
+    game_box.ne.x+=level_windowSpeed*dt;
+    player.anchor.x+=level_windowSpeed*dt;
 }
 
 void render() {
@@ -190,6 +194,7 @@ void render() {
     setViewToGameSpace();
         // Background
 
+        glTranslatef(-(level_windowOffset*game_scale),0,0);
         // drawing player
         drawEntityList(&player);
         drawEntityListHitBoxes(&player);

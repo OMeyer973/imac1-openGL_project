@@ -81,7 +81,7 @@ void initWallsStats() {
     Entity tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
-        5,              //int textureID 
+        6,              //int textureID 
         tmpHitBox,      //BoundingBox hitBox        
         TYPEMOB,        //int type
         0,              //int subType
