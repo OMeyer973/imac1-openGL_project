@@ -144,6 +144,7 @@ int main(int argc, char** argv) {
 
         render();
 
+        drawStats(&player);
         SDL_Event e;
         events(e);
         SDL_GL_SwapBuffers();
@@ -237,6 +238,7 @@ void render() {
         drawEntityListHitBoxes(level_mobBullets);
         
         drawBoundinBox(game_box);
+
 
     exitview();
     

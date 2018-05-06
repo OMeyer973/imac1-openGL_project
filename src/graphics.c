@@ -206,6 +206,7 @@ void drawBorders() {
         drawTexturedSquare(textures[2]);
         drawTexturedSquare(textures[3]);
     glPopMatrix();
+
   
 }
 
@@ -227,3 +228,22 @@ void drawBG() {
     glPopMatrix();
 
   }
+
+void drawStats(EntityList* targetList) {
+                
+    int j=0;
+    EntityList tmpTargetList = *targetList;
+
+    int maxHeart=(tmpTargetList->hp)/10;
+    printf("health %d",tmpTargetList->hp);
+    int i=0;
+   for (maxHeart;maxHeart>0;maxHeart--){
+            
+              glPushMatrix(); 
+              glTranslatef(50+j,700,0);
+              glScalef(20, 20,1);
+              drawTexturedSquare(textures[7]);
+              glPopMatrix();
+              j+=20; 
+ }
+}

@@ -82,4 +82,7 @@ void drawBG();
     //draws the background of the game space
 
 
+void drawStats(EntityList* targetList) ;
+
+
 #endif
