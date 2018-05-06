@@ -107,15 +107,6 @@ void keepPlayerOutOfWall(Entity wall) {
 	}
 }
 
-void wallsPushPlayer() {
-	//make sure the player is pushed by the walls
-	EntityList tmp = level_walls;
-	while (tmp != NULL) {
-		keepPlayerOutOfWall(*tmp);
-		tmp = tmp->next;
-	}
-}
-
 //------------ BULLETS FUNCTIONS ------------//
 
 void hurtEntity(EntityList entity, float dmg) {
@@ -182,7 +173,7 @@ void doMobsPhysics(EntityList* list, int dt, EntityList* bulletList) {
             tmp->invTime -= dt;
 
         if (collision(*tmp, *player)) {
-            printf("collision\n");
+            printf("colided w mob\n");
             hurtEntity(player, stats_bullets[tmp->bulletType].hp);
         }
         
@@ -203,8 +194,28 @@ void doMobsPhysics(EntityList* list, int dt, EntityList* bulletList) {
     }
 }
 
+void entityShootsBullet(EntityList entity, int dt, EntityList* bulletList) {
+    //manage the shooting in the dt time interval for the given entity and add the bullet to the given bulletList 
+    if (entity->shootTime < 0) {
+        int i =0;
+        //printf("shootanglesnb %d\n",entity->shootAnglesNb);
+        for (i=0; i<entity->shootAnglesNb; i++) {
+            //printf("entity->angle %f entity->shootAngles[%d] %f\n",entity->angle,i,entity->shootAngles[i]);
+            EntityList tmpEntity = copyEntity(&stats_bullets[entity->bulletType]);
+            
+            tmpEntity->anchor = pointXY(entity->anchor.x,entity->anchor.y);
+            tmpEntity->angle = entity->angle + entity->shootAngles[i];
+            addEntityStart(bulletList, tmpEntity);
+        }
+        entity->shootTime += entity->shootDelay;
+    }
+    entity->shootTime -= dt;
+}
+
+//------------ WALLS FUNCTIONS ------------//
+
 void doWallsPhysics(EntityList* list, int dt) {
-    // do all of the physics computation for the given Wall list during the time dt, and affecting the target list
+    // do all of the physics computation for the given Wall list during the time dt
     EntityList tmp = *list;
     EntityList tmp2 = tmp;
     
@@ -213,9 +224,11 @@ void doWallsPhysics(EntityList* list, int dt) {
     while (tmp != NULL) {
 
         if (collision(*tmp, *player)) {
-            printf("collision\n");
+            printf("collided w wall\n");
             hurtEntity(player, stats_bullets[tmp->bulletType].hp);
         }
+
+        keepPlayerOutOfWall(*tmp);
         
         tmp2 = tmp;
         tmp = tmp->next;
@@ -231,21 +244,50 @@ void doWallsPhysics(EntityList* list, int dt) {
     }
 }
 
-void entityShootsBullet(EntityList entity, int dt, EntityList* bulletList) {
-	//manage the shooting in the dt time interval for the given entity and add the bullet to the given bulletList 
-    if (entity->shootTime < 0) {
-		int i =0;
-		//printf("shootanglesnb %d\n",entity->shootAnglesNb);
-		for (i=0; i<entity->shootAnglesNb; i++) {
-			//printf("entity->angle %f entity->shootAngles[%d] %f\n",entity->angle,i,entity->shootAngles[i]);
-		    EntityList tmpEntity = copyEntity(&stats_bullets[entity->bulletType]);
-		    
-		    tmpEntity->anchor = pointXY(entity->anchor.x,entity->anchor.y);
-		    tmpEntity->angle = entity->angle + entity->shootAngles[i];
-		    addEntityStart(bulletList, tmpEntity);
-		}
-        entity->shootTime += entity->shootDelay;
-	}
-    entity->shootTime -= dt;
+//------------ BONUSES FUNCTIONS ------------//
+
+void doBonusesPhysics(EntityList* list, int dt) {
+    // do all of the physics computation for the given Bonus list during the time dt
+    EntityList tmp = *list;
+    EntityList tmp2 = tmp;
+    
+    int screenPassed = 0;
+
+    while (tmp != NULL) {
+
+
+        tmp2 = tmp;
+        tmp = tmp->next;
+
+        if (collision(*tmp2, *player)) {
+            printf("picked up bonus\n");
+            applyBonus(*tmp2);
+            removeEntity(&tmp2, list);
+        }
+        
+        if (tmp2 != NULL && !collisionEB(*tmp2, game_box)) {
+            if (!screenPassed) {
+                removeEntity(&tmp2, list);
+            } 
+            else tmp = NULL; 
+        } else {
+            screenPassed = 1;
+        }
+    }
 }
 
+void applyBonus(Entity bonus) {
+    //apply the bonus to the player
+    player->hp            = fmin(player->hp + bonus.hp, stats_player.hp);
+    player->bulletType    = bonus.bulletType;
+    player->speed         = bonus.speed;
+    player->shootDelay    = bonus.shootDelay;
+    player->shootTime     = 0.0;
+    player->invTime       = 0.0;
+    player->shootAnglesNb = bonus.shootAnglesNb;
+    int i;
+    for (i=0; i< player->shootAnglesNb; i++) {
+    printf("i\n");  
+        player->shootAngles[i] = bonus.shootAngles[i];
+    }
+}

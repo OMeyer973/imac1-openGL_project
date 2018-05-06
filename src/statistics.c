@@ -5,7 +5,7 @@ void initPlayerStats() {
     Point2D anchor = pointXY(2,level_h/2);
     BoundingBox tmpSpriteBox = boundingBoxSWNE(-1,-1,1,1);
     BoundingBox tmpHitBox = boundingBoxSWNE(-0.6,-0.7,0.6,0.7);
-    float tmpShootAngles[3] = {0.0, M_PI/4, -M_PI/4};
+    float tmpShootAngles[16] = {0.0, M_PI/4, -M_PI/4};
     Entity tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
@@ -13,12 +13,12 @@ void initPlayerStats() {
         tmpHitBox,      //BoundingBox hitBox        
         TYPEPLAYER,     //int type
         0,              //int subType
-        30,             //int hp
+        100,            //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
         400,            //float shootDelay (in ms)
-        600,            //float invDelay (in ms)
+        450,            //float invDelay (in ms)
         1,              //int shootAnglesNb
         tmpShootAngles);//float* shootAngles
     stats_player = tmpEntity;
@@ -30,7 +30,7 @@ void initMobsStats() {
     BoundingBox tmpSpriteBox = boundingBoxSWNE(-0.5,-0.5,0.5,0.5);
     BoundingBox tmpHitBox = boundingBoxSWNE(-0.4,-0.4,0.4,0.4);
     //MOB 0
-    float tmpShootAngles0[1] = {M_PI};
+    float tmpShootAngles0[16] = {M_PI};
     Entity tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
@@ -69,15 +69,38 @@ void initMobsStats() {
 }
 
 
-void initBonusesStats();
+void initBonusesStats() {
+    //initialize the bullets statistics array
+    Point2D anchor = pointXY(0,0);
+    BoundingBox tmpSpriteBox = boundingBoxSWNE(-0.5,-0.5,0.5,0.5);
+    BoundingBox tmpHitBox = boundingBoxSWNE(-0.5,-0.5,0.5,0.5);
+    float tmpShootAngles0[16] = {-0.8,0,0.8};
+    //Bonus 0
+    Entity tmpEntity  = *instantiateEntity (
+        anchor,         //Point2D anchor
+        tmpSpriteBox,   //BoundingBox spriteBox
+        1,              //int textureID 
+        tmpHitBox,      //BoundingBox hitBox        
+        TYPEBONUS,      //int type
+        0,              //int subType
+        30,             //int hp
+        0,              //int bulletType
+        0,              //float angle (radians)
+        0.7,            //float speed
+        150,            //float shootDelay (in ms)
+        450,            //float invDelay (in ms)
+        3,              //int shootAnglesNb
+        tmpShootAngles0);//float* shootAngles
+    stats_bonuses[0] = tmpEntity;
+}
 
 void initWallsStats() {
     //initialize the wall statistics array
     Point2D anchor = pointXY(0,0);
     BoundingBox tmpSpriteBox = boundingBoxSWNE(-0.5,-0.5,0.5,0.5);
     BoundingBox tmpHitBox = boundingBoxSWNE(-0.4,-0.4,0.4,0.4);
+    float tmpShootAngles0[16] = {0};
     //MOB 0
-    float tmpShootAngles0[2] = {0,0.8};
     Entity tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
@@ -92,7 +115,7 @@ void initWallsStats() {
         0.5,            //float shootDelay (in ms)
         100,            //float invDelay (in ms)
         2,              //int shootAnglesNb
-        tmpShootAngles0);//float* shootAngles
+        tmpShootAngles0);//float* shootAngles -> walls need this (else, segfault but why ????)
     stats_walls[0] = tmpEntity;
 }
 
@@ -129,7 +152,7 @@ void initBulletsStats() {
         10,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
-        0.7,              //float speed
+        0.7,            //float speed
         1,              //float shootDelay (in ms)
         100,            //float invDelay (in ms)
         0,              //int shootAnglesNb

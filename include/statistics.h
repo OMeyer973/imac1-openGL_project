@@ -15,7 +15,7 @@
 //nombre de chaque type d'entité
 #define NBWALLTYPES 1
 #define NBMOBTYPES 2
-#define NBBONUSTYPES 0
+#define NBBONUSTYPES 1
 #define NBBULLETTYPES 2
 
 extern Entity stats_player;

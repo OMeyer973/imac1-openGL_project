@@ -112,6 +112,7 @@ int main(int argc, char** argv) {
     initMobsStats();
     initWallsStats();
     initBulletsStats();
+    initBonusesStats();
 
     //chargement du niveau
     makeLevelFromPPM("map/level1.ppm");
@@ -166,7 +167,6 @@ void update(int dt) {
     //player input
     getAngleFromKeys();
     movePlayer(dt);
-    wallsPushPlayer();
     keepPlayerInBox(game_box);
 
     //shooting physics
@@ -175,8 +175,9 @@ void update(int dt) {
     }
     if (player->invTime > 0)
         player->invTime -= dt;
-    //killDeadEntity(&player, &player);
-
+    
+    doBonusesPhysics(&level_bonuses, dt);
+    
     doWallsPhysics(&level_walls, dt);
 
     doMobsPhysics(&level_mobs, dt, &level_mobBullets);
@@ -227,6 +228,10 @@ void render() {
         // drawing bullets
         drawEntityList(level_playerBullets);
         drawEntityListHitBoxes(level_playerBullets);
+
+        // drawing bonuses
+        drawEntityList(level_bonuses);
+        drawEntityListHitBoxes(level_bonuses);
 
         drawEntityList(level_mobBullets);
         drawEntityListHitBoxes(level_mobBullets);
