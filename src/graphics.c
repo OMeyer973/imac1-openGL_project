@@ -233,10 +233,8 @@ void drawStats(EntityList* targetList) {
                 
     int j=0;
     EntityList tmpTargetList = *targetList;
-
     int maxHeart=(tmpTargetList->hp)/10;
-    printf("health %d",tmpTargetList->hp);
-    int i=0;
+
    for (maxHeart;maxHeart>0;maxHeart--){
             
               glPushMatrix(); 
@@ -246,4 +244,5 @@ void drawStats(EntityList* targetList) {
               glPopMatrix();
               j+=20; 
  }
+ 
 }
