@@ -18,11 +18,19 @@ float lerp(float a, float b, float f) {
 }
 
 int collision(Entity A, Entity B) {
-	//Are the 2 entity overlaping ?
-	return (A.anchor.x + A.hitBox.sw.x < B.anchor.x + B.hitBox.ne.x &&
-			A.anchor.x + A.hitBox.ne.x > B.anchor.x + B.hitBox.sw.x &&
-			A.anchor.y + A.hitBox.sw.y < B.anchor.y + B.hitBox.ne.y &&
-			A.anchor.y + A.hitBox.ne.y > B.anchor.y + B.hitBox.sw.y);
+    //Are the 2 entity overlaping ?
+    return (A.anchor.x + A.hitBox.sw.x < B.anchor.x + B.hitBox.ne.x &&
+            A.anchor.x + A.hitBox.ne.x > B.anchor.x + B.hitBox.sw.x &&
+            A.anchor.y + A.hitBox.sw.y < B.anchor.y + B.hitBox.ne.y &&
+            A.anchor.y + A.hitBox.ne.y > B.anchor.y + B.hitBox.sw.y);
+}
+
+int collisionEB(Entity E, BoundingBox B) {
+    //Are the 2 entity overlaping ?
+    return (E.anchor.x + E.hitBox.sw.x < B.ne.x &&
+            E.anchor.x + E.hitBox.ne.x > B.sw.x &&
+            E.anchor.y + E.hitBox.sw.y < B.ne.y &&
+            E.anchor.y + E.hitBox.ne.y > B.sw.y);
 }
 
 void moveEntity(Entity* entity, int dt, float angle, float speed) {
@@ -144,12 +152,18 @@ void bulletDamageList(Entity* bullet, EntityList* targetList) {
 void doBulletsPhysics(EntityList* list, int dt, EntityList* targetList) {
 	// do all of the physics computation for the given bulletList during the time dt, and affecting the target list
     EntityList tmp = *list;
+    EntityList tmp2 = tmp;
     while (tmp != NULL) {
         moveEntity(tmp, dt, tmp->angle, tmp->speed);
         bulletDamageList(tmp, targetList);
-        killDeadEntity(&tmp, list);
-        if (tmp != NULL)
-            tmp = tmp->next;
+        
+        tmp2 = tmp;
+        tmp = tmp->next;
+        
+        killDeadEntity(&tmp2, list);
+        if (tmp2 !=NULL && !collisionEB(*tmp2, game_box)) {
+            removeEntity(&tmp2, list);
+        }
     }
 }
 
@@ -158,11 +172,29 @@ void doBulletsPhysics(EntityList* list, int dt, EntityList* targetList) {
 void doMobsPhysics(EntityList* list, int dt, EntityList* bulletList) {
     // do all of the physics computation for the given Mob list during the time dt, and affecting the target list
     EntityList tmp = *list;
+    EntityList tmp2 = tmp;
+    
+    int screenPassed = 0;
+
     while (tmp != NULL) {
         entityShootsBullet(tmp, dt, bulletList);
-        killDeadEntity(&tmp, list);
-        if (tmp != NULL)
-            tmp = tmp->next;
+        tmp2 = tmp;
+        tmp = tmp->next;
+        
+        killDeadEntity(&tmp2, list);
+        if (tmp2 != NULL) {
+            if (!collisionEB(*tmp2, game_box)) {
+
+                if (!screenPassed) {
+
+                    removeEntity(&tmp2, list);
+                } 
+                else tmp = NULL; 
+
+            } else {
+                screenPassed = 1;
+            }
+        }
     }
 }
 

@@ -17,17 +17,18 @@ int makeLevelFromPPM(char* filename) {
 		if (fscanf(in,"%c", &tmpc) == EOF) return 0;
 		if (fscanf(in,"%c", &tmpc) == EOF) return 0;
 		//getting img width, height and nb of colors per channel
-		if (fscanf(in,"%d", &level_w) == EOF) return 0; //scanning & making sure we haven't reached EOF with 1 line
-		if (fscanf(in,"%d", &level_h) == EOF) return 0;
+		if (fscanf(in,"%d", &level_h) == EOF) return 0; //scanning & making sure we haven't reached EOF with 1 line
+		if (fscanf(in,"%d", &level_w) == EOF) return 0;
 		if (fscanf(in,"%d", &nbcolors) == EOF) return 0;
+		//w & h are inverted in order to rotate the image
 		/* //debug
 			printf("width : %d\n", level_w);
 			printf("height : %d\n", level_h);
 			printf("nbcolors : %d\n", nbcolors); */
 		//getting pixels data
 		int x = 0, y = 0;
-		for (y=0; y < level_h; y++) {
-			for (x=0; x < level_w; x++) {
+		for (x=0; x < level_w; x++) {
+			for (y=0; y < level_h; y++) {
 				//getting the 3 colors channels for the current pixel
 				if (fscanf(in,"%d", &r) == EOF) return 0;
 				if (fscanf(in,"%d", &g) == EOF) return 0;
@@ -43,7 +44,7 @@ int makeLevelFromPPM(char* filename) {
 					/*PPM image format : 
 						r encodes the object : wall or bonus or foe (50 by 50)
 						v encodes the type of the object (for foe or bonus, cf stats) : encoded 20 by 20, hence the division */
-					addObjectToLevel(x, level_h - y, r / 50, g / 20);
+					addObjectToLevel(x, 1+y, r / 50, g / 20);
 			}
 		}
 		fclose(in);
@@ -78,7 +79,7 @@ int addObjectToLevel(int x, int y, int type, int subType){
 int addWall(int x, int y, int subType){
 	//printf("adding wall\n");
 	if (subType < NBWALLTYPES){
-		printf("subtype %d\n", subType);
+		//printf("subtype %d\n", subType);
 		EntityList tmpEntity = copyEntity(&stats_walls[subType]);
 		tmpEntity->anchor = pointXY(x,y);
 		addEntityEnd(&level_walls, tmpEntity);

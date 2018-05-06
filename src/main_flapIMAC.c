@@ -114,7 +114,7 @@ int main(int argc, char** argv) {
     printf("level grid : %d, %d\n",level_w, level_h);
     
     game_scale = game_h / (level_h+1);
-    game_box = boundingBoxSWNE(0, 0.01, (float)level_h+1, (level_h+1) * game_ratio - 0.01);
+    game_box = boundingBoxSWNE(0.5, 0.01, (float)level_h+0.5, (level_h+1) * game_ratio - 0.01);
 
     //printEntity(level_mobs);
     //printEntity(level_walls);
