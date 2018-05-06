@@ -127,6 +127,11 @@ void exitview() {
 void drawEntityList(EntityList list) {
     //draws a list of entities on screen. the view must be setup to gamespace prior to this function call
     while(list != NULL) {
+        if (list->invTime > 0) {
+            float c = 150 * list->invTime / list->invDelay; 
+            glColor3ub(255,c,c);
+        }
+
         glPushMatrix();
             glTranslatef(
                 (list->anchor.x + (list->spriteBox.ne.x+list->spriteBox.sw.x)/2) * game_scale,
@@ -137,6 +142,8 @@ void drawEntityList(EntityList list) {
             glRotatef(list->angle / 2 / M_PI * 360,0,0,1);
             drawTexturedSquare(textures[list->textureID]);
         glPopMatrix();
+
+        glColor3ub(255,255,255);
         list = list->next;
     }       
 }

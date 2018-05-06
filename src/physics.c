@@ -120,10 +120,10 @@ void wallsPushPlayer() {
 
 void hurtEntity(EntityList entity, float dmg) {
 	// hurt the entity if touched by a bullet or else
-	//if (entity->invTime <= 0) {
+	if (entity->invTime <= 0) {
 		entity->invTime = entity->invDelay;
 		entity->hp -= dmg;
-	//}
+	}
 }
 
 void killDeadEntity(EntityList* entity, EntityList* list) {
@@ -178,6 +178,9 @@ void doMobsPhysics(EntityList* list, int dt, EntityList* bulletList) {
 
     while (tmp != NULL) {
         entityShootsBullet(tmp, dt, bulletList);
+        if (tmp->invTime > 0)
+            tmp->invTime -= dt;
+
         tmp2 = tmp;
         tmp = tmp->next;
         

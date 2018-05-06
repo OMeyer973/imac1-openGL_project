@@ -159,21 +159,25 @@ void update(int dt) {
     //all of the game physics calculations for the time dt.
     getAngleFromKeys();
     movePlayer(dt);
+    wallsPushPlayer();
+    keepPlayerInBox(game_box);
 
     if (player_shooting) {
             entityShootsBullet(&player, dt, &level_playerBullets);
     }
-    doMobsPhysics(&level_mobs, dt, &level_mobBullets);
 
+    doMobsPhysics(&level_mobs, dt, &level_mobBullets);
     doBulletsPhysics(&level_playerBullets, dt,  &level_mobs);
+
     EntityList pPlayer = &player; 
     doBulletsPhysics(&level_mobBullets, dt,  &pPlayer);
-    wallsPushPlayer();
-    keepPlayerInBox(game_box);
+
+
     level_windowOffset+=level_windowSpeed*dt;
     game_box.sw.x+=level_windowSpeed*dt;
     game_box.ne.x+=level_windowSpeed*dt;
     player.anchor.x+=level_windowSpeed*dt*level_bgSpeed;
+
 }
 
 void render() {
