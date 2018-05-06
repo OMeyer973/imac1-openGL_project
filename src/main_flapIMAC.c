@@ -27,6 +27,7 @@ const unsigned int BIT_PER_PIXEL = 32;
 const Uint32 FRAMERATE_MILLISECONDS = 1000 / 30;
 
 //statistics
+Entity stats_player;
 Entity stats_walls[NBWALLTYPES];
 Entity stats_mobs[NBMOBTYPES];
 Entity stats_bonuses[NBBONUSTYPES];
@@ -73,7 +74,7 @@ int keyRight = 0;
 int keyLeft = 0;
 
 //player
-Entity player;
+EntityList player;
 float player_speed = 0;
 int player_goX=0; //1 if going right, -1 if going left
 int player_goY=0; //1 if going up, -1 if going down
@@ -122,7 +123,9 @@ int main(int argc, char** argv) {
     // Remplissage du tableau de textures 
     getSurfaces(textures_dir,textures);
 
-    initPlayer();
+    printf("initiating player\n");
+    initPlayerStats();
+    player = copyEntity(&stats_player);    
 
     //Boucle de dessin
     curr_frame_tick = SDL_GetTicks();
@@ -157,26 +160,29 @@ int main(int argc, char** argv) {
 
 void update(int dt) {
     //all of the game physics calculations for the time dt.
+    //player input
     getAngleFromKeys();
     movePlayer(dt);
     wallsPushPlayer();
     keepPlayerInBox(game_box);
 
+    //shooting physics
     if (player_shooting) {
-            entityShootsBullet(&player, dt, &level_playerBullets);
+            entityShootsBullet(player, dt, &level_playerBullets);
     }
+    if (player->invTime > 0)
+        player->invTime -= dt;
 
     doMobsPhysics(&level_mobs, dt, &level_mobBullets);
     doBulletsPhysics(&level_playerBullets, dt,  &level_mobs);
+ 
+    doBulletsPhysics(&level_mobBullets, dt,  &player);
 
-    EntityList pPlayer = &player; 
-    doBulletsPhysics(&level_mobBullets, dt,  &pPlayer);
-
-
+    //moving the viewport
     level_windowOffset+=level_windowSpeed*dt;
     game_box.sw.x+=level_windowSpeed*dt;
     game_box.ne.x+=level_windowSpeed*dt;
-    player.anchor.x+=level_windowSpeed*dt*level_bgSpeed;
+    player->anchor.x+=level_windowSpeed*dt*level_bgSpeed;
 
 }
 
@@ -201,8 +207,8 @@ void render() {
 
         glTranslatef(-(level_windowOffset*game_scale),0,0);
         // drawing player
-        drawEntityList(&player);
-        drawEntityListHitBoxes(&player);
+        drawEntityList(player);
+        drawEntityListHitBoxes(player);
 
         // drawing mobs 
         drawEntityList(level_mobs);
@@ -263,7 +269,7 @@ void events(SDL_Event e) {
                 }
                 if (e.key.keysym.sym==32){ //space
                     player_shooting = 1;
-                    player.shootTime = player.shootDelay*0.05; 
+                    player->shootTime = player->shootDelay*0.05; 
                     //so that the player can shoot a bit faster if he presses several times the button instead of holding it down 
                 }
                 if (e.key.keysym.sym==304){ //shift

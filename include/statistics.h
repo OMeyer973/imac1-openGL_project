@@ -18,13 +18,13 @@
 #define NBBONUSTYPES 0
 #define NBBULLETTYPES 2
 
-extern Entity player;
+extern Entity stats_player;
 extern Entity stats_walls[NBWALLTYPES];
 extern Entity stats_mobs[NBMOBTYPES];
 extern Entity stats_bonuses[NBBONUSTYPES];
 extern Entity stats_bullets[NBBULLETTYPES];
 
-void initPlayer();
+void initPlayerStats();
     //initialize the player at the begining of a level
 void initMobsStats();
     //initialize the mob statistics array

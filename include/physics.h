@@ -15,7 +15,7 @@ extern int player_holdAngle;
 extern EntityList level_walls;	
 extern BoundingBox game_box;
 
-extern Entity player;
+extern EntityList player;
 
 //define physics elements : bounding boxes, internections
 

@@ -1,6 +1,6 @@
 #include "statistics.h"
 
-void initPlayer() {
+void initPlayerStats() {
     //initialize the player at the begining of a level
     Point2D anchor = pointXY(2,level_h/2);
     BoundingBox tmpSpriteBox = boundingBoxSWNE(-1,-1,1,1);
@@ -21,7 +21,7 @@ void initPlayer() {
         400,            //float invDelay (in ms)
         1,              //int shootAnglesNb
         tmpShootAngles);//float* shootAngles
-    player = tmpEntity;
+    stats_player = tmpEntity;
 }
 
 void initMobsStats() {
