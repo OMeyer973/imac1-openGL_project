@@ -229,11 +229,11 @@ void drawBG() {
 
   }
 
-void drawStats(EntityList* targetList) {
+void drawStats(EntityList* list) {
                 
     int j=0;
-    EntityList tmpTargetList = *targetList;
-    int maxHeart=(tmpTargetList->hp)/10;
+    EntityList player = *list;
+    int maxHeart=(player->hp)/10;
 
    for (maxHeart;maxHeart>0;maxHeart--){
             
@@ -244,5 +244,5 @@ void drawStats(EntityList* targetList) {
               glPopMatrix();
               j+=20; 
  }
- 
+
 }

@@ -144,7 +144,6 @@ int main(int argc, char** argv) {
 
         render();
 
-        drawStats(&player);
         SDL_Event e;
         events(e);
         SDL_GL_SwapBuffers();
@@ -244,6 +243,11 @@ void render() {
     
     //dessin des bordures de UI
     drawBorders();
+
+
+    glPushMatrix();
+        drawStats(&player);
+    glPopMatrix();
 }
 
 void events(SDL_Event e) {
