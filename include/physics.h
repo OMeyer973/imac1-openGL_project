@@ -17,6 +17,8 @@ extern BoundingBox game_box;
 
 extern EntityList player;
 
+extern Entity stats_bullets[];
+
 //define physics elements : bounding boxes, internections
 
 

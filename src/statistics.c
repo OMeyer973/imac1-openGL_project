@@ -18,7 +18,7 @@ void initPlayerStats() {
         0,              //float angle (radians)
         1.1,            //float speed
         400,            //float shootDelay (in ms)
-        400,            //float invDelay (in ms)
+        600,            //float invDelay (in ms)
         1,              //int shootAnglesNb
         tmpShootAngles);//float* shootAngles
     stats_player = tmpEntity;

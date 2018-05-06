@@ -128,7 +128,7 @@ void drawEntityList(EntityList list) {
     //draws a list of entities on screen. the view must be setup to gamespace prior to this function call
     while(list != NULL) {
         if (list->invTime > 0) {
-            float c = 255 - 150 * list->invTime / list->invDelay; 
+            float c = 255 -50 - 150 * list->invTime / list->invDelay; 
             glColor3ub(255,c,c);
         }
 

@@ -181,22 +181,52 @@ void doMobsPhysics(EntityList* list, int dt, EntityList* bulletList) {
         if (tmp->invTime > 0)
             tmp->invTime -= dt;
 
+        if (collision(*tmp, *player)) {
+            printf("collision\n");
+            hurtEntity(player, stats_bullets[tmp->bulletType].hp);
+        }
+        
         tmp2 = tmp;
         tmp = tmp->next;
         
         killDeadEntity(&tmp2, list);
         if (tmp2 != NULL) {
             if (!collisionEB(*tmp2, game_box)) {
-
                 if (!screenPassed) {
-
                     removeEntity(&tmp2, list);
                 } 
                 else tmp = NULL; 
-
             } else {
                 screenPassed = 1;
             }
+        }
+    }
+}
+
+void doWallsPhysics(EntityList* list, int dt) {
+    // do all of the physics computation for the given Wall list during the time dt, and affecting the target list
+    EntityList tmp = *list;
+    EntityList tmp2 = tmp;
+    
+    int screenPassed = 0;
+
+    while (tmp != NULL) {
+
+        if (collision(*tmp, *player)) {
+            printf("collision\n");
+            hurtEntity(player, stats_bullets[tmp->bulletType].hp);
+        }
+        
+        tmp2 = tmp;
+        tmp = tmp->next;
+        
+        if (!collisionEB(*tmp2, game_box)) {
+            if (!screenPassed) {
+                removeEntity(&tmp2, list);
+            } 
+            else tmp = NULL; 
+        } else {
+            screenPassed = 1;
         }
     }
 }

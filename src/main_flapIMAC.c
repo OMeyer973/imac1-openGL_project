@@ -82,12 +82,15 @@ int player_shooting = 0;
 int player_holdAngle = 0; //does the player want to stay at the angle it is ?
 float input_angle = 0;
 
+int gameOver = 0;
+
 void update(int dt);
     //all of the game physics calculations for the time dt.
 void render();
     //painting the current frame
 void events(SDL_Event e);
     //events handling
+
 
 int main(int argc, char** argv) {
     
@@ -172,6 +175,9 @@ void update(int dt) {
     }
     if (player->invTime > 0)
         player->invTime -= dt;
+    //killDeadEntity(&player, &player);
+
+    doWallsPhysics(&level_walls, dt);
 
     doMobsPhysics(&level_mobs, dt, &level_mobBullets);
     doBulletsPhysics(&level_playerBullets, dt,  &level_mobs);
