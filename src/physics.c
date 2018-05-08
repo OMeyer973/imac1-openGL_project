@@ -39,13 +39,33 @@ void moveEntity(Entity* entity, int dt, float angle, float speed) {
     entity->anchor.y += (float)dt/200 * speed * sin(angle);
 }
 
-void doBehaviors(EntityList entity) {
+void doBehaviors(EntityList entity, int dt) {
     int i = 0;
+    float x,y;
     for (i=0; i<entity->behaviorsNb; i++) {
          switch(entity->behaviors[i]) {
 
-        case 0:
-            entity->anchor.y += 0.1*sin(((float)curr_frame_tick)/(float)500);
+        case 0: //YSINE
+            entity->anchor.y += 0.1*dt*sin(((float)curr_frame_tick)/(float)500);
+            break;
+        case 1: //XSINE
+            entity->anchor.x += 0.1*dt*cos(((float)curr_frame_tick)/(float)500);
+            break;
+        case 2: //ROTATE
+            entity->angle = ((float)curr_frame_tick)/(float)500;
+            break;
+        case 3: //AIMPLAYER
+            x = player->anchor.x - entity->anchor.x;
+            y = player->anchor.y - entity->anchor.y;
+            entity->angle = atan2(y,x);
+            break;
+        case 4: //AIMTGTPLAYER
+            y = player->anchor.x - entity->anchor.x;
+            x = - player->anchor.y + entity->anchor.y;
+            entity->angle = atan2(y,x)-0.1;
+            break;
+        case 5: //GOFWD
+            moveEntity(entity, dt, entity->angle, entity->speed);
             break;
 
         default:
@@ -161,7 +181,8 @@ void doBulletsPhysics(EntityList* list, int dt, EntityList* targetList) {
     EntityList tmp = *list;
     EntityList tmp2 = tmp;
     while (tmp != NULL) {
-        moveEntity(tmp, dt, tmp->angle, tmp->speed);
+
+        doBehaviors(tmp, dt);
         bulletDamageList(tmp, targetList);
         
         tmp2 = tmp;
@@ -181,32 +202,25 @@ void doMobsPhysics(EntityList* list, int dt, EntityList* bulletList) {
     EntityList tmp = *list;
     EntityList tmp2 = tmp;
     
-    int screenPassed = 0;
-
     while (tmp != NULL) {
         entityShootsBullet(tmp, dt, bulletList);
         if (tmp->invTime > 0)
             tmp->invTime -= dt;
 
         if (collision(*tmp, *player)) {
-            printf("colided w mob\n");
             hurtEntity(player, stats_bullets[tmp->bulletType].hp);
         }
-        doBehaviors(tmp);
+        doBehaviors(tmp, dt);
 
         tmp2 = tmp;
         tmp = tmp->next;
         
         killDeadEntity(&tmp2, list);
-        if (tmp2 != NULL) {
-            if (!collisionEB(*tmp2, game_box)) {
-                if (!screenPassed) {
-                    removeEntity(&tmp2, list);
-                } 
-                else tmp = NULL; 
-            } else {
-                screenPassed = 1;
-            }
+        if (tmp2 != NULL && !collisionEB(*tmp2, game_box)) {
+            if (tmp2->anchor.x + tmp2->hitBox.sw.x < game_box.ne.x) {
+                removeEntity(&tmp2, list);
+            } 
+            else tmp = NULL; 
         }
     }
 }
@@ -241,7 +255,6 @@ void doWallsPhysics(EntityList* list, int dt) {
     while (tmp != NULL) {
 
         if (collision(*tmp, *player)) {
-            printf("collided w wall\n");
             hurtEntity(player, stats_bullets[tmp->bulletType].hp);
         }
 
@@ -271,7 +284,6 @@ void doBonusesPhysics(EntityList* list, int dt) {
     int screenPassed = 0;
 
     while (tmp != NULL) {
-
 
         tmp2 = tmp;
         tmp = tmp->next;

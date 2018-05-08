@@ -55,7 +55,7 @@ void initMobsStats() {
     stats_mobs[0] = tmpEntity;
 
     //MOB 1
-    int tmpbehaviors1[1] = {0};
+    int tmpbehaviors1[2] = {4,5};
     tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
@@ -71,7 +71,7 @@ void initMobsStats() {
         100,            //float invDelay (in ms)
         0,              //int shootAnglesNb
         NULL,           //float* shootAngles
-        1,              //int behaviorsNb
+        2,              //int behaviorsNb
         tmpbehaviors1   //int* behaviors
     );
     stats_mobs[1] = tmpEntity;
@@ -139,6 +139,7 @@ void initBulletsStats() {
     Point2D anchor = pointXY(0,0);
     BoundingBox tmpSpriteBox = boundingBoxSWNE(-0.2,-0.3,0.2,0.3);
     BoundingBox tmpHitBox = boundingBoxSWNE(-0.2,-0.3,0.2,0.3);
+    int tmpbehaviors[1] = {5};
     //BULLET 0
     Entity tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
@@ -155,8 +156,8 @@ void initBulletsStats() {
         100,            //float invDelay (in ms)
         0,              //int shootAnglesNb
         NULL, //float* shootAngles
-        0,              //int behaviorsNb
-        NULL            //int* behaviors
+        1,              //int behaviorsNb
+        tmpbehaviors    //int* behaviors
     );
     stats_bullets[0] = tmpEntity;
 
@@ -175,8 +176,8 @@ void initBulletsStats() {
         100,            //float invDelay (in ms)
         0,              //int shootAnglesNb
         NULL, //float* shootAngles
-        0,              //int behaviorsNb
-        NULL            //int* behaviors
+        1,              //int behaviorsNb
+        tmpbehaviors    //int* behaviors
     );
     stats_bullets[1]=tmpEntity2;
 
