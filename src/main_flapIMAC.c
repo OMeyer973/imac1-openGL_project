@@ -17,6 +17,10 @@
 #include "level.h"
 #include "entity.h"
 
+
+// ------------ VARIABLES ------------ //
+// *********************************** //
+
 //global variables
 int loop = 1;
 
@@ -84,13 +88,19 @@ float input_angle = 0;
 
 int gameOver = 0;
 
-void update(int dt);
-    //all of the game physics calculations for the time dt.
-void render();
-    //painting the current frame
-void events(SDL_Event e);
-    //events handling
 
+void loadLevel(int i);
+    //chargement du niveau i
+void gameUpdate(int dt);
+    //all of the game physics calculations for the time dt.
+void gameRender();
+    //painting the current frame
+void gameEvents(SDL_Event e);
+    //gameEvents handling
+
+
+// ------------ MAIN CODE ------------ //
+// *********************************** //
 
 int main(int argc, char** argv) {
     
@@ -114,22 +124,7 @@ int main(int argc, char** argv) {
     initBulletsStats();
     initBonusesStats();
 
-    //chargement du niveau
-    makeLevelFromPPM("map/level1.ppm");
-    printf("level grid : %d, %d\n",level_w, level_h);
-    
-    game_scale = game_h / (level_h+1);
-    game_box = boundingBoxSWNE(0.5, 0.01, (float)level_h+0.5, (level_h+1) * game_ratio - 0.01);
-
-    //printEntity(level_mobs);
-    //printEntity(level_walls);
-
-    // Remplissage du tableau de textures 
-    getSurfaces(textures_dir,textures);
-
-    printf("initiating player\n");
-    initPlayerStats();
-    player = copyEntity(&stats_player);    
+    loadLevel(1);
 
     //Boucle de dessin
     curr_frame_tick = SDL_GetTicks();
@@ -140,12 +135,14 @@ int main(int argc, char** argv) {
         prev_frame_tick = curr_frame_tick;
         curr_frame_tick = SDL_GetTicks();
         
-        update(curr_frame_tick - prev_frame_tick);
+        gameUpdate(curr_frame_tick - prev_frame_tick);
 
-        render();
+        gameRender();
 
         SDL_Event e;
-        events(e);
+        gameEvents(e);
+
+
         SDL_GL_SwapBuffers();
         Uint32 elapsedTime = SDL_GetTicks() - curr_frame_tick;
         if(elapsedTime < FRAMERATE_MILLISECONDS) {
@@ -162,7 +159,34 @@ int main(int argc, char** argv) {
     return EXIT_SUCCESS;   
 }
 
-void update(int dt) {
+
+// ------------ LEVEL FUNCTIONS ------------ //
+// ***************************************** //
+
+void loadLevel(int i) {
+    //chargement du niveau
+
+    char levelPath[16];
+    sprintf(levelPath, "map/level%d.ppm", i);
+    
+    makeLevelFromPPM(levelPath);
+    printf("level grid : %d, %d\n",level_w, level_h);
+    
+    game_scale = game_h / (level_h+1);
+    game_box = boundingBoxSWNE(0.5, 0.01, (float)level_h+0.5, (level_h+1) * game_ratio - 0.01);
+
+    //printEntity(level_mobs);
+    //printEntity(level_walls);
+
+    // Remplissage du tableau de textures 
+    getSurfaces(textures_dir,textures);
+
+    printf("initiating player\n");
+    initPlayerStats();
+    player = copyEntity(&stats_player);    
+}
+
+void gameUpdate(int dt) {
     //all of the game physics calculations for the time dt.
     //player input
     getAngleFromKeys();
@@ -193,7 +217,7 @@ void update(int dt) {
 
 }
 
-void render() {
+void gameRender() {
     //painting the current frame
     //drawing code
     glClear(GL_COLOR_BUFFER_BIT);
@@ -244,14 +268,12 @@ void render() {
     //dessin des bordures de UI
     drawBorders();
 
+    drawStats(&player);
 
-    glPushMatrix();
-        drawStats(&player);
-    glPopMatrix();
 }
 
-void events(SDL_Event e) {
-    //events handling
+void gameEvents(SDL_Event e) {
+    //gameEvents handling
     while(SDL_PollEvent(&e)) {
 
         switch(e.type) {

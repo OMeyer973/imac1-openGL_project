@@ -230,19 +230,18 @@ void drawBG() {
   }
 
 void drawStats(EntityList* list) {
-                
     int j=0;
     EntityList player = *list;
     int maxHeart=(player->hp)/10;
-
-   for (maxHeart;maxHeart>0;maxHeart--){
-            
-              glPushMatrix(); 
-              glTranslatef(50+j,700,0);
-              glScalef(20, 20,1);
-              drawTexturedSquare(textures[7]);
-              glPopMatrix();
-              j+=20; 
- }
+    glPushMatrix();     
+        for (maxHeart; maxHeart>0; maxHeart--){
+            glPushMatrix(); 
+                glTranslatef(50+j,700,0);
+                glScalef(20, 20,1);
+                drawTexturedSquare(textures[7]);
+            glPopMatrix();
+            j+=20; 
+        }
+    glPopMatrix();
 
 }
