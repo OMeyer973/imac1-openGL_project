@@ -19,6 +19,7 @@ extern EntityList player;
 
 extern Entity stats_bullets[];
 extern Entity stats_player;
+extern int curr_frame_tick;
 
 //define physics elements : bounding boxes, internections
 

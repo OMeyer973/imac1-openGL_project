@@ -234,7 +234,7 @@ void drawStats(EntityList* list) {
     EntityList player = *list;
     int maxHeart=(player->hp)/10;
     glPushMatrix();     
-        for (maxHeart; maxHeart>0; maxHeart--){
+        for (maxHeart=(player->hp)/10; maxHeart>0; maxHeart--) {
             glPushMatrix(); 
                 glTranslatef(50+j,700,0);
                 glScalef(20, 20,1);

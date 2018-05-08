@@ -19,7 +19,9 @@ EntityList instantiateEntity (
 		float shootDelay,
 		float invDelay,
 		int shootAnglesNb,
-		float* shootAngles
+		float* shootAngles,
+		int behaviorsNb,
+		int* behaviors
 	) {
 	//instantiate an entity according to the given parameters and return it's adress
 	EntityList list;
@@ -41,8 +43,12 @@ EntityList instantiateEntity (
 		list->invTime   	= 0.0;
 		list->shootAnglesNb = shootAnglesNb;
 		int i = 0;
-		for (i=0; i< shootAnglesNb; i++) {
+		for (i=0; i<shootAnglesNb; i++) {
 			list->shootAngles[i] = shootAngles[i];
+		}
+		list->behaviorsNb = behaviorsNb;
+		for (i=0; i<behaviorsNb; i++) {
+			list->behaviors[i] = behaviors[i];
 		}
 		list->next 			= NULL;
 		list->prev 			= NULL;

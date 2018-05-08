@@ -39,6 +39,22 @@ void moveEntity(Entity* entity, int dt, float angle, float speed) {
     entity->anchor.y += (float)dt/200 * speed * sin(angle);
 }
 
+void doBehaviors(EntityList entity) {
+    int i = 0;
+    for (i=0; i<entity->behaviorsNb; i++) {
+         switch(entity->behaviors[i]) {
+
+        case 0:
+            entity->anchor.y += 0.1*sin(((float)curr_frame_tick)/(float)500);
+            break;
+
+        default:
+            break;
+        }
+
+    } 
+}
+
 //------------ PLAYER FUNCTIONS ------------//
 
 void getAngleFromKeys() {
@@ -176,7 +192,8 @@ void doMobsPhysics(EntityList* list, int dt, EntityList* bulletList) {
             printf("colided w mob\n");
             hurtEntity(player, stats_bullets[tmp->bulletType].hp);
         }
-        
+        doBehaviors(tmp);
+
         tmp2 = tmp;
         tmp = tmp->next;
         

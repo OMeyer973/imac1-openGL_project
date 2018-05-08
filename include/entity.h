@@ -32,7 +32,8 @@ typedef struct entity {
 	float invTime;			//mob : entity internal time used to compute invicible time
 	int shootAnglesNb; 		//mob : nb of shooting angles
 	float shootAngles[16]; 	//mob : array of shooting angles
-
+	int behaviorsNb;		//general : number of behaviors the entity have
+	int behaviors[8];		//general : ids of behaviors the entity have (movement, rotation, opacity)
 	struct entity* next;	//next entity in the linked list
 	struct entity* prev;	//previous entity in the linked list (used to simplify the remove function)
 } Entity, *EntityList;
@@ -53,7 +54,9 @@ EntityList instantiateEntity (
 		float shootDelay,
 		float invDelay,
 		int shootAnglesNb,
-		float* shootAngles
+		float* shootAngles,
+		int behaviorsNb,
+		int* behaviors
 	);
 	//instantiate an entity according to the given parameters and return it's adress
 EntityList copyEntity (EntityList orig);

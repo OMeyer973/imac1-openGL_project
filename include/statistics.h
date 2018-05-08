@@ -18,6 +18,8 @@
 #define NBBONUSTYPES 1
 #define NBBULLETTYPES 2
 
+
+
 extern Entity stats_player;
 extern Entity stats_walls[NBWALLTYPES];
 extern Entity stats_mobs[NBMOBTYPES];

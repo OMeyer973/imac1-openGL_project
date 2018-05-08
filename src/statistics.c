@@ -20,7 +20,10 @@ void initPlayerStats() {
         400,            //float shootDelay (in ms)
         450,            //float invDelay (in ms)
         1,              //int shootAnglesNb
-        tmpShootAngles);//float* shootAngles
+        tmpShootAngles, //float* shootAngles
+        0,              //int behaviorsNb
+        NULL            //int* behaviors
+    );
     stats_player = tmpEntity;
 }
 
@@ -45,11 +48,14 @@ void initMobsStats() {
         1000,           //float shootDelay (in ms)
         100,            //float invDelay (in ms)
         1,              //int shootAnglesNb
-        tmpShootAngles0);//float* shootAngles
+        tmpShootAngles0, //float* shootAngles
+        0,              //int behaviorsNb
+        NULL            //int* behaviors
+    );
     stats_mobs[0] = tmpEntity;
 
     //MOB 1
-    //float tmpShootAngles1[1] = {0};
+    int tmpbehaviors1[1] = {0};
     tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
@@ -61,10 +67,13 @@ void initMobsStats() {
         1,              //int bulletType
         M_PI,           //float angle (radians)
         0.4,            //float speed
-        1000,            //float shootDelay (in ms)
+        1000,           //float shootDelay (in ms)
         100,            //float invDelay (in ms)
         0,              //int shootAnglesNb
-        NULL);//float* shootAngles
+        NULL,           //float* shootAngles
+        1,              //int behaviorsNb
+        tmpbehaviors1   //int* behaviors
+    );
     stats_mobs[1] = tmpEntity;
 }
 
@@ -90,7 +99,10 @@ void initBonusesStats() {
         150,            //float shootDelay (in ms)
         450,            //float invDelay (in ms)
         3,              //int shootAnglesNb
-        tmpShootAngles0);//float* shootAngles
+        tmpShootAngles0,//float* shootAngles
+        0,              //int behaviorsNb
+        NULL            //int* behaviors
+    );
     stats_bonuses[0] = tmpEntity;
 }
 
@@ -115,7 +127,10 @@ void initWallsStats() {
         0.5,            //float shootDelay (in ms)
         100,            //float invDelay (in ms)
         2,              //int shootAnglesNb
-        tmpShootAngles0);//float* shootAngles -> walls need this (else, segfault but why ????)
+        tmpShootAngles0,//float* shootAngles -> walls need this (else, segfault but why ????)
+        0,              //int behaviorsNb
+        NULL            //int* behaviors
+    );
     stats_walls[0] = tmpEntity;
 }
 
@@ -139,7 +154,10 @@ void initBulletsStats() {
         1,              //float shootDelay (in ms)
         100,            //float invDelay (in ms)
         0,              //int shootAnglesNb
-        NULL);          //float* shootAngles
+        NULL, //float* shootAngles
+        0,              //int behaviorsNb
+        NULL            //int* behaviors
+    );
     stats_bullets[0] = tmpEntity;
 
     Entity tmpEntity2  = *instantiateEntity (
@@ -156,7 +174,10 @@ void initBulletsStats() {
         1,              //float shootDelay (in ms)
         100,            //float invDelay (in ms)
         0,              //int shootAnglesNb
-        NULL);          //float* shootAngles
+        NULL, //float* shootAngles
+        0,              //int behaviorsNb
+        NULL            //int* behaviors
+    );
     stats_bullets[1]=tmpEntity2;
 
 }
