@@ -46,10 +46,10 @@ void doBehaviors(EntityList entity, int dt) {
          switch(entity->behaviors[i]) {
 
         case 0: //YSINE
-            entity->anchor.y += 0.1*dt*sin(((float)curr_frame_tick)/(float)500);
+            entity->anchor.y += 0.005*dt*sin(((float)curr_frame_tick)/(float)500);
             break;
         case 1: //XSINE
-            entity->anchor.x += 0.1*dt*cos(((float)curr_frame_tick)/(float)500);
+            entity->anchor.x += 0.005*dt*cos(((float)curr_frame_tick)/(float)500);
             break;
         case 2: //ROTATE
             entity->angle = ((float)curr_frame_tick)/(float)500;
@@ -307,6 +307,8 @@ void doBonusesPhysics(EntityList* list, int dt) {
 
 void applyBonus(Entity bonus) {
     //apply the bonus to the player
+    player->spriteBox     = bonus.spriteBox;
+    player->hitBox        = bonus.hitBox;
     player->hp            = fmin(player->hp + bonus.hp, stats_player.hp);
     player->bulletType    = bonus.bulletType;
     player->speed         = bonus.speed;

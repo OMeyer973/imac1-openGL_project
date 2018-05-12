@@ -9,14 +9,18 @@
 #define TYPEWALL 0
 #define TYPEBONUS 1
 #define TYPEMOB 2
-#define TYPEPLAYER 3
-#define TYPEBULLET 4
+#define TYPEBOSS 3
+#define TYPEEXIT 4
+
+#define TYPEPLAYER 5
+#define TYPEBULLET 6
 
 //nombre de chaque type d'entité
 #define NBWALLTYPES 1
-#define NBMOBTYPES 2
+#define NBMOBTYPES 3
 #define NBBONUSTYPES 1
 #define NBBULLETTYPES 2
+#define NBBOSSTYPES 2
 
 
 

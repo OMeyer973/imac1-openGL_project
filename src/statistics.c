@@ -75,6 +75,30 @@ void initMobsStats() {
         tmpbehaviors1   //int* behaviors
     );
     stats_mobs[1] = tmpEntity;
+
+    //MOB 2 (BOSS)
+    float tmpShootAngles2[16] = {0, 0.5, -0.8, 0.5, 0.8};
+    
+    int tmpbehaviors2[2] = {3,0};
+    tmpEntity  = *instantiateEntity (
+        anchor,         //Point2D anchor
+        boundingBoxSWNE(-2,-2,2,2),   //BoundingBox spriteBox
+        0,              //int textureID 
+        boundingBoxSWNE(-2,-2,2,2),      //BoundingBox hitBox        
+        TYPEMOB,       //int type
+        0,              //int subType
+        500,             //int hp
+        1,              //int bulletType
+        0,              //float angle (radians)
+        1.1,            //float speed
+        1000,           //float shootDelay (in ms)
+        100,            //float invDelay (in ms)
+        5,              //int shootAnglesNb
+        tmpShootAngles2,//float* shootAngles
+        2,              //int behaviorsNb
+        tmpbehaviors2  //int* behaviors
+    );
+    stats_mobs[2] = tmpEntity;
 }
 
 
@@ -182,4 +206,3 @@ void initBulletsStats() {
     stats_bullets[1]=tmpEntity2;
 
 }
-

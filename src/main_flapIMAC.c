@@ -36,11 +36,12 @@ Entity stats_walls[NBWALLTYPES];
 Entity stats_mobs[NBMOBTYPES];
 Entity stats_bonuses[NBBONUSTYPES];
 Entity stats_bullets[NBBULLETTYPES];
+Entity stats_bosses[NBBOSSTYPES];
 
 //level
 int level_w = 0;
 int level_h = 0;
-float level_windowSpeed=0.002;
+float level_windowSpeed=0.02;
 float level_windowOffset=0.00;
 float level_bgSpeed=0.75;
 
@@ -51,6 +52,7 @@ EntityList level_mobs;
 EntityList level_bonuses;
 EntityList level_mobBullets;
 EntityList level_playerBullets;
+Entity* level_boss;
 
 //screen layout
 float screen_w = 1080;
@@ -78,7 +80,7 @@ int keyRight = 0;
 int keyLeft = 0;
 
 //player
-EntityList player;
+Entity* player;
 float player_speed = 0;
 int player_goX=0; //1 if going right, -1 if going left
 int player_goY=0; //1 if going up, -1 if going down
@@ -183,7 +185,17 @@ void loadLevel(int i) {
 
     printf("initiating player\n");
     initPlayerStats();
-    player = copyEntity(&stats_player);    
+    player = copyEntity(&stats_player);
+
+    EntityList tmp = level_mobs;
+    EntityList tmp2 = tmp;
+    
+    while (tmp != NULL) {
+        tmp2 = tmp;
+        tmp = tmp->next;
+    }
+
+    level_boss = tmp2;
 }
 
 void gameUpdate(int dt) {
@@ -210,10 +222,12 @@ void gameUpdate(int dt) {
     doBulletsPhysics(&level_mobBullets, dt,  &player);
 
     //moving the viewport
-    level_windowOffset+=level_windowSpeed*dt;
-    game_box.sw.x+=level_windowSpeed*dt;
-    game_box.ne.x+=level_windowSpeed*dt;
-    player->anchor.x+=level_windowSpeed*dt*level_bgSpeed;
+    if (game_box.ne.x < level_w-1) {
+        level_windowOffset+=level_windowSpeed*dt;
+        game_box.sw.x+=level_windowSpeed*dt;
+        game_box.ne.x+=level_windowSpeed*dt;
+        player->anchor.x+=level_windowSpeed*dt*level_bgSpeed;
+    }
 
 }
 
@@ -223,18 +237,12 @@ void gameRender() {
     glClear(GL_COLOR_BUFFER_BIT);
         
     //TODO
-    //drawBG();
-    //drawwalls();
-    //drawbonuses();
-    //drawfoes();
-    //drawplayer();
     //drawVFX();
-    //drawfriendlymissiles();
-    //drawmobsmissiles();
 
+    // Background
     drawBG(); 
+    
     setViewToGameSpace();
-        // Background
 
         glTranslatef(-(level_windowOffset*game_scale),0,0);
         // drawing player
@@ -262,13 +270,12 @@ void gameRender() {
         
         drawBoundinBox(game_box);
 
-
     exitview();
     
     //dessin des bordures de UI
     drawBorders();
 
-    drawStats(&player);
+    drawStats(player);
 
 }
 

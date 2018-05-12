@@ -1,5 +1,7 @@
 #include "level.h"
 
+
+
 //functions for handling a level
 
 int makeLevelFromPPM(char* filename) {
@@ -112,4 +114,3 @@ int addMob(int x, int y, int subType){
 	printf("tried to add invalid mob of subtype %d at %d %d\n", subType, x, y);
 	return 0;
 }
-
