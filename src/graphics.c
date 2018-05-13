@@ -243,3 +243,30 @@ void drawStats(EntityList player) {
         }
     glPopMatrix();
 }
+
+void drawMenu(){
+                glPushMatrix();
+                glTranslatef(screen_w/2, screen_h/2,0);
+                glScalef(screen_w,screen_h,1);
+                drawTexturedSquare(textures[8]);
+                glPopMatrix();
+//FISHIMAC
+                glPushMatrix();
+                glTranslatef(screen_w/2,screen_h-100,0);
+                glScalef(600,250,1);
+                drawTexturedSquare(textures[11]);
+                glPopMatrix();
+
+// NEW GAME
+                glPushMatrix();
+                glTranslatef(screen_w/2,screen_h/2.5,0);
+                glScalef(350,50,1);
+                drawTexturedSquare(textures[9]);
+                glPopMatrix();
+// INSTRUCTIONS
+                glPushMatrix();
+                glTranslatef(screen_w/2,screen_h/6,0);
+                glScalef(350,50,1);
+                drawTexturedSquare(textures[10]);
+                glPopMatrix();
+}

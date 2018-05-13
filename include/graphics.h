@@ -38,7 +38,7 @@ extern float border_top;
 
 
 //textures
-#define NBTEXTURES 10
+#define NBTEXTURES 12
 extern char* textures_dir;
 extern GLuint textures[NBTEXTURES];
 
@@ -81,8 +81,11 @@ void drawBorders();
 void drawBG();
     //draws the background of the game space
 
-
 void drawStats(EntityList player) ;
+    // draws Health Points remaining
+
+void drawMenu();
+    //draws Menu
 
 
 #endif
