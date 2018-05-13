@@ -32,7 +32,7 @@ void initMobsStats() {
     Point2D anchor = pointXY(0,0);
     BoundingBox tmpSpriteBox = boundingBoxSWNE(-0.5,-0.5,0.5,0.5);
     BoundingBox tmpHitBox = boundingBoxSWNE(-0.4,-0.4,0.4,0.4);
-    //MOB 0
+    //MOB 0 - SHARK
     float tmpShootAngles0[16] = {M_PI};
     Entity tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
@@ -54,17 +54,17 @@ void initMobsStats() {
     );
     stats_mobs[0] = tmpEntity;
 
-    //MOB 1
+    //MOB 1 - SPONGE FISH
     int tmpbehaviors1[2] = {4,5};
     tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
-        0,              //int textureID 
+        17,              //int textureID 
         tmpHitBox,      //BoundingBox hitBox        
         TYPEMOB,        //int type
         1,              //int subType
         50,             //int hp
-        1,              //int bulletType
+        3,              //int bulletType
         M_PI,           //float angle (radians)
         0.4,            //float speed
         1000,           //float shootDelay (in ms)
@@ -100,7 +100,7 @@ void initMobsStats() {
     );
     stats_mobs[2] = tmpEntity;
 
-        //MOB 3 (MURAUX)
+        //MOB 3 (MURAL FISH)
     tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
@@ -120,6 +120,27 @@ void initMobsStats() {
         tmpbehaviors1   //int* behaviors
     );
     stats_mobs[3] = tmpEntity;
+
+            //MOB 4 (LANTERN FISH)
+    tmpEntity  = *instantiateEntity (
+        anchor,         //Point2D anchor
+        tmpSpriteBox,   //BoundingBox spriteBox
+        0,              //int textureID 
+        tmpHitBox,      //BoundingBox hitBox        
+        TYPEMOB,        //int type
+        1,              //int subType
+        50,             //int hp
+        1,              //int bulletType
+        M_PI,           //float angle (radians)
+        0.4,            //float speed
+        1000,           //float shootDelay (in ms)
+        100,            //float invDelay (in ms)
+        0,              //int shootAnglesNb
+        NULL,           //float* shootAngles
+        2,              //int behaviorsNb
+        tmpbehaviors1   //int* behaviors
+    );
+    stats_mobs[4] = tmpEntity;
 }
 
 
@@ -185,7 +206,7 @@ void initBulletsStats() {
     BoundingBox tmpSpriteBox = boundingBoxSWNE(-0.2,-0.3,0.2,0.3);
     BoundingBox tmpHitBox = boundingBoxSWNE(-0.2,-0.3,0.2,0.3);
     int tmpbehaviors[1] = {5};
-    //BULLET 0
+    //BULLET 0 - (BUBBLES FOR PLAYER )
     Entity tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
@@ -206,6 +227,7 @@ void initBulletsStats() {
     );
     stats_bullets[0] = tmpEntity;
 
+    //BULLET 1 - (BUBBLES FOR SOME MOBS)
     Entity tmpEntity2  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
@@ -225,8 +247,8 @@ void initBulletsStats() {
         tmpbehaviors    //int* behaviors
     );
     stats_bullets[1]=tmpEntity2;
-//BULLET  3
- Entity tmpEntity3  = *instantiateEntity (
+    //BULLET  2 - (BULLETS FOR BOSS)
+    Entity tmpEntity3  = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.5,-0.6,0.5,0.6),   //BoundingBox spriteBox
         15,              //int textureID 
@@ -245,5 +267,27 @@ void initBulletsStats() {
         tmpbehaviors    //int* behaviors
     );
     stats_bullets[2]=tmpEntity3;
+
+
+    //BULLET 3 - (PIKES FOR SPONGE FISH MOBS)
+ Entity tmpEntity4  = *instantiateEntity (
+        anchor,         //Point2D anchor
+        boundingBoxSWNE(-0.5,-0.6,0.5,0.6),   //BoundingBox spriteBox
+        18,              //int textureID 
+        boundingBoxSWNE(-0.5,-0.6,0.5,0.6),      //BoundingBox hitBox        
+        TYPEBULLET,     //int type
+        0,              //int subType
+        10,             //int hp
+        0,              //int bulletType
+        0,              //float angle (radians)
+        0.7,            //float speed
+        1,              //float shootDelay (in ms)
+        100,            //float invDelay (in ms)
+        0,              //int shootAnglesNb
+        NULL, //float* shootAngles
+        1,              //int behaviorsNb
+        tmpbehaviors    //int* behaviors
+    );
+    stats_bullets[3]=tmpEntity4;
 
 }
