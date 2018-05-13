@@ -216,11 +216,16 @@ void doMobsPhysics(EntityList* list, int dt, EntityList* bulletList) {
         tmp = tmp->next;
         
         killDeadEntity(&tmp2, list);
+        
         if (tmp2 != NULL && !collisionEB(*tmp2, game_box)) {
             if (tmp2->anchor.x + tmp2->hitBox.sw.x < game_box.ne.x) {
                 removeEntity(&tmp2, list);
             } 
-            else tmp = NULL; 
+            /*
+            // optimisation : ne calcule pas les mobs à droite de l'écran mais fait des bugs
+            else if (tmp != NULL) 
+                tmp = tmp->next;
+            */
         }
     }
 }

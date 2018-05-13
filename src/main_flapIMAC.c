@@ -81,7 +81,7 @@ int keyRight = 0;
 int keyLeft = 0;
 int Sourisx=0;
 int Sourisy=0;
-int gameIsRunning=0;
+int gameIsRunning=1;
 
 //player
 Entity* player;
