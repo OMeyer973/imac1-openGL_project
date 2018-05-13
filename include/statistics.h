@@ -16,7 +16,7 @@
 #define TYPEBULLET 6
 
 //nombre de chaque type d'entité
-#define NBWALLTYPES 1
+#define NBWALLTYPES 2
 #define NBMOBTYPES 5
 #define NBBONUSTYPES 1
 #define NBBULLETTYPES 4

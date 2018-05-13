@@ -178,7 +178,7 @@ void initWallsStats() {
     BoundingBox tmpSpriteBox = boundingBoxSWNE(-0.5,-0.5,0.5,0.5);
     BoundingBox tmpHitBox = boundingBoxSWNE(-0.4,-0.4,0.4,0.4);
     float tmpShootAngles0[16] = {0};
-    //MOB 0
+    //WALL 0 - GRASS
     Entity tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
@@ -198,6 +198,28 @@ void initWallsStats() {
         NULL            //int* behaviors
     );
     stats_walls[0] = tmpEntity;
+
+
+    //WALL 1 - ROCK 
+    Entity tmpEntity1  = *instantiateEntity (
+        anchor,         //Point2D anchor
+        tmpSpriteBox,   //BoundingBox spriteBox
+        19,              //int textureID 
+        tmpHitBox,      //BoundingBox hitBox        
+        TYPEMOB,        //int type
+        0,              //int subType
+        30,             //int hp
+        0,              //int bulletType
+        0,              //float angle (radians)
+        1.1,            //float speed
+        0.5,            //float shootDelay (in ms)
+        100,            //float invDelay (in ms)
+        2,              //int shootAnglesNb
+        tmpShootAngles0,//float* shootAngles -> walls need this (else, segfault but why ????)
+        0,              //int behaviorsNb
+        NULL            //int* behaviors
+    );
+    stats_walls[1] = tmpEntity1;
 }
 
 void initBulletsStats() {
