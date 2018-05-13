@@ -81,8 +81,11 @@ void drawBorders();
 void drawBG();
     //draws the background of the game space
 
-
 void drawStats(EntityList* targetList) ;
+    // draws Health Points remaining
+
+void drawMenu();
+    //draws Menu
 
 
 #endif

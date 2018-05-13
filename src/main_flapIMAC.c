@@ -76,6 +76,9 @@ int keyUp=0;
 int keyDown=0;
 int keyRight = 0;
 int keyLeft = 0;
+int Sourisx=0;
+int Sourisy=0;
+int triggerGame=0;
 
 //player
 EntityList player;
@@ -134,10 +137,12 @@ int main(int argc, char** argv) {
 
         prev_frame_tick = curr_frame_tick;
         curr_frame_tick = SDL_GetTicks();
-        
+        drawMenu();
+        if (triggerGame==1){
         gameUpdate(curr_frame_tick - prev_frame_tick);
 
         gameRender();
+        }
 
         SDL_Event e;
         gameEvents(e);
@@ -355,6 +360,18 @@ void gameEvents(SDL_Event e) {
                      player_holdAngle = 0;
                 }
                 break;
+
+
+            case SDL_MOUSEBUTTONUP:
+                if (e.button.button == SDL_BUTTON_LEFT)
+                 {
+                          printf("koisss %d",Sourisy);
+                          Sourisx = e.button.x; 
+                          Sourisy = e.button.y; 
+                          if (Sourisx>(WINDOW_WIDTH/2)-350/2 && Sourisx<(WINDOW_WIDTH/2)+350/2 && Sourisy>(WINDOW_HEIGHT/1.75)-50/2 && Sourisy<(WINDOW_HEIGHT/1.75)+50/2) 
+                            triggerGame=1;           
+                 }
+            break;
 
             default:
                 break;
