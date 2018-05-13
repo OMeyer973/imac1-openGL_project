@@ -266,25 +266,26 @@ void gameRender() {
     setViewToGameSpace();
 
         glTranslatef(-(level_windowOffset*game_scale),0,0);
-        // drawing player
-        drawEntityList(player);
-        drawEntityListHitBoxes(player);
-
-        // drawing mobs 
-        drawEntityList(level_mobs);
-        drawEntityListHitBoxes(level_mobs);
 
         // drawing walls
         drawEntityList(level_walls);
         drawEntityListHitBoxes(level_walls);
 
-        // drawing bullets
-        drawEntityList(level_playerBullets);
-        drawEntityListHitBoxes(level_playerBullets);
+        // drawing player
+        drawEntityList(player);
+        drawEntityListHitBoxes(player);
 
         // drawing bonuses
         drawEntityList(level_bonuses);
         drawEntityListHitBoxes(level_bonuses);
+
+        // drawing mobs 
+        drawEntityList(level_mobs);
+        drawEntityListHitBoxes(level_mobs);
+
+        // drawing bullets
+        drawEntityList(level_playerBullets);
+        drawEntityListHitBoxes(level_playerBullets);
 
         drawEntityList(level_mobBullets);
         drawEntityListHitBoxes(level_mobBullets);
