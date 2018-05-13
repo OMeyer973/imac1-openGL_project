@@ -82,9 +82,9 @@ void initMobsStats() {
     int tmpbehaviors2[2] = {3,0};
     tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
-        boundingBoxSWNE(-2,-2,2,2),   //BoundingBox spriteBox
-        0,              //int textureID 
-        boundingBoxSWNE(-2,-2,2,2),      //BoundingBox hitBox        
+        boundingBoxSWNE(-10,-10,10,10),   //BoundingBox spriteBox
+        14,              //int textureID 
+        boundingBoxSWNE(-10,-10,10,10),      //BoundingBox hitBox        
         TYPEMOB,       //int type
         0,              //int subType
         500,             //int hp
