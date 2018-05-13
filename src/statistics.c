@@ -2,7 +2,7 @@
 
 void initPlayerStats() {
     //initialize the player at the begining of a level
-    Point2D anchor = pointXY(2,level_h/2);
+    Point2D anchor = pointXY(0,0);
     BoundingBox tmpSpriteBox = boundingBoxSWNE(-1,-1,1,1);
     BoundingBox tmpHitBox = boundingBoxSWNE(-0.6,-0.7,0.6,0.7);
     float tmpShootAngles[16] = {0.0, M_PI/4, -M_PI/4};

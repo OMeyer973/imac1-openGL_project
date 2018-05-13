@@ -39,10 +39,11 @@ Entity stats_bullets[NBBULLETTYPES];
 Entity stats_bosses[NBBOSSTYPES];
 
 //level
+int level_isLoaded = 0;
 int level_w = 0;
 int level_h = 0;
-float level_windowSpeed=0.02;
-float level_windowOffset=0.00;
+float level_windowSpeed = 0.02;
+float level_windowOffset = 0.00;
 float level_bgSpeed=0.75;
 
 BoundingBox game_box;
@@ -80,7 +81,7 @@ int keyRight = 0;
 int keyLeft = 0;
 int Sourisx=0;
 int Sourisy=0;
-int triggerGame=0;
+int gameIsRunning=0;
 
 //player
 Entity* player;
@@ -100,8 +101,12 @@ void gameUpdate(int dt);
     //all of the game physics calculations for the time dt.
 void gameRender();
     //painting the current frame
+void globalEvents(SDL_Event e);
+    //handling global events
 void gameEvents(SDL_Event e);
-    //gameEvents handling
+    //handling events for the game itself
+void menuEvents(SDL_Event e);
+    //handling menu events
 
 
 // ------------ MAIN CODE ------------ //
@@ -128,6 +133,11 @@ int main(int argc, char** argv) {
     initWallsStats();
     initBulletsStats();
     initBonusesStats();
+    printf("initiating player\n");
+    initPlayerStats();
+
+    // Remplissage du tableau de textures 
+    getSurfaces(textures_dir,textures);
 
     loadLevel(1);
 
@@ -139,16 +149,26 @@ int main(int argc, char** argv) {
 
         prev_frame_tick = curr_frame_tick;
         curr_frame_tick = SDL_GetTicks();
-        drawMenu();
-        if (triggerGame==1){
-        gameUpdate(curr_frame_tick - prev_frame_tick);
+        
+        SDL_Event e;
+        
+        if (gameIsRunning) { //we are in the game.
+            if (!level_isLoaded) {
+                loadLevel(1);
+                level_isLoaded = 1;
+            }
 
-        gameRender();
+            gameUpdate(curr_frame_tick - prev_frame_tick);
+            gameRender();
+            gameEvents(e);
+
+        } else { //we are in the menu.
+
+            drawMenu();
+            menuEvents(e);
         }
 
-        SDL_Event e;
-        gameEvents(e);
-
+        globalEvents(e);
 
         SDL_GL_SwapBuffers();
         Uint32 elapsedTime = SDL_GetTicks() - curr_frame_tick;
@@ -182,25 +202,22 @@ void loadLevel(int i) {
     game_scale = game_h / (level_h+1);
     game_box = boundingBoxSWNE(0.5, 0.01, (float)level_h+0.5, (level_h+1) * game_ratio - 0.01);
 
-    //printEntity(level_mobs);
-    //printEntity(level_walls);
-
-    // Remplissage du tableau de textures 
-    getSurfaces(textures_dir,textures);
-
-    printf("initiating player\n");
-    initPlayerStats();
     player = copyEntity(&stats_player);
+    player->anchor.x = 2;
+    player->anchor.y = level_h/2;
 
     EntityList tmp = level_mobs;
     EntityList tmp2 = tmp;
     
+    //finding boss (it is the last mob)
     while (tmp != NULL) {
         tmp2 = tmp;
         tmp = tmp->next;
     }
 
     level_boss = tmp2;
+
+    level_windowOffset = 0.00;
 }
 
 void gameUpdate(int dt) {
@@ -284,8 +301,8 @@ void gameRender() {
 
 }
 
-void gameEvents(SDL_Event e) {
-    //gameEvents handling
+void globalEvents(SDL_Event e) {
+    //handling menu events
     while(SDL_PollEvent(&e)) {
 
         switch(e.type) {
@@ -299,22 +316,34 @@ void gameEvents(SDL_Event e) {
                 WINDOW_HEIGHT = e.resize.h;
                 resizeViewport();
 
+            default:
+                break;
+        }
+    }
+}
+
+void gameEvents(SDL_Event e) {
+    //gameEvents handling
+    while(SDL_PollEvent(&e)) {
+
+        switch(e.type) {
+
             case SDL_KEYDOWN:
                 printf("touche pressée (code = %d)\n", e.key.keysym.sym);
                 
-                if (e.key.keysym.sym==273){
+                if (e.key.keysym.sym==273){ //up
                     keyUp = 1;
                     player_goY = 1;
                 }
-                 if (e.key.keysym.sym==274){
+                 if (e.key.keysym.sym==274){ //down
                     keyDown = 1;
                     player_goY = -1;
                 }
-                 if (e.key.keysym.sym==275){
+                 if (e.key.keysym.sym==275){ //right
                     keyRight = 1;
                     player_goX = 1;
                 }
-                 if (e.key.keysym.sym==276){
+                 if (e.key.keysym.sym==276){ //left
                     keyLeft = 1;
                     player_goX = -1;
                 }
@@ -335,25 +364,25 @@ void gameEvents(SDL_Event e) {
             case SDL_KEYUP:
                 printf("touche levée (code = %d)\n", e.key.keysym.sym);
                 
-                if (e.key.keysym.sym == 273){
+                if (e.key.keysym.sym == 273){ //up
                     keyUp = 0;
                     player_goY = 0;
                     if (keyDown)
                         player_goY = -1;
                 }
-                 if (e.key.keysym.sym == 274){
+                 if (e.key.keysym.sym == 274){ //down
                     keyDown=0;
                     player_goY = 0;
                     if (keyUp)
                         player_goY = 1;
                 }
-                 if (e.key.keysym.sym == 275){
+                 if (e.key.keysym.sym == 275){ //right
                      keyRight = 0;
                      player_goX = 0;
                      if (keyLeft)
                         player_goX = -1;
                 }
-                 if (e.key.keysym.sym == 276){
+                 if (e.key.keysym.sym == 276){ //left
                      keyLeft = 0;
                      player_goX = 0;
                      if (keyRight)
@@ -368,29 +397,38 @@ void gameEvents(SDL_Event e) {
                 }
                 break;
 
+            default:
+                break;
+
+        }
+    }
+}
+
+void menuEvents(SDL_Event e) {
+    //handling menu events
+    while(SDL_PollEvent(&e)) {
+
+        switch(e.type) {
 
             case SDL_MOUSEBUTTONUP:
-                if (e.button.button == SDL_BUTTON_LEFT)
-                 {
-                          printf("koisss %d",Sourisy);
-                          Sourisx = e.button.x; 
-                          Sourisy = e.button.y; 
-                          if (Sourisx>(WINDOW_WIDTH/2)-350/2 && Sourisx<(WINDOW_WIDTH/2)+350/2 && Sourisy>(WINDOW_HEIGHT/1.75)-50/2 && Sourisy<(WINDOW_HEIGHT/1.75)+50/2) 
-                            triggerGame=1;           
+                if (e.button.button == SDL_BUTTON_LEFT) {
+                    printf("koisss %d",Sourisy);
+                    Sourisx = e.button.x; 
+                    Sourisy = e.button.y; 
+                    if (Sourisx>(WINDOW_WIDTH/2)-350/2 && Sourisx<(WINDOW_WIDTH/2)+350/2 && Sourisy>(WINDOW_HEIGHT/1.75)-50/2 && Sourisy<(WINDOW_HEIGHT/1.75)+50/2) 
+                        gameIsRunning=1;           
                  }
             break;
 
             case SDL_MOUSEMOTION:
-                if (e.button.x>(WINDOW_WIDTH/2)-350/2 && e.button.x<(WINDOW_WIDTH/2)+350/2 && e.button.y>(WINDOW_HEIGHT/1.75)-50/2 && e.button.y<(WINDOW_HEIGHT/1.75)+50/2 && triggerGame==0) 
-                {
-                              glPushMatrix();
-                              glTranslatef(screen_w/2,screen_h/2.5,0);
-                              glScalef(355,55,1);
-                              drawTexturedSquare(textures[9]);
-                              glPopMatrix();
-                                    
+                if (e.button.x>(WINDOW_WIDTH/2)-350/2 && e.button.x<(WINDOW_WIDTH/2)+350/2 && e.button.y>(WINDOW_HEIGHT/1.75)-50/2 && e.button.y<(WINDOW_HEIGHT/1.75)+50/2 && gameIsRunning==0) {
+                    glPushMatrix();
+                    glTranslatef(screen_w/2,screen_h/2.5,0);
+                    glScalef(355,55,1);
+                    drawTexturedSquare(textures[9]);
+                    glPopMatrix();        
                 }                    
-break;
+                break;
 
             default:
                 break;
