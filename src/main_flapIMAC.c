@@ -42,7 +42,7 @@ Entity stats_bosses[NBBOSSTYPES];
 int level_isLoaded = 0;
 int level_w = 0;
 int level_h = 0;
-float level_windowSpeed = 0.02;
+float level_windowSpeed = 0.002;
 float level_windowOffset = 0.00;
 float level_bgSpeed=0.75;
 
@@ -151,6 +151,7 @@ int main(int argc, char** argv) {
         curr_frame_tick = SDL_GetTicks();
         
         SDL_Event e;
+
         
         if (gameIsRunning) { //we are in the game.
             if (!level_isLoaded) {
@@ -167,8 +168,6 @@ int main(int argc, char** argv) {
             drawMenu();
             menuEvents(e);
         }
-
-        globalEvents(e);
 
         SDL_GL_SwapBuffers();
         Uint32 elapsedTime = SDL_GetTicks() - curr_frame_tick;
@@ -301,8 +300,9 @@ void gameRender() {
 
 }
 
-void globalEvents(SDL_Event e) {
-    //handling menu events
+
+void gameEvents(SDL_Event e) {
+    //gameEvents handling
     while(SDL_PollEvent(&e)) {
 
         switch(e.type) {
@@ -315,18 +315,6 @@ void globalEvents(SDL_Event e) {
                 WINDOW_WIDTH = e.resize.w;
                 WINDOW_HEIGHT = e.resize.h;
                 resizeViewport();
-
-            default:
-                break;
-        }
-    }
-}
-
-void gameEvents(SDL_Event e) {
-    //gameEvents handling
-    while(SDL_PollEvent(&e)) {
-
-        switch(e.type) {
 
             case SDL_KEYDOWN:
                 printf("touche pressée (code = %d)\n", e.key.keysym.sym);
@@ -409,6 +397,21 @@ void menuEvents(SDL_Event e) {
     while(SDL_PollEvent(&e)) {
 
         switch(e.type) {
+
+            case SDL_KEYDOWN:
+                 if (e.key.keysym.sym==27){ ///escape
+                    loop=0;
+                }    
+                break;
+
+            case SDL_QUIT:
+                loop = 0;
+                break;
+
+            case SDL_VIDEORESIZE:
+                WINDOW_WIDTH = e.resize.w;
+                WINDOW_HEIGHT = e.resize.h;
+                resizeViewport();
 
             case SDL_MOUSEBUTTONUP:
                 if (e.button.button == SDL_BUTTON_LEFT) {

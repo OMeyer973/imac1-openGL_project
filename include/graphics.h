@@ -38,7 +38,7 @@ extern float border_top;
 
 
 //textures
-#define NBTEXTURES 12
+#define NBTEXTURES 14
 extern char* textures_dir;
 extern GLuint textures[NBTEXTURES];
 

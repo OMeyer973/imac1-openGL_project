@@ -36,9 +36,9 @@ void initMobsStats() {
     float tmpShootAngles0[16] = {M_PI};
     Entity tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
-        tmpSpriteBox,   //BoundingBox spriteBox
-        0,              //int textureID 
-        tmpHitBox,      //BoundingBox hitBox        
+        boundingBoxSWNE(-1,-1,1,1),   //BoundingBox spriteBox
+        13,              //int textureID 
+        boundingBoxSWNE(-0.9,-0.9,0.9,0.9),      //BoundingBox hitBox        
         TYPEMOB,        //int type
         0,              //int subType
         30,             //int hp
@@ -59,7 +59,7 @@ void initMobsStats() {
     tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
-        4,              //int textureID 
+        0,              //int textureID 
         tmpHitBox,      //BoundingBox hitBox        
         TYPEMOB,        //int type
         1,              //int subType
@@ -112,7 +112,7 @@ void initBonusesStats() {
     Entity tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
-        1,              //int textureID 
+        12,              //int textureID 
         tmpHitBox,      //BoundingBox hitBox        
         TYPEBONUS,      //int type
         0,              //int subType
