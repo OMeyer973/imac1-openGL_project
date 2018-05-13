@@ -17,9 +17,9 @@
 
 //nombre de chaque type d'entité
 #define NBWALLTYPES 1
-#define NBMOBTYPES 3
+#define NBMOBTYPES 4
 #define NBBONUSTYPES 1
-#define NBBULLETTYPES 2
+#define NBBULLETTYPES 3
 #define NBBOSSTYPES 2
 
 
