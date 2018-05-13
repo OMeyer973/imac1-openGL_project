@@ -373,6 +373,18 @@ void gameEvents(SDL_Event e) {
                  }
             break;
 
+            case SDL_MOUSEMOTION:
+                if (e.button.x>(WINDOW_WIDTH/2)-350/2 && e.button.x<(WINDOW_WIDTH/2)+350/2 && e.button.y>(WINDOW_HEIGHT/1.75)-50/2 && e.button.y<(WINDOW_HEIGHT/1.75)+50/2 && triggerGame==0) 
+                {
+                              glPushMatrix();
+                              glTranslatef(screen_w/2,screen_h/2.5,0);
+                              glScalef(355,55,1);
+                              drawTexturedSquare(textures[9]);
+                              glPopMatrix();
+                                    
+                }                    
+break;
+
             default:
                 break;
 
