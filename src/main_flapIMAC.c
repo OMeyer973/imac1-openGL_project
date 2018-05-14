@@ -39,6 +39,7 @@ Entity stats_bullets[NBBULLETTYPES];
 Entity stats_bosses[NBBOSSTYPES];
 
 //level
+int numberOfLevels = 2;
 int level_isLoaded = 0;
 int level_w = 0;
 int level_h = 0;
@@ -92,8 +93,11 @@ int player_shooting = 0;
 int player_holdAngle = 0; //does the player want to stay at the angle it is ?
 float input_angle = 0;
 
+//game
+int currLevelId = 0;
 int gameOver = 0;
-
+int gameWin = 0;
+int reachedEndOfLevel = 0;
 
 void loadLevel(int i);
     //chargement du niveau i
@@ -155,8 +159,14 @@ int main(int argc, char** argv) {
         
         if (gameIsRunning) { //we are in the game.
             if (!level_isLoaded) {
-                loadLevel(1);
+                if (currLevelId < numberOfLevels) {
+ 
+                loadLevel(currLevelId);
                 level_isLoaded = 1;
+                }
+                else {
+                    gameWin = 1;
+                }
             }
 
             gameUpdate(curr_frame_tick - prev_frame_tick);
@@ -217,6 +227,7 @@ void loadLevel(int i) {
     level_boss = tmp2;
 
     level_windowOffset = 0.00;
+    gameOver = 0;
 }
 
 void gameUpdate(int dt) {
@@ -226,13 +237,38 @@ void gameUpdate(int dt) {
     movePlayer(dt);
     keepPlayerInBox(game_box);
 
-    //shooting physics
+    //logic update
+
+    if (player->hp <= 0) {
+        gameOver = 1;
+    }
+
+    if (gameOver || gameWin) {
+        currLevelId = 0;
+        gameIsRunning = 0;
+        level_isLoaded = 0;
+        reachedEndOfLevel = 0;
+    }
+
+    if (game_box.ne.x >= level_w-1) {
+        reachedEndOfLevel = 1;
+
+    }
+    
+    if (reachedEndOfLevel && level_boss->hp <= 0) {
+        currLevelId += 1;
+        level_isLoaded = 0;
+        reachedEndOfLevel = 0;
+    }
+    
+    //physics update
     if (player_shooting) {
             entityShootsBullet(player, dt, &level_playerBullets);
     }
     if (player->invTime > 0)
         player->invTime -= dt;
     
+
     doBonusesPhysics(&level_bonuses, dt);
     
     doWallsPhysics(&level_walls, dt);
@@ -241,15 +277,14 @@ void gameUpdate(int dt) {
     doBulletsPhysics(&level_playerBullets, dt,  &level_mobs);
  
     doBulletsPhysics(&level_mobBullets, dt,  &player);
-
+    
     //moving the viewport
-    if (game_box.ne.x < level_w-1) {
+    if (!reachedEndOfLevel) {
         level_windowOffset+=level_windowSpeed*dt;
         game_box.sw.x+=level_windowSpeed*dt;
         game_box.ne.x+=level_windowSpeed*dt;
         player->anchor.x+=level_windowSpeed*dt*level_bgSpeed;
     }
-
 }
 
 void gameRender() {
@@ -284,7 +319,7 @@ void gameRender() {
 
         drawEntityList(level_mobBullets);
         
-        /*
+        
         drawEntityListHitBoxes(level_mobBullets);
         drawEntityListHitBoxes(level_walls);
         drawEntityListHitBoxes(player);
@@ -292,13 +327,17 @@ void gameRender() {
         drawEntityListHitBoxes(level_mobs);
         drawEntityListHitBoxes(level_playerBullets);
         drawBoundinBox(game_box);
-        */
+        
     exitview();
     
     //dessin des bordures de UI
     drawBorders();
 
     drawStats(player);
+
+    if (reachedEndOfLevel){
+        //TODO : draw boss stats
+    }
 
 }
 
