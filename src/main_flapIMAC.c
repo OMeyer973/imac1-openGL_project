@@ -269,29 +269,30 @@ void gameRender() {
 
         // drawing walls
         drawEntityList(level_walls);
-        drawEntityListHitBoxes(level_walls);
 
         // drawing player
         drawEntityList(player);
-        drawEntityListHitBoxes(player);
 
         // drawing bonuses
         drawEntityList(level_bonuses);
-        drawEntityListHitBoxes(level_bonuses);
 
         // drawing mobs 
         drawEntityList(level_mobs);
-        drawEntityListHitBoxes(level_mobs);
 
         // drawing bullets
         drawEntityList(level_playerBullets);
-        drawEntityListHitBoxes(level_playerBullets);
 
         drawEntityList(level_mobBullets);
-        drawEntityListHitBoxes(level_mobBullets);
         
+        /*
+        drawEntityListHitBoxes(level_mobBullets);
+        drawEntityListHitBoxes(level_walls);
+        drawEntityListHitBoxes(player);
+        drawEntityListHitBoxes(level_bonuses);
+        drawEntityListHitBoxes(level_mobs);
+        drawEntityListHitBoxes(level_playerBullets);
         drawBoundinBox(game_box);
-
+        */
     exitview();
     
     //dessin des bordures de UI
