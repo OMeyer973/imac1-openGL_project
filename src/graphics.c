@@ -229,7 +229,7 @@ void drawBG() {
 
   }
 
-void drawStats(EntityList player) {
+void drawStats(EntityList player, int Id) {
     int j=0;
     int maxHeart=(player->hp)/10;
     glPushMatrix();     
@@ -237,7 +237,7 @@ void drawStats(EntityList player) {
             glPushMatrix(); 
                 glTranslatef(50+j,700,0);
                 glScalef(20, 20,1);
-                drawTexturedSquare(textures[7]);
+                drawTexturedSquare(textures[Id]);
             glPopMatrix();
             j+=20; 
         }

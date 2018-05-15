@@ -333,10 +333,13 @@ void gameRender() {
     //dessin des bordures de UI
     drawBorders();
 
-    drawStats(player);
+    drawStats(player,7);
 
     if (reachedEndOfLevel){
-        //TODO : draw boss stats
+    glPushMatrix();
+        glTranslatef(0,-676,0);   
+        drawStats(level_boss,21);
+    glPopMatrix();
     }
 
 }
