@@ -5,7 +5,11 @@
 // ***************************************** //
 
 void loadLevel(int i) {
+	printf("loading level\n");
     //chargement du niveau
+
+
+    //TODO : EMPTY ALL LISTS BEFORE LOADING !
 
 	//making level
     char levelPath[16];
@@ -36,7 +40,7 @@ void loadLevel(int i) {
 
     // ---- logic reset ---- //
 	level_isLoaded = 1;
-	menu_isLoaded = 1;
+	menu_isLoaded = 0;
     level_windowOffset = 0.00;
     
     //game
@@ -60,8 +64,8 @@ void loadLevel(int i) {
 	input_angle = 0;
 }
 
-void gameUpdate(int dt) {
-    //all of the game physics calculations for the time dt.
+int gameUpdate(int dt) {
+    //all of the game physics calculations for the time dt. returns 1 if we can proceed to the render. 0 of not
     //player input
     getAngleFromKeys();
     movePlayer(dt);
@@ -71,8 +75,8 @@ void gameUpdate(int dt) {
 
     if (player->hp <= 0) {
         gameOver = 1;
-        musicMenu();
-
+        gameIsRunning = 0;
+        return 0;
     }
 
     if (gameWin) {
@@ -82,18 +86,6 @@ void gameUpdate(int dt) {
         reachedEndOfLevel = 0;
     }
 
-    if (gameOver) {
-       // DOESN'T DISPLAY GAME OVER SCREEN , NEED FIX 
-
-       // glDisable(GL_DEPTH_TEST);
-       // glClear(GL_DEPTH_BUFFER_BIT);
-       // drawGameOver();
-       // SDL_Delay(3000);
-        currLevelId = 0;
-        gameIsRunning = 0;
-        level_isLoaded = 0;
-        reachedEndOfLevel = 0;
-    }
     if (game_box.ne.x >= level_w-1) {
         reachedEndOfLevel = 1;
     }
@@ -128,6 +120,7 @@ void gameUpdate(int dt) {
         game_box.ne.x+=level_windowSpeed*dt;
         player->anchor.x+=level_windowSpeed*dt*level_bgSpeed;
     }
+    return 1;
 }
 
 void gameRender() {
@@ -184,7 +177,9 @@ void gameRender() {
         drawStats(level_boss,21);
     glPopMatrix();
     }
-
+    if (gameOver) {
+    	drawGameOver();
+    }
 }
 
 

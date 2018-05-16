@@ -37,8 +37,8 @@ extern int menu_isLoaded;
 
 void loadLevel(int i);
     //chargement du niveau i
-void gameUpdate(int dt);
-    //all of the game physics calculations for the time dt.
+int gameUpdate(int dt);
+    //all of the game physics calculations for the time dt. returns 1 if we can proceed to the render. 0 of not
 void gameRender();
     //painting the current frame
 void gameEvents(SDL_Event e);

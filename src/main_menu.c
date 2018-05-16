@@ -3,6 +3,7 @@
 
 
 void loadMenu() {
+    printf("loading menu\n");
     //load the menu
 
     //music
@@ -26,6 +27,10 @@ void loadMenu() {
 
 void menuRender() {
     //print the menu frame
+    if (gameOver) {
+        gameOver = 0;
+        sleep(3);
+    }
     //BACKGROUND
     glPushMatrix();
     glTranslatef(screen_w/2, screen_h/2,0);

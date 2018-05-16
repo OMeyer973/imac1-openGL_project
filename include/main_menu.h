@@ -6,6 +6,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdio.h> 
+#include <stdlib.h> 
 #include "graphics.h" 
 
 //global variables
@@ -16,6 +17,7 @@ extern int Sourisx;
 extern int Sourisy;
 
 //game
+extern int gameOver;
 extern int gameIsRunning;
 
 //level
@@ -24,6 +26,8 @@ extern int level_isLoaded;
 //menu
 extern int menu_isLoaded;
 
+void loadMenu();
+    //load the menu
 void menuRender();
     //print the menu frame
 void menuEvents(SDL_Event e);

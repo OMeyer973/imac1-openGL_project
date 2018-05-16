@@ -42,12 +42,11 @@ int main(int argc, char** argv) {
         prev_frame_tick = curr_frame_tick;
         curr_frame_tick = SDL_GetTicks();
         
+        
         SDL_Event e;
         if (gameIsRunning) { //we are in the game.
-            printf("level_isLoaded %d\n", level_isLoaded);
             if (!level_isLoaded) {
                 if (currLevelId < NBLEVELS) {
-                printf("LOADING LEVEL LOOOL\n" );
                 loadLevel(currLevelId);
                     // Set in-game music
                     
@@ -57,11 +56,10 @@ int main(int argc, char** argv) {
                 }
             }
 
-            gameUpdate(curr_frame_tick - prev_frame_tick);
-
-            gameRender();
-            gameEvents(e);
-
+            if (gameUpdate(curr_frame_tick - prev_frame_tick)) {
+                gameRender();
+                gameEvents(e);
+            }
         } else { //we are in the menu.
             if (!menu_isLoaded) {
                 loadMenu();
