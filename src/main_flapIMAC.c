@@ -1,5 +1,6 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+#include <SDL/SDL_mixer.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdlib.h>
@@ -16,6 +17,7 @@
 #include "statistics.h"
 #include "level.h"
 #include "entity.h"
+#include "sounds.h"
 
 
 // ------------ VARIABLES ------------ //
@@ -82,7 +84,7 @@ int keyRight = 0;
 int keyLeft = 0;
 int Sourisx=0;
 int Sourisy=0;
-int gameIsRunning=1;
+int gameIsRunning=0;
 
 //player
 Entity* player;
@@ -99,6 +101,8 @@ int gameOver = 0;
 int gameWin = 0;
 int reachedEndOfLevel = 0;
 
+
+
 void loadLevel(int i);
     //chargement du niveau i
 void gameUpdate(int dt);
@@ -111,6 +115,7 @@ void gameEvents(SDL_Event e);
     //handling events for the game itself
 void menuEvents(SDL_Event e);
     //handling menu events
+
 
 
 // ------------ MAIN CODE ------------ //
@@ -128,10 +133,10 @@ int main(int argc, char** argv) {
     if(NULL == SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_RESIZABLE)) {
         fprintf(stderr, "Impossible d'ouvrir la fenetre. Fin du programme.\n");
         return EXIT_FAILURE;
-    }
+            }
     SDL_WM_SetCaption("Fimac-o-fish", NULL);
-
-
+    initSounds();
+            
     //initialisation des stats
     initMobsStats();
     initWallsStats();
@@ -144,25 +149,28 @@ int main(int argc, char** argv) {
     getSurfaces(textures_dir,textures);
 
     loadLevel(1);
-
+    
+    musicMenu();
+       
     //Boucle de dessin
     curr_frame_tick = SDL_GetTicks();
     resizeViewport();
     glClearColor(0.1, 0.1, 0.1 ,1.0);
+
     while(loop) {
 
         prev_frame_tick = curr_frame_tick;
         curr_frame_tick = SDL_GetTicks();
         
         SDL_Event e;
-
-        
         if (gameIsRunning) { //we are in the game.
             if (!level_isLoaded) {
                 if (currLevelId < numberOfLevels) {
- 
+                musicGame();
                 loadLevel(currLevelId);
                 level_isLoaded = 1;
+                    // Set in-game music
+                    
                 }
                 else {
                     gameWin = 1;
@@ -170,11 +178,12 @@ int main(int argc, char** argv) {
             }
 
             gameUpdate(curr_frame_tick - prev_frame_tick);
+
             gameRender();
             gameEvents(e);
 
         } else { //we are in the menu.
-
+    
             drawMenu();
             menuEvents(e);
         }
@@ -189,6 +198,7 @@ int main(int argc, char** argv) {
     // Libération des données GPU
     //glDeleteTextures(1, &textureID);
 
+    Mix_CloseAudio(); //Fermeture de l'API 
     // Liberation des ressources associées à la SDL
     SDL_Quit();
 
@@ -241,17 +251,32 @@ void gameUpdate(int dt) {
 
     if (player->hp <= 0) {
         gameOver = 1;
+        musicMenu();
+
     }
 
-    if (gameOver || gameWin) {
+    if (gameWin) {
         currLevelId = 0;
         gameIsRunning = 0;
         level_isLoaded = 0;
         reachedEndOfLevel = 0;
     }
 
+    if (gameOver) {
+       // DOESN'T DISPLAY GAME OVER SCREEN , NEED FIX 
+
+       // glDisable(GL_DEPTH_TEST);
+       // glClear(GL_DEPTH_BUFFER_BIT);
+       // drawGameOver();
+       // SDL_Delay(3000);
+        currLevelId = 0;
+        gameIsRunning = 0;
+        level_isLoaded = 0;
+        reachedEndOfLevel = 0;
+    }
     if (game_box.ne.x >= level_w-1) {
         reachedEndOfLevel = 1;
+
 
     }
     
@@ -343,6 +368,7 @@ void gameRender() {
     }
 
 }
+
 
 
 void gameEvents(SDL_Event e) {

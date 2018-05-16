@@ -270,3 +270,22 @@ void drawMenu(){
                 drawTexturedSquare(textures[10]);
                 glPopMatrix();
 }
+
+
+
+void drawGameOver(){
+         glPushMatrix();
+             glTranslatef(screen_w/2, screen_h/2,0);
+             glScalef(screen_w,screen_h,1);
+             drawTexturedSquare(textures[8]);
+         glPopMatrix();
+
+
+// GAME OVER
+                glPushMatrix();
+                glTranslatef(screen_w/2,screen_h/2.5,0);
+                glScalef(350,50,1);
+                drawTexturedSquare(textures[22]);
+                glPopMatrix();
+
+}
