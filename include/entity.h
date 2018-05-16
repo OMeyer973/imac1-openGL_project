@@ -1,11 +1,16 @@
 #ifndef ENTITY_H_
 #define ENTITY_H_
 
-#include "geometry.h"
+//#include "geometry.h"
 
 //Description of the level : walls, enemy ships, bulets in the air etc...
 
 //STRUCTURE
+typedef struct point2D {
+	float x, y;
+} Point2D;
+
+
 typedef struct boundingBox {
 	//the 2 bounding box corners : north-west & south-east
 	//sw.x < ne.x, sw.y < ne.y
@@ -39,6 +44,11 @@ typedef struct entity {
 } Entity, *EntityList;
 
 //FUNCTIONS
+
+Point2D pointXY(float x, float y);
+	//returns a point defined by its coordinates
+BoundingBox boundingBoxSWNE(float s, float w, float n, float e);
+	//returns a boundingbox defined by its sides
 
 EntityList instantiateEntity (
 		Point2D anchor,

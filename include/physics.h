@@ -23,9 +23,6 @@ extern int curr_frame_tick;
 
 //define physics elements : bounding boxes, internections
 
-
-BoundingBox boundingBoxSWNE(float s, float w, float n, float e);
-	//returns a boundingbox defined by its sides
 float lerp(float a, float b, float f);
     //linear interpolation between a and b at 100 * f percents
 void moveEntity(Entity* entity, int dt, float angle, float speed);

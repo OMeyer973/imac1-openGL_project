@@ -10,6 +10,7 @@
 #include <string.h>
 #include <dirent.h>
 #include <time.h> 
+#include <math.h> 
 
 extern unsigned int WINDOW_WIDTH;
 extern unsigned int WINDOW_HEIGHT;

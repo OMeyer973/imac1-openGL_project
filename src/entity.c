@@ -3,6 +3,26 @@
 
 #include "entity.h"
 
+
+Point2D pointXY(float x, float y) {
+	//returns a point defined by its coordinates
+	Point2D point;
+	point.x = x;
+	point.y = y;
+	return point;
+}
+
+
+BoundingBox boundingBoxSWNE(float s, float w, float n, float e) {
+	//returns a boundingbox defined by its sides
+	Point2D sw = pointXY(w,s);
+	Point2D ne = pointXY(e,n);
+	BoundingBox boundingBox;
+	boundingBox.sw = sw;
+	boundingBox.ne = ne;
+	return boundingBox;
+}
+
 //functions for handling linked list of entities
 
 EntityList instantiateEntity (
