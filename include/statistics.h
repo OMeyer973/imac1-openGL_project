@@ -4,6 +4,8 @@
 #include "level.h"
 #include "entity.h"
 
+#define NBLEVELS 2
+
 // Statistics of the differents ships types
 //identifiants des types d'entités
 #define TYPEWALL 0

@@ -2,7 +2,58 @@
 
 
 
+void loadMenu() {
+    //load the menu
 
+    //music
+    musicMenu();
+
+    // ---- logic reset ---- //
+    level_isLoaded = 0;
+    menu_isLoaded = 1;
+
+    //input    
+    int Sourisx=0;
+    int Sourisy=0;
+
+    //game
+    int gameIsRunning=0;
+    int gameOver = 0;
+    int gameWin = 0;
+    int reachedEndOfLevel = 0; 
+
+}
+
+void menuRender() {
+    //print the menu frame
+    //BACKGROUND
+    glPushMatrix();
+    glTranslatef(screen_w/2, screen_h/2,0);
+    glScalef(screen_w,screen_h,1);
+    drawTexturedSquare(textures[8]);
+    glPopMatrix();
+
+    //FISHIMAC
+    glPushMatrix();
+    glTranslatef(screen_w/2,screen_h-100,0);
+    glScalef(600,250,1);
+    drawTexturedSquare(textures[11]);
+    glPopMatrix();
+
+    // NEW GAME
+    glPushMatrix();
+    glTranslatef(screen_w/2,screen_h/2.5,0);
+    glScalef(350,50,1);
+    drawTexturedSquare(textures[9]);
+    glPopMatrix();
+
+    // INSTRUCTIONS
+    glPushMatrix();
+    glTranslatef(screen_w/2,screen_h/6,0);
+    glScalef(350,50,1);
+    drawTexturedSquare(textures[10]);
+    glPopMatrix();
+}
 
 void menuEvents(SDL_Event e) {
     //handling menu events

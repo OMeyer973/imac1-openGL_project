@@ -1,5 +1,6 @@
 #include "main_flapIMAC.h"
 
+
 // ------------ MAIN CODE ------------ //
 // *********************************** //
 
@@ -19,22 +20,18 @@ int main(int argc, char** argv) {
     SDL_WM_SetCaption("Fimac-o-fish", NULL);
             
     //initialisation des stats
+    printf("initiating stats\n");
     initMobsStats();
     initWallsStats();
     initBulletsStats();
     initBonusesStats();
-    printf("initiating player\n");
     initPlayerStats();
 
     // Remplissage du tableau de textures 
     getSurfaces(textures_dir,textures);
 
-    //initSounds();
-
-    loadLevel(1);
-    
-    musicMenu();
-       
+    initSounds();
+   
     //Boucle de dessin
     curr_frame_tick = SDL_GetTicks();
     resizeViewport();
@@ -47,11 +44,11 @@ int main(int argc, char** argv) {
         
         SDL_Event e;
         if (gameIsRunning) { //we are in the game.
+            printf("level_isLoaded %d\n", level_isLoaded);
             if (!level_isLoaded) {
-                if (currLevelId < numberOfLevels) {
-                musicGame();
+                if (currLevelId < NBLEVELS) {
+                printf("LOADING LEVEL LOOOL\n" );
                 loadLevel(currLevelId);
-                level_isLoaded = 1;
                     // Set in-game music
                     
                 }
@@ -66,8 +63,10 @@ int main(int argc, char** argv) {
             gameEvents(e);
 
         } else { //we are in the menu.
-    
-            drawMenu();
+            if (!menu_isLoaded) {
+                loadMenu();
+            }
+            menuRender();
             menuEvents(e);
         }
 

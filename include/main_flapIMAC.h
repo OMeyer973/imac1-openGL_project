@@ -43,7 +43,6 @@ Entity stats_bullets[NBBULLETTYPES];
 Entity stats_bosses[NBBOSSTYPES];
 
 //level
-int numberOfLevels = 2;
 int level_isLoaded = 0;
 int level_w = 0;
 int level_h = 0;
@@ -59,6 +58,9 @@ EntityList level_bonuses;
 EntityList level_mobBullets;
 EntityList level_playerBullets;
 Entity* level_boss;
+
+//menu
+int menu_isLoaded = 0;
 
 //screen layout
 float screen_w = 1080;

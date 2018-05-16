@@ -8,17 +8,24 @@
 #include <stdio.h> 
 #include "graphics.h" 
 
-
 //global variables
 int loop;
 
 //input
-int Sourisx;
-int Sourisy;
+extern int Sourisx;
+extern int Sourisy;
 
 //game
-int gameIsRunning;
+extern int gameIsRunning;
 
+//level
+extern int level_isLoaded;
+
+//menu
+extern int menu_isLoaded;
+
+void menuRender();
+    //print the menu frame
 void menuEvents(SDL_Event e);
     //handling menu events
 

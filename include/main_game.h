@@ -30,9 +30,10 @@ extern EntityList level_bonuses;
 extern EntityList level_mobBullets;
 extern EntityList level_playerBullets;
 extern Entity* level_boss;
+extern int player_shooting;
 
-//level
-int player_shooting;
+//menu
+extern int menu_isLoaded;
 
 void loadLevel(int i);
     //chargement du niveau i

@@ -7,6 +7,7 @@
 void loadLevel(int i) {
     //chargement du niveau
 
+	//making level
     char levelPath[16];
     sprintf(levelPath, "map/level%d.ppm", i);
     
@@ -30,8 +31,33 @@ void loadLevel(int i) {
     }
     level_boss = tmp2;
 
+    //music init
+	musicGame();
+
+    // ---- logic reset ---- //
+	level_isLoaded = 1;
+	menu_isLoaded = 1;
     level_windowOffset = 0.00;
-    gameOver = 0;
+    
+    //game
+	gameIsRunning=1;
+	gameOver = 0;
+	gameWin = 0;
+	reachedEndOfLevel = 0;
+
+	//input
+	keyUp=0;
+	keyDown=0;
+	keyRight = 0;
+	keyLeft = 0;
+	
+	//player
+	player_speed = 0;
+	player_goX=0; //1 if going right, -1 if going left
+	player_goY=0; //1 if going up, -1 if going down
+	player_shooting = 0;
+	player_holdAngle = 0; //does the player want to stay at the angle it is ?
+	input_angle = 0;
 }
 
 void gameUpdate(int dt) {
