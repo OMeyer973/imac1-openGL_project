@@ -25,7 +25,7 @@ void loadLevel(int i) {
     
     game_scale = game_h / (level_h+1);
     game_box = boundingBoxSWNE(0.5, 0.01, (float)level_h+0.5, (level_h+1) * game_ratio - 0.01);
-
+    load_box = boundingBoxSWNE(game_box.sw.y-5, game_box.sw.x-5, game_box.ne.y+5, game_box.ne.x+5);
     player = copyEntity(&stats_player);
     player->anchor.x = 2;
     player->anchor.y = level_h/2;
@@ -125,7 +125,9 @@ int gameUpdate(int dt) {
         level_windowOffset+=level_windowSpeed*dt;
         game_box.sw.x+=level_windowSpeed*dt;
         game_box.ne.x+=level_windowSpeed*dt;
-        player->anchor.x+=level_windowSpeed*dt*level_bgSpeed;
+    	load_box.sw.x+=level_windowSpeed*dt;
+        load_box.ne.x+=level_windowSpeed*dt;
+    	player->anchor.x+=level_windowSpeed*dt*level_bgSpeed;
     }
     else if (bossTrigger){
         bossTrigger=0;
@@ -152,9 +154,6 @@ void gameRender() {
         // drawing walls
         drawEntityList(level_walls);
 
-        // drawing player
-        drawEntityList(player);
-
         // drawing bonuses
         drawEntityList(level_bonuses);
 
@@ -164,9 +163,12 @@ void gameRender() {
         // drawing bullets
         drawEntityList(level_playerBullets);
 
+        // drawing player
+        drawEntityList(player);
+
         drawEntityList(level_mobBullets);
         
-        
+        /*
         drawEntityListHitBoxes(level_mobBullets);
         drawEntityListHitBoxes(level_walls);
         drawEntityListHitBoxes(player);
@@ -174,7 +176,8 @@ void gameRender() {
         drawEntityListHitBoxes(level_mobs);
         drawEntityListHitBoxes(level_playerBullets);
         drawBoundinBox(game_box);
-        
+        drawBoundinBox(load_box);
+        */
     exitview();
     
     //dessin des bordures de UI

@@ -179,7 +179,7 @@ void doBulletsPhysics(EntityList* list, int dt, EntityList* targetList) {
         tmp = tmp->next;
         
         killDeadEntity(&tmp2, list);
-        if (tmp2 !=NULL && !collisionEB(*tmp2, game_box)) {
+        if (tmp2 !=NULL && !collisionEB(*tmp2, load_box)) {
             removeEntity(&tmp2, list);
         }
     }
@@ -207,8 +207,8 @@ void doMobsPhysics(EntityList* list, int dt, EntityList* bulletList) {
         
         killDeadEntity(&tmp2, list);
         
-        if (tmp2 != NULL && !collisionEB(*tmp2, game_box)) {
-            if (tmp2->anchor.x + tmp2->hitBox.sw.x < game_box.ne.x) {
+        if (tmp2 != NULL && !collisionEB(*tmp2, load_box)) {
+            if (tmp2->anchor.x + tmp2->hitBox.sw.x < load_box.ne.x) {
                 removeEntity(&tmp2, list);
             } 
             /*
@@ -246,8 +246,6 @@ void doWallsPhysics(EntityList* list, int dt) {
     // do all of the physics computation for the given Wall list during the time dt
     EntityList tmp = *list;
     EntityList tmp2 = tmp;
-    
-    int screenPassed = 0;
 
     while (tmp != NULL) {
 
@@ -260,7 +258,20 @@ void doWallsPhysics(EntityList* list, int dt) {
         tmp2 = tmp;
         tmp = tmp->next;
         
-        if (!collisionEB(*tmp2, game_box)) {
+
+        if (tmp2 != NULL && !collisionEB(*tmp2, load_box)) {
+            if (tmp2->anchor.x + tmp2->hitBox.sw.x < load_box.ne.x) {
+                removeEntity(&tmp2, list);
+            } 
+            // optimisation : ne calcule pas les mobs à droite de l'écran mais fait des bugs
+            else if (tmp != NULL) 
+                tmp = tmp->next;
+            
+        }
+
+        /*
+        //ARCHIVE
+        if (!collisionEB(*tmp2, load_box)) {
             if (!screenPassed) {
                 removeEntity(&tmp2, list);
             } 
@@ -268,6 +279,7 @@ void doWallsPhysics(EntityList* list, int dt) {
         } else {
             screenPassed = 1;
         }
+        */
     }
 }
 
@@ -291,7 +303,7 @@ void doBonusesPhysics(EntityList* list, int dt) {
             removeEntity(&tmp2, list);
         }
         
-        if (tmp2 != NULL && !collisionEB(*tmp2, game_box)) {
+        if (tmp2 != NULL && !collisionEB(*tmp2, load_box)) {
             if (!screenPassed) {
                 removeEntity(&tmp2, list);
             } 

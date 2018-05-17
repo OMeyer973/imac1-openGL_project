@@ -51,6 +51,7 @@ float level_windowOffset = 0.00;
 float level_bgSpeed=0.75;
 
 BoundingBox game_box;
+BoundingBox load_box;
 
 EntityList level_walls;
 EntityList level_mobs;
