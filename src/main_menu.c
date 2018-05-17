@@ -7,6 +7,7 @@ void loadMenu() {
     //load the menu
 
     //music
+    Mix_HaltChannel(-1);
     playMusic(0,0);
 
 

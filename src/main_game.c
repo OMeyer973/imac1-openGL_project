@@ -105,7 +105,6 @@ int gameUpdate(int dt) {
     
     //physics update
     if (player_shooting) {
-            playMusic(3,3);
             entityShootsBullet(player, dt, &level_playerBullets);
     }
     if (player->invTime > 0)
@@ -236,6 +235,8 @@ void gameEvents(SDL_Event e) {
                     player_goX = -1;
                 }
                 if (e.key.keysym.sym==32){ //space
+                                playMusic(3,3);
+
                     player_shooting = 1;
                     player->shootTime = player->shootDelay*0.05; 
                     //so that the player can shoot a bit faster if he presses several times the button instead of holding it down 
