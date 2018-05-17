@@ -6,9 +6,9 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdio.h> 
-#include "sounds.h" 
 #include <unistd.h> 
 #include "graphics.h" 
+#include "sounds.h" 
 
 //global variables
 int loop;

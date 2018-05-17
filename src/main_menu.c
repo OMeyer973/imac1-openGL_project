@@ -8,7 +8,7 @@ void loadMenu() {
 
     //music
     Mix_HaltChannel(-1);
-    playMusic(0,0);
+    playMusic(MUSICCANAL,0,1);
 
 
     // ---- logic reset ---- //

@@ -12,7 +12,11 @@
 #include <dirent.h>
 #include <time.h> 
 
+#define MUSICCANAL 0
+#define SFXCANAL 1
+
 #define NBSOUNDS 6
+#define MAXVOLUME 100
 
 //Game options 
 extern int currLevelId;
@@ -20,12 +24,18 @@ extern int gameOver;
 extern int gameWin;
 extern int reachedEndOfLevel;
 extern int gameIsRunning;
+
+//sound
 extern Mix_Chunk* sounds[NBSOUNDS];
+extern int currCanal;
+
 
 void initSounds();
+	 // Import Library 
 void loadMusics();
-void playMusic(int canal, int musique);
-
+    //loads the differents sound files on memory 
+void playMusic(int canal, int musique, float volume) ;
+    //plays a given music on a given canal
 
 
 #endif

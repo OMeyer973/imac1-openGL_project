@@ -4,6 +4,7 @@
 #include <math.h>
 #include "entity.h"
 #include "statistics.h"
+#include "sounds.h"
 
 extern int player_goX;
 extern int player_goY;

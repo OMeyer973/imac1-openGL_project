@@ -234,6 +234,8 @@ void entityShootsBullet(EntityList entity, int dt, EntityList* bulletList) {
             addEntityStart(bulletList, tmpEntity);
         }
         entity->shootTime += entity->shootDelay;
+        
+        if (entity->type == TYPEPLAYER) playMusic(SFXCANAL,3,0.5);
     }
     entity->shootTime -= dt;
 }

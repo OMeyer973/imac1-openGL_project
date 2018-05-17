@@ -42,7 +42,7 @@ void loadLevel(int i) {
 
     //music init
 
-    playMusic(1,1);
+    playMusic(MUSICCANAL,1,1);
 
     // ------------ logic reset ------------ //
 	level_isLoaded = 1;
@@ -129,7 +129,7 @@ int gameUpdate(int dt) {
     }
     else if (bossTrigger){
         bossTrigger=0;
-        playMusic(1,2);
+        playMusic(MUSICCANAL, 2, 1);
      }
     return 1;
 }
@@ -235,8 +235,6 @@ void gameEvents(SDL_Event e) {
                     player_goX = -1;
                 }
                 if (e.key.keysym.sym==32){ //space
-                                playMusic(3,3);
-
                     player_shooting = 1;
                     player->shootTime = player->shootDelay*0.05; 
                     //so that the player can shoot a bit faster if he presses several times the button instead of holding it down 
