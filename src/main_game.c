@@ -36,7 +36,8 @@ void loadLevel(int i) {
     level_boss = tmp2;
 
     //music init
-	musicGame();
+
+    playMusic(1,1);
 
     // ---- logic reset ---- //
 	level_isLoaded = 1;
@@ -48,6 +49,7 @@ void loadLevel(int i) {
 	gameOver = 0;
 	gameWin = 0;
 	reachedEndOfLevel = 0;
+    bossTrigger=1;
 
 	//input
 	keyUp=0;
@@ -98,6 +100,7 @@ int gameUpdate(int dt) {
     
     //physics update
     if (player_shooting) {
+            playMusic(3,3);
             entityShootsBullet(player, dt, &level_playerBullets);
     }
     if (player->invTime > 0)
@@ -120,6 +123,10 @@ int gameUpdate(int dt) {
         game_box.ne.x+=level_windowSpeed*dt;
         player->anchor.x+=level_windowSpeed*dt*level_bgSpeed;
     }
+    else if (bossTrigger){
+        bossTrigger=0;
+        playMusic(1,2);
+     }
     return 1;
 }
 

@@ -12,6 +12,7 @@
 #include <dirent.h>
 #include <time.h> 
 
+#define NBSOUNDS 6
 
 //Game options 
 extern int currLevelId;
@@ -19,13 +20,11 @@ extern int gameOver;
 extern int gameWin;
 extern int reachedEndOfLevel;
 extern int gameIsRunning;
-
-
+extern Mix_Chunk* sounds[NBSOUNDS];
 
 void initSounds();
-void musicBoss();
-void musicGame();
-void musicMenu();
+void loadMusics();
+void playMusic(int canal, int musique);
 
 
 

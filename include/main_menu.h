@@ -7,6 +7,7 @@
 #include <GL/glu.h>
 #include <stdio.h> 
 #include <stdlib.h> 
+#include "sounds.h" 
 #include "graphics.h" 
 
 //global variables
@@ -32,6 +33,7 @@ void menuRender();
     //print the menu frame
 void menuEvents(SDL_Event e);
     //handling menu events
+
 
 
 

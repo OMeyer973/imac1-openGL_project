@@ -12,6 +12,9 @@ int main(int argc, char** argv) {
         return EXIT_FAILURE;
     }
 
+    //Initiation de la SDL Audio
+    initSounds();
+
     // Ouverture d'une fenêtre et création d'un contexte OpenGL
     if(NULL == SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_RESIZABLE)) {
         fprintf(stderr, "Impossible d'ouvrir la fenetre. Fin du programme.\n");
@@ -30,7 +33,7 @@ int main(int argc, char** argv) {
     // Remplissage du tableau de textures 
     getSurfaces(textures_dir,textures);
 
-    initSounds();
+    loadMusics();
    
     //Boucle de dessin
     curr_frame_tick = SDL_GetTicks();

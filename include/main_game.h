@@ -32,6 +32,8 @@ extern EntityList level_playerBullets;
 extern Entity* level_boss;
 extern int player_shooting;
 
+//game 
+extern int bossTrigger; 
 //menu
 extern int menu_isLoaded;
 

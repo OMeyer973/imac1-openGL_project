@@ -7,7 +7,8 @@ void loadMenu() {
     //load the menu
 
     //music
-    musicMenu();
+    playMusic(0,0);
+
 
     // ---- logic reset ---- //
     level_isLoaded = 0;
