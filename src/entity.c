@@ -23,6 +23,15 @@ BoundingBox boundingBoxSWNE(float s, float w, float n, float e) {
 	return boundingBox;
 }
 
+void scaleBoundingBox(BoundingBox *b, float scale) {
+	//scales the bounding box by the given amount
+	b->sw.x *= scale;
+	b->sw.y *= scale;
+	b->ne.x *= scale;
+	b->ne.y *= scale;
+}
+
+
 //functions for handling linked list of entities
 
 EntityList instantiateEntity (

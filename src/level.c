@@ -42,11 +42,11 @@ int makeLevelFromPPM(char* filename) {
 						printf("\n");
 					} */
 				//if the pixel is not white (background color), add an object
-				if (r < 250 || g < 250 || b < 250)
+				if (r <= 254 && g <= 254 && b <= 254)
 					/*PPM image format : 
 						r encodes the object : wall or bonus or foe (50 by 50)
 						v encodes the type of the object (for foe or bonus, cf stats) : encoded 20 by 20, hence the division */
-					addObjectToLevel(x, 1+y, r / 50, g / 20);
+					addObjectToLevel(x, 1+y, r / 100, g / 20, (float)b / 50);
 			}
 		}
 		fclose(in);
@@ -58,17 +58,17 @@ int makeLevelFromPPM(char* filename) {
 	return 1;
 }
 
-int addObjectToLevel(int x, int y, int type, int subType){
+int addObjectToLevel(int x, int y, int type, int subType, float scale){
 	//add an object to the level in correct list
 	switch(type){
 		case TYPEWALL:
-			addWall(x, y, subType);
-			break;
-		case TYPEBONUS:
-			addBonus(x, y, subType);
+			addWall(x, y, subType, scale);
 			break;
 		case TYPEMOB:
-			addMob(x, y, subType);
+			addMob(x, y, subType, scale);
+			break;
+		case TYPEBONUS:
+			addBonus(x, y, subType, scale);
 			break;
 		default:
 			//printf("tried to add invalid object of type %d at %d %d\n", type, x, y);
@@ -78,12 +78,14 @@ int addObjectToLevel(int x, int y, int type, int subType){
 	return 1;
 }
 
-int addWall(int x, int y, int subType){
+int addWall(int x, int y, int subType, float scale){
 	//printf("adding wall\n");
 	if (subType < NBWALLTYPES){
 		//printf("subtype %d\n", subType);
 		EntityList tmpEntity = copyEntity(&stats_walls[subType]);
 		tmpEntity->anchor = pointXY(x,y);
+		scaleBoundingBox(&(tmpEntity->hitBox), scale);
+		scaleBoundingBox(&(tmpEntity->spriteBox), scale);
 		addEntityEnd(&level_walls, tmpEntity);
 		return 1;
 	}
@@ -91,11 +93,13 @@ int addWall(int x, int y, int subType){
 	return 0;
 }
 
-int addBonus(int x, int y, int subType){
+int addBonus(int x, int y, int subType, float scale){
 	//printf("adding bonus\n");
 	if (subType < NBBONUSTYPES){
 		EntityList tmpEntity = copyEntity(&stats_bonuses[subType]);
 		tmpEntity->anchor = pointXY(x,y);
+		scaleBoundingBox(&(tmpEntity->hitBox), scale);
+		scaleBoundingBox(&(tmpEntity->spriteBox), scale);
 		addEntityEnd(&level_bonuses, tmpEntity);
 		return 1;
 	}
@@ -103,11 +107,13 @@ int addBonus(int x, int y, int subType){
 	return 0;
 }
 
-int addMob(int x, int y, int subType){
+int addMob(int x, int y, int subType, float scale){
 	//printf("adding mob\n");
 	if (subType < NBMOBTYPES){
 		EntityList tmpEntity = copyEntity(&stats_mobs[subType]);
 		tmpEntity->anchor = pointXY(x,y);
+		scaleBoundingBox(&(tmpEntity->hitBox), scale);
+		scaleBoundingBox(&(tmpEntity->spriteBox), scale);
 		addEntityEnd(&level_mobs, tmpEntity);
 		return 1;
 	}

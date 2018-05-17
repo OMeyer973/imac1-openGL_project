@@ -9,13 +9,12 @@
 // Statistics of the differents ships types
 //identifiants des types d'entités
 #define TYPEWALL 0
-#define TYPEBONUS 1
-#define TYPEMOB 2
+#define TYPEMOB 1
+#define TYPEBONUS 2
 #define TYPEBOSS 3
-#define TYPEEXIT 4
 
-#define TYPEPLAYER 5
-#define TYPEBULLET 6
+#define TYPEPLAYER 4
+#define TYPEBULLET 5
 
 //nombre de chaque type d'entité
 #define NBWALLTYPES 3

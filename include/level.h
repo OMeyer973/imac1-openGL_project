@@ -25,11 +25,11 @@ extern EntityList level_playerBullets;
 
 int makeLevelFromPPM(char* filename);
 	//takes a PPM filepath as input and add objects to the 3 lists describing a level : walls list, foes list, bonus list
-int addObjectToLevel(int x, int y, int obj, int type);
+int addObjectToLevel(int x, int y, int obj, int type, float scale);
 	//add an object to the level in correct list
 
 
-int addWall(int x, int y, int subType);
-int addBonus(int x, int y, int subType);
-int addMob(int x, int y, int subType);
+int addWall(int x, int y, int subType, float scale);
+int addBonus(int x, int y, int subType, float scale);
+int addMob(int x, int y, int subType, float scale);
 #endif

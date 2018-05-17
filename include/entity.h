@@ -49,6 +49,8 @@ Point2D pointXY(float x, float y);
 	//returns a point defined by its coordinates
 BoundingBox boundingBoxSWNE(float s, float w, float n, float e);
 	//returns a boundingbox defined by its sides
+void scaleBoundingBox(BoundingBox *b, float scale);
+	//scales the bounding box by the given amount
 
 EntityList instantiateEntity (
 		Point2D anchor,

@@ -83,7 +83,7 @@ void initMobsStats() {
         14,              //int textureID 
         boundingBoxSWNE(-10,-10,10,10),      //BoundingBox hitBox        
         TYPEMOB,       //int type
-        0,              //int subType
+        2,              //int subType
         500,             //int hp
         2,              //int bulletType
         0,              //float angle (radians)
@@ -103,7 +103,7 @@ void initMobsStats() {
         16,              //int textureID 
         tmpHitBox,      //BoundingBox hitBox        
         TYPEMOB,        //int type
-        1,              //int subType
+        3,              //int subType
         50,             //int hp
         1,              //int bulletType
         M_PI/2,         //float angle (radians)
@@ -191,9 +191,9 @@ void initWallsStats() {
     //WALL 1 - ROCK UP
     stats_walls[1] = *instantiateEntity (
         anchor,         //Point2D anchor
-        boundingBoxSWNE(-3,-2,5,6),   //BoundingBox spriteBox
+        boundingBoxSWNE(-0.5,-0.5,0.5,0.5),   //BoundingBox spriteBox
         19,              //int textureID 
-        boundingBoxSWNE(-1,1,4.2,5.2),      //BoundingBox hitBox        
+        boundingBoxSWNE(-0.4,-0.4,0.4,0.4),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         0,              //int subType
         30,             //int hp
@@ -211,9 +211,9 @@ void initWallsStats() {
      //WALL 2 - ROCK DOWN
     stats_walls[2] = *instantiateEntity (
         anchor,         //Point2D anchor
-        boundingBoxSWNE(-5,-6,3,2),   //BoundingBox spriteBox
+        boundingBoxSWNE(-0.5,-0.5,0.5,0.5),   //BoundingBox spriteBox
         19,              //int textureID 
-        boundingBoxSWNE(-4.2,-5.2,1,-1),      //BoundingBox hitBox        
+        boundingBoxSWNE(-0.4,-0.4,0.4,-0.4),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         0,              //int subType
         30,             //int hp
