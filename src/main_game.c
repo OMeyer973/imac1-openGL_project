@@ -183,12 +183,12 @@ void gameRender() {
     //dessin des bordures de UI
     drawBorders();
 
-    drawStats(player,7);
+    drawStats(player,01);
 
     if (reachedEndOfLevel){
     glPushMatrix();
         glTranslatef(0,-676,0);   
-        drawStats(level_boss,21);
+        drawStats(level_boss,02);
     glPopMatrix();
     }
 

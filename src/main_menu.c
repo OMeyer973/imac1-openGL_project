@@ -40,21 +40,21 @@ void menuRender() {
     glPushMatrix();
     glTranslatef(screen_w/2, screen_h/2,0);
     glScalef(screen_w,screen_h,1);
-    drawTexturedSquare(textures[8]);
+    drawTexturedSquare(textures[13]);
     glPopMatrix();
 
     //FISHIMAC
     glPushMatrix();
     glTranslatef(screen_w/2,screen_h-100,0);
     glScalef(600,250,1);
-    drawTexturedSquare(textures[11]);
+    drawTexturedSquare(textures[16]);
     glPopMatrix();
 
     // NEW GAME
     glPushMatrix();
     glTranslatef(screen_w/2,screen_h/2.5,0);
     glScalef(350,50,1);
-    drawTexturedSquare(textures[9]);
+    drawTexturedSquare(textures[15]);
     glPopMatrix();
 
     // INSTRUCTIONS
@@ -101,7 +101,7 @@ void menuEvents(SDL_Event e) {
                     glPushMatrix();
                     glTranslatef(screen_w/2,screen_h/2.5,0);
                     glScalef(355,55,1);
-                    drawTexturedSquare(textures[9]);
+                    drawTexturedSquare(textures[15]);
                     glPopMatrix();        
                 }                    
                 break;

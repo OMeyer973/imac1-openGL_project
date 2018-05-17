@@ -196,15 +196,15 @@ void drawBorders() {
         glTranslatef(screen_w*1.5, screen_h/2,0);
         glTranslatef(-(int)(level_windowOffset*game_scale+screen_w)%(int)(screen_w*2),0,0);
         glScalef(screen_w, screen_h,1);
-        drawTexturedSquare(textures[2]);
-        drawTexturedSquare(textures[3]);
+        drawTexturedSquare(textures[12]);
+        drawTexturedSquare(textures[11]);
     glPopMatrix();
     glPushMatrix();
         glTranslatef((int)(-level_windowOffset*game_scale)%(int)(screen_w*2),0,0);
         glTranslatef(screen_w*1.5, screen_h/2,0);
         glScalef(-screen_w, screen_h,1);
-        drawTexturedSquare(textures[2]);
-        drawTexturedSquare(textures[3]);
+        drawTexturedSquare(textures[12]);
+        drawTexturedSquare(textures[11]);
     glPopMatrix();
 
   
@@ -217,14 +217,14 @@ void drawBG() {
         glTranslatef(screen_w*1.5, screen_h/2,0);
         glTranslatef(-(int)((level_windowOffset*game_scale*(level_bgSpeed))+screen_w)%(int)(screen_w*2),0,0);
         glScalef(screen_w, screen_h,1);
-        drawTexturedSquare(textures[1]);
+        drawTexturedSquare(textures[14]);
     glPopMatrix();
 
     glPushMatrix();
         glTranslatef((int)(-level_windowOffset*game_scale*(level_bgSpeed))%(int)(screen_w*2),0,0);
         glTranslatef(screen_w*1.5, screen_h/2,0);
         glScalef(-screen_w, screen_h,1);
-        drawTexturedSquare(textures[1]);
+        drawTexturedSquare(textures[14]);
     glPopMatrix();
 
   }
@@ -251,7 +251,7 @@ void drawGameOver(){
     glPushMatrix();
         glTranslatef(screen_w/2,screen_h/2.5,0);
         glScalef(350,50,1);
-        drawTexturedSquare(textures[22]);
+        drawTexturedSquare(textures[17]);
     glPopMatrix();
 }
 
@@ -261,6 +261,6 @@ void drawGameWin(){
     glPushMatrix();
         glTranslatef(screen_w/2,screen_h/2.5,0);
         glScalef(350,50,1);
-        drawTexturedSquare(textures[23]);
+        drawTexturedSquare(textures[18]);
     glPopMatrix();
 }

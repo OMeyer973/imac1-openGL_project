@@ -7,7 +7,7 @@ void initPlayerStats() {
     stats_player = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-1,-1,1,1),   //BoundingBox spriteBox
-        4,              //int textureID 
+        00,              //int textureID 
          boundingBoxSWNE(-0.6,-0.7,0.6,0.7),      //BoundingBox hitBox        
         TYPEPLAYER,     //int type
         0,              //int subType
@@ -35,7 +35,7 @@ void initMobsStats() {
     stats_mobs[0] = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-1,-1,1,1),   //BoundingBox spriteBox
-        13,              //int textureID 
+        21,              //int textureID 
         boundingBoxSWNE(-0.9,-0.9,0.9,0.9),      //BoundingBox hitBox        
         TYPEMOB,        //int type
         0,              //int subType
@@ -57,7 +57,7 @@ void initMobsStats() {
     stats_mobs[1] = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
-        17,              //int textureID 
+        24,              //int textureID 
         tmpHitBox,      //BoundingBox hitBox        
         TYPEMOB,        //int type
         1,              //int subType
@@ -80,7 +80,7 @@ void initMobsStats() {
         stats_mobs[2] =  *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-10,-10,10,10),   //BoundingBox spriteBox
-        14,              //int textureID 
+        22,              //int textureID 
         boundingBoxSWNE(-10,-10,10,10),      //BoundingBox hitBox        
         TYPEMOB,       //int type
         2,              //int subType
@@ -100,12 +100,12 @@ void initMobsStats() {
     stats_mobs[3]  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
-        16,              //int textureID 
+        23,              //int textureID 
         tmpHitBox,      //BoundingBox hitBox        
         TYPEMOB,        //int type
         3,              //int subType
         50,             //int hp
-        1,              //int bulletType
+        0,              //int bulletType
         M_PI/2,         //float angle (radians)
         0.4,            //float speed
         1000,           //float shootDelay (in ms)
@@ -121,7 +121,7 @@ void initMobsStats() {
     stats_mobs[4] = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
-        0,              //int textureID 
+        20,              //int textureID 
         tmpHitBox,      //BoundingBox hitBox        
         TYPEMOB,        //int type
         1,              //int subType
@@ -147,7 +147,7 @@ void initBonusesStats() {
     stats_bonuses[0]  = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),   //BoundingBox spriteBox
-        12,              //int textureID 
+        50,              //int textureID 
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),      //BoundingBox hitBox        
         TYPEBONUS,      //int type
         0,              //int subType
@@ -171,7 +171,7 @@ void initWallsStats() {
         stats_walls[0]  = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),   //BoundingBox spriteBox
-        6,              //int textureID 
+        41,              //int textureID 
         boundingBoxSWNE(-0.4,-0.4,0.4,0.4),      //BoundingBox hitBox        
         TYPEWALL,       //int type
         0,              //int subType
@@ -192,7 +192,7 @@ void initWallsStats() {
     stats_walls[1] = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),   //BoundingBox spriteBox
-        19,              //int textureID 
+        42,              //int textureID 
         boundingBoxSWNE(-0.4,-0.4,0.4,0.4),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         0,              //int subType
@@ -212,7 +212,7 @@ void initWallsStats() {
     stats_walls[2] = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),   //BoundingBox spriteBox
-        19,              //int textureID 
+        43,              //int textureID 
         boundingBoxSWNE(-0.4,-0.4,0.4,-0.4),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         0,              //int subType
@@ -239,7 +239,7 @@ void initBulletsStats() {
     Entity tmpEntity  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
-        5,              //int textureID 
+        30,              //int textureID 
         tmpHitBox,      //BoundingBox hitBox        
         TYPEBULLET,     //int type
         0,              //int subType
@@ -260,7 +260,7 @@ void initBulletsStats() {
     Entity tmpEntity2  = *instantiateEntity (
         anchor,         //Point2D anchor
         tmpSpriteBox,   //BoundingBox spriteBox
-        5,              //int textureID 
+        30,              //int textureID 
         tmpHitBox,      //BoundingBox hitBox        
         TYPEBULLET,     //int type
         0,              //int subType
@@ -280,7 +280,7 @@ void initBulletsStats() {
     Entity tmpEntity3  = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.5,-0.6,0.5,0.6),   //BoundingBox spriteBox
-        15,              //int textureID 
+        31,              //int textureID 
         boundingBoxSWNE(-0.5,-0.6,0.5,0.6),      //BoundingBox hitBox        
         TYPEBULLET,     //int type
         0,              //int subType
@@ -302,7 +302,7 @@ void initBulletsStats() {
  Entity tmpEntity4  = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.2,-0.2,0.2,0.2),   //BoundingBox spriteBox
-        18,              //int textureID 
+        32,              //int textureID 
         boundingBoxSWNE(-0.12,-0.12,0.12,0.12),      //BoundingBox hitBox        
         TYPEBULLET,     //int type
         0,              //int subType
