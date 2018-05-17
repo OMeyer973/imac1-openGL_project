@@ -14,14 +14,14 @@ void loadMenu() {
     menu_isLoaded = 1;
 
     //input    
-    int Sourisx=0;
-    int Sourisy=0;
+    Sourisx=0;
+     Sourisy=0;
 
     //game
-    int gameIsRunning=0;
-    int gameOver = 0;
-    int gameWin = 0;
-    int reachedEndOfLevel = 0; 
+    gameIsRunning=0;
+    gameOver = 0;
+    gameWin = 0;
+    reachedEndOfLevel = 0; 
 
 }
 

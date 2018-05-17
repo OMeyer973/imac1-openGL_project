@@ -56,10 +56,10 @@ int main(int argc, char** argv) {
                 }
             }
 
-            if (gameUpdate(curr_frame_tick - prev_frame_tick)) {
-                gameRender();
-                gameEvents(e);
-            }
+            gameUpdate(curr_frame_tick - prev_frame_tick);
+            gameRender();
+            gameEvents(e);
+
         } else { //we are in the menu.
             if (!menu_isLoaded) {
                 loadMenu();
