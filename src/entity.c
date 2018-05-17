@@ -141,6 +141,16 @@ void removeEntity(EntityList* entity, EntityList* list) {
 	}
 }
 
+void deleteList(EntityList* list) {
+	//delete all the entities of the list
+	if (*list == NULL)
+		return;
+	deleteList(&((*list)->next));
+	free(*list);
+	*list = NULL;
+}
+
+
 void printEntity(EntityList list) {
 	//prints all the parameters of an entity
 	printf("=================\nEntity list :\n");

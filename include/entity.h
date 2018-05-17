@@ -79,5 +79,7 @@ void addEntityEnd(EntityList* list, EntityList entity);
 	//adds the entity at the end of the list (only use with entity->next == NULL or the next entity will be lost in memory)
 void removeEntity(EntityList* entity, EntityList* list);
 	//remove the entity from the list it belongs to
+void deleteList(EntityList* list);
+	//delete all the entities of the list
 
 #endif

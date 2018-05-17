@@ -6,8 +6,8 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdio.h> 
-#include <stdlib.h> 
 #include "sounds.h" 
+#include <unistd.h> 
 #include "graphics.h" 
 
 //global variables
@@ -18,8 +18,11 @@ extern int Sourisx;
 extern int Sourisy;
 
 //game
-extern int gameOver;
+
 extern int gameIsRunning;
+extern int gameOver;
+extern int gameWin;
+extern int reachedEndOfLevel; 
 
 //level
 extern int level_isLoaded;

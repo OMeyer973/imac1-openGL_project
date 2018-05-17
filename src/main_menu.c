@@ -15,14 +15,12 @@ void loadMenu() {
     menu_isLoaded = 1;
 
     //input    
-    int Sourisx=0;
-    int Sourisy=0;
+    Sourisx=0;
+     Sourisy=0;
 
     //game
-    int gameIsRunning=0;
-    int gameOver = 0;
-    int gameWin = 0;
-    int reachedEndOfLevel = 0; 
+    gameIsRunning=0;
+    reachedEndOfLevel = 0; 
 
 }
 
@@ -30,6 +28,11 @@ void menuRender() {
     //print the menu frame
     if (gameOver) {
         gameOver = 0;
+        sleep(3);
+    }
+    if (gameWin) {
+        printf("YOU WIIIN\n");
+        gameWin = 0;
         sleep(3);
     }
     //BACKGROUND
