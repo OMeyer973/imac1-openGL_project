@@ -19,8 +19,6 @@ void loadMenu() {
 
     //game
     gameIsRunning=0;
-    gameOver = 0;
-    gameWin = 0;
     reachedEndOfLevel = 0; 
 
 }
@@ -29,6 +27,11 @@ void menuRender() {
     //print the menu frame
     if (gameOver) {
         gameOver = 0;
+        sleep(3);
+    }
+    if (gameWin) {
+        printf("YOU WIIIN\n");
+        gameWin = 0;
         sleep(3);
     }
     //BACKGROUND

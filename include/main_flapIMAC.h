@@ -46,7 +46,7 @@ Entity stats_bosses[NBBOSSTYPES];
 int level_isLoaded = 0;
 int level_w = 0;
 int level_h = 0;
-float level_windowSpeed = 0.002;
+float level_windowSpeed = 0.01;
 float level_windowOffset = 0.00;
 float level_bgSpeed=0.75;
 

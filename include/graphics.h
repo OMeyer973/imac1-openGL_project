@@ -39,7 +39,7 @@ extern float border_top;
 
 
 //textures
-#define NBTEXTURES 23
+#define NBTEXTURES 24
 extern char* textures_dir;
 extern GLuint textures[NBTEXTURES];
 
@@ -90,5 +90,8 @@ void drawMenu();
 
 void drawGameOver();
     // draws Game Over Screen
+
+void drawGameWin();
+    // draws Game Win Screen
 
 #endif

@@ -9,20 +9,13 @@ void loadLevel(int i) {
     //chargement du niveau
 
     // ------------ reseting existing entities ------------ //
-    //TODO : EMPTY ALL LISTS BEFORE LOADING !
+	deleteList(&player);
 	deleteList(&level_walls);
 	deleteList(&level_mobs);
 	deleteList(&level_bonuses);
 	deleteList(&level_mobBullets);
 	deleteList(&level_playerBullets);
-	/*
-	EntityList level_walls;
-	EntityList level_mobs;
-	EntityList level_bonuses;
-	EntityList level_mobBullets;
-	EntityList level_playerBullets;
-	Entity* level_boss;
-	*/
+
     // ------------ making level ------------ //
     char levelPath[16];
     sprintf(levelPath, "map/level%d.ppm", i);
@@ -189,8 +182,13 @@ void gameRender() {
         drawStats(level_boss,21);
     glPopMatrix();
     }
+
     if (gameOver) {
     	drawGameOver();
+    }
+    if (gameWin) {
+    	currLevelId = 0;
+    	drawGameWin();
     }
 }
 
