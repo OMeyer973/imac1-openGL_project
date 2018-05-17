@@ -98,6 +98,7 @@ int addBonus(int x, int y, int subType, float scale){
 	if (subType < NBBONUSTYPES){
 		EntityList tmpEntity = copyEntity(&stats_bonuses[subType]);
 		tmpEntity->anchor = pointXY(x,y);
+		tmpEntity->hp *= scale;
 		scaleBoundingBox(&(tmpEntity->hitBox), scale);
 		scaleBoundingBox(&(tmpEntity->spriteBox), scale);
 		addEntityEnd(&level_bonuses, tmpEntity);
@@ -112,6 +113,7 @@ int addMob(int x, int y, int subType, float scale){
 	if (subType < NBMOBTYPES){
 		EntityList tmpEntity = copyEntity(&stats_mobs[subType]);
 		tmpEntity->anchor = pointXY(x,y);
+		tmpEntity->hp *= scale;
 		scaleBoundingBox(&(tmpEntity->hitBox), scale);
 		scaleBoundingBox(&(tmpEntity->spriteBox), scale);
 		addEntityEnd(&level_mobs, tmpEntity);
