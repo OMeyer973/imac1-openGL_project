@@ -243,9 +243,9 @@ void drawStats(EntityList player, int Id) {
 
 void drawGameOver(){
     // GAME OVER
-    glPushMatrix();
-        glTranslatef(screen_w/2,screen_h/2.5,0);
-        glScalef(350,50,1);
+      glPushMatrix();
+        glTranslatef(screen_w/2-60,screen_h/2.5+50,0);
+        glScalef(650,650,1);
         drawTexturedSquare(textures[17]);
     glPopMatrix();
 }
@@ -254,8 +254,8 @@ void drawGameOver(){
 void drawGameWin(){
     // GAME WIN
     glPushMatrix();
-        glTranslatef(screen_w/2,screen_h/2.5,0);
-        glScalef(350,50,1);
+        glTranslatef(screen_w/2-60,screen_h/2.5+50,0);
+        glScalef(650,650,1);
         drawTexturedSquare(textures[18]);
     glPopMatrix();
 }
