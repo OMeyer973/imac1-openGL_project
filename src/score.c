@@ -3,62 +3,23 @@
 
 
 
-void drawNumber(int i)
-{
-switch (i) {
-
-case 0 :
-	drawTexturedSquare(textures[60]);
-	break;
-case 1 :
-	drawTexturedSquare(textures[61]);
-	break;
-case 2 :
-	drawTexturedSquare(textures[62]);
-	break;
-case 3 :
-	drawTexturedSquare(textures[63]);
-	break;
-case 4 :
-	drawTexturedSquare(textures[64]);
-	break;
-case 5 :
-	drawTexturedSquare(textures[65]);
-	break;
-case 6 :
-	drawTexturedSquare(textures[66]);
-	break;
-case 7 :
-	drawTexturedSquare(textures[67]);
-	break;
-case 8 :
-	drawTexturedSquare(textures[68]);
-	break;
-case 9 :
-	drawTexturedSquare(textures[69]);
-	break;
-default: 
-	break;
-	}
+void drawNumber(int i) {
+	drawTexturedSquare(textures[60+i]);
 }
 
 
-void drawScore(int i)
-{ glPushMatrix();
-  glTranslatef(60,680,0);
-  glScalef(20, 20,1);
-  drawNumber((i%1000)/100);
-  glPopMatrix();
-
-  glPushMatrix();	
-  glTranslatef(80,680,0);
-  glScalef(20, 20,1);
-  drawNumber((i%100)/10);	
-  glPopMatrix();
-
-  glPushMatrix();
-  glTranslatef(100,680,0);
-  glScalef(20, 20,1);
-  drawNumber(i%10);glPopMatrix();
+void drawScore(int score) {
+	float puiss=0;
+	while (score / (int)pow(10,puiss) > 0) {
+		puiss ++;
+	}
+	int i = 0;
+	for (i=puiss; i>0; i--) {
+	glPushMatrix();
+		glTranslatef(60 + 20 * (puiss - i), 680, 0);
+		glScalef(20, 20, 1);
+		drawNumber(score % (int)pow(10, i) / pow(10, i - 1));
+	glPopMatrix();
+	}
 }
 
