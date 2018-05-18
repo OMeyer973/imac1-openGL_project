@@ -31,6 +31,8 @@ extern Entity stats_bullets[];
 extern Entity stats_player;
 extern int curr_frame_tick;
 
+extern int score;
+
 //define physics elements : bounding boxes, internections
 
 float lerp(float a, float b, float f);

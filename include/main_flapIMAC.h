@@ -107,6 +107,7 @@ int gameOver = 0;
 int gameWin = 0;
 int reachedEndOfLevel = 0;
 int bossTrigger=1;
+int score=0;
 
 //sound
 Mix_Chunk* sounds[NBSOUNDS]; //Créer un tableau pointeur pour stocker des .WAV

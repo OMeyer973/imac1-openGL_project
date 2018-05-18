@@ -140,6 +140,8 @@ void hurtEntity(EntityList entity, float dmg) {
 	if (entity->invTime <= 0) {
 		entity->invTime = entity->invDelay;
 		entity->hp -= dmg;
+        score+=1;
+        printf("%d\n",score);
 	}
 }
 
@@ -147,6 +149,7 @@ void killDeadEntity(EntityList* entity, EntityList* list) {
     // check if an entity is dead and kill it
 	if ((*entity)->hp <= 0)
 		removeEntity(entity, list);
+
 }
 
 void bulletDamageList(Entity* bullet, EntityList* targetList) {

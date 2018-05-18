@@ -185,6 +185,8 @@ void gameRender() {
     drawBorders();
 
     drawStats(player,01);
+    drawScore(score);
+
 
     if (reachedEndOfLevel){
     glPushMatrix();

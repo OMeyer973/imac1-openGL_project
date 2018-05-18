@@ -3,8 +3,8 @@
 
 #include "graphics.h"
 
+
 void drawNumber(int i);
-
-
+void drawScore(int i);
 
 #endif

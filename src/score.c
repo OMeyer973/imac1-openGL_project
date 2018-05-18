@@ -39,6 +39,26 @@ case 9 :
 	break;
 default: 
 	break;
+	}
+}
 
+
+void drawScore(int i)
+{ glPushMatrix();
+  glTranslatef(60,680,0);
+  glScalef(20, 20,1);
+  drawNumber((i%1000)/100);
+  glPopMatrix();
+
+  glPushMatrix();	
+  glTranslatef(80,680,0);
+  glScalef(20, 20,1);
+  drawNumber((i%100)/10);	
+  glPopMatrix();
+
+  glPushMatrix();
+  glTranslatef(100,680,0);
+  glScalef(20, 20,1);
+  drawNumber(i%10);glPopMatrix();
 }
-}
+
