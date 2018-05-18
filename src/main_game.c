@@ -185,7 +185,7 @@ void gameRender() {
     drawBorders();
 
     drawStats(player,01);
-    drawScore(score);
+    drawScore(score,680);
 
 
     if (reachedEndOfLevel){

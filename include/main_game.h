@@ -9,6 +9,7 @@
 #include "physics.h"
 #include "graphics.h"
 #include "sounds.h"
+#include "score.h"
 
 #define SHOWBOUNDINGBOXES 0
 

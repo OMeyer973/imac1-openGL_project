@@ -9,6 +9,7 @@
 #include <unistd.h> 
 #include "graphics.h" 
 #include "sounds.h" 
+#include "score.h"
 
 //global variables
 int loop;

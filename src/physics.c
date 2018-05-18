@@ -140,8 +140,6 @@ void hurtEntity(EntityList entity, float dmg) {
 	if (entity->invTime <= 0) {
 		entity->invTime = entity->invDelay;
 		entity->hp -= dmg;
-        score+=1;
-        printf("%d\n",score);
 	}
 }
 
@@ -162,6 +160,9 @@ void bulletDamageList(Entity* bullet, EntityList* targetList) {
 			hurtEntity(tmpTargetList, bullet->hp);
             bullet->hp = 0;
             printf("tmpTargetList->hp %d\n", tmpTargetList->hp );
+            score+=1;
+            printf("%d\n",score);
+
 
 		}
 		if (tmpTargetList != NULL)	

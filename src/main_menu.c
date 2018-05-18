@@ -50,6 +50,14 @@ void menuRender() {
     drawTexturedSquare(textures[16]);
     glPopMatrix();
 
+
+    //HIGH SCORE
+    glPushMatrix();
+    glTranslatef(screen_w/2-100,screen_h-100,0);
+    glScalef(1.5,2,1);
+    drawHighScore();
+    glPopMatrix();
+
     // NEW GAME
     glPushMatrix();
     glTranslatef(screen_w/2,screen_h/2.5,0);
