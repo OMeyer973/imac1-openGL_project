@@ -37,12 +37,6 @@ int makeLevelFromPPM(char* filename) {
 				if (fscanf(in,"%d", &r) == EOF) return 0;
 				if (fscanf(in,"%d", &g) == EOF) return 0;
 				if (fscanf(in,"%d", &b) == EOF) return 0;
-				/*//debug : re-draw the basic image in ascii to be sure we didn't do stupid things
-					if (r == -1) printf(" ");
-					else printf("#");
-					if (x % level_w == 0) {
-						printf("\n");
-					} */
 				//if the pixel is not white (background color), add an object
 				if (r <= 254 && g <= 254 && b <= 254)
 					/*PPM image format : 
@@ -97,8 +91,8 @@ int addWall(int x, int y, int subType, float scale){
 }
 
 int addBonus(int x, int y, int subType, float scale){
-	printf("adding bonus\n");
 	if (subType < NBBONUSTYPES){
+		printf("adding bonus\n");
 		EntityList tmpEntity = copyEntity(&stats_bonuses[subType]);
 		tmpEntity->anchor = pointXY(x,y);
 		if (scale < 0.2) scale = 0.2;

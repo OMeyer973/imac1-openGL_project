@@ -277,8 +277,6 @@ void doBonusesPhysics(EntityList* list, int dt) {
     EntityList tmp = *list;
     EntityList tmp2 = tmp;
     
-    int screenPassed = 0;
-
     while (tmp != NULL) {
 
         tmp2 = tmp;
@@ -291,12 +289,12 @@ void doBonusesPhysics(EntityList* list, int dt) {
         }
         
         if (tmp2 != NULL && !collisionEB(*tmp2, load_box)) {
-            if (!screenPassed) {
+            if (tmp2->anchor.x + tmp2->hitBox.sw.x < load_box.ne.x) {
                 removeEntity(&tmp2, list);
             } 
-            else tmp = NULL; 
-        } else {
-            screenPassed = 1;
+            // optimisation : ne calcule pas les mobs à droite de l'écran mais fait des bugs
+            else if (tmp != NULL) 
+                tmp = tmp->next;   
         }
     }
 }

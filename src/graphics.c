@@ -189,7 +189,6 @@ void drawEntityListHitBoxes(EntityList list) {
     }
 }
 
-
 void drawBorders() {
     //draws the top & bottom borders -> needs to be in screen space prior to call (!not gamespace!)
     glPushMatrix();
@@ -206,10 +205,7 @@ void drawBorders() {
         drawTexturedSquare(textures[12]);
         drawTexturedSquare(textures[11]);
     glPopMatrix();
-
-  
 }
-
 
 void drawBG() {
     //draws the background of the game space
@@ -226,8 +222,7 @@ void drawBG() {
         glScalef(-screen_w, screen_h,1);
         drawTexturedSquare(textures[14]);
     glPopMatrix();
-
-  }
+}
 
 void drawStats(EntityList player, int Id) {
     int j=0;
