@@ -21,6 +21,7 @@
 #include "sounds.h"
 #include "main_menu.h"
 #include "main_game.h"
+#include "score.h"
 
 // ------------ VARIABLES ------------ //
 // *********************************** //
