@@ -15,9 +15,11 @@ int makeLevelFromPPM(char* filename) {
 		char tmpc;
 		int nbcolors; //img height, width and number of colors for each chanel
 		//début du traitement du fichier ppm
-		//stripping the 2 header characters from the file (P6 or P3)
-		if (fscanf(in,"%c", &tmpc) == EOF) return 0;
-		if (fscanf(in,"%c", &tmpc) == EOF) return 0;
+		//stripping the 2 header characters from the file (P6 or P3) && the gimp header
+		int i =0;
+		for (i=0; i < 42; i++) {
+			if (fscanf(in,"%c", &tmpc) == EOF) return 0;
+		}
 		//getting img width, height and nb of colors per channel
 		if (fscanf(in,"%d", &level_h) == EOF) return 0; //scanning & making sure we haven't reached EOF with 1 line
 		if (fscanf(in,"%d", &level_w) == EOF) return 0;
@@ -84,6 +86,7 @@ int addWall(int x, int y, int subType, float scale){
 		//printf("subtype %d\n", subType);
 		EntityList tmpEntity = copyEntity(&stats_walls[subType]);
 		tmpEntity->anchor = pointXY(x,y);
+		if (scale < 0.2) scale = 0.2;
 		scaleBoundingBox(&(tmpEntity->hitBox), scale);
 		scaleBoundingBox(&(tmpEntity->spriteBox), scale);
 		addEntityEnd(&level_walls, tmpEntity);
@@ -94,11 +97,11 @@ int addWall(int x, int y, int subType, float scale){
 }
 
 int addBonus(int x, int y, int subType, float scale){
-	//printf("adding bonus\n");
+	printf("adding bonus\n");
 	if (subType < NBBONUSTYPES){
 		EntityList tmpEntity = copyEntity(&stats_bonuses[subType]);
 		tmpEntity->anchor = pointXY(x,y);
-		tmpEntity->hp *= scale;
+		if (scale < 0.2) scale = 0.2;
 		scaleBoundingBox(&(tmpEntity->hitBox), scale);
 		scaleBoundingBox(&(tmpEntity->spriteBox), scale);
 		addEntityEnd(&level_bonuses, tmpEntity);
@@ -113,6 +116,7 @@ int addMob(int x, int y, int subType, float scale){
 	if (subType < NBMOBTYPES){
 		EntityList tmpEntity = copyEntity(&stats_mobs[subType]);
 		tmpEntity->anchor = pointXY(x,y);
+		if (scale < 0.2) scale = 0.2;
 		tmpEntity->hp *= scale;
 		scaleBoundingBox(&(tmpEntity->hitBox), scale);
 		scaleBoundingBox(&(tmpEntity->spriteBox), scale);

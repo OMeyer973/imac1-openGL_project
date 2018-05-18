@@ -6,6 +6,14 @@
 #include "statistics.h"
 #include "sounds.h"
 
+//behaviors ids
+#define YSINE 0
+#define XSINE 1
+#define ROTATE 2
+#define AIMPLAYER 3 
+#define AIMTGTPLAYER 4
+#define GOFWD 5
+
 extern int player_goX;
 extern int player_goY;
 

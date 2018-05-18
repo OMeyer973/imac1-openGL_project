@@ -5,7 +5,8 @@
 #include "entity.h"
 
 #define NBLEVELS 2
-
+#define MAXSHOOTANGLES 16
+#define MAXBEHAVIORS 8
 // Statistics of the differents ships types
 //identifiants des types d'entités
 #define TYPEWALL 0
@@ -17,9 +18,9 @@
 #define TYPEBULLET 5
 
 //nombre de chaque type d'entité
-#define NBWALLTYPES 3
+#define NBWALLTYPES 7
 #define NBMOBTYPES 5
-#define NBBONUSTYPES 1
+#define NBBONUSTYPES 2
 #define NBBULLETTYPES 4
 #define NBBOSSTYPES 2
 

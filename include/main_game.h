@@ -10,6 +10,8 @@
 #include "graphics.h"
 #include "sounds.h"
 
+#define SHOWBOUNDINGBOXES 0
+
 //global variables
 extern int loop;
 

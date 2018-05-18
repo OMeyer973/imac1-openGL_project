@@ -27,7 +27,7 @@ void loadLevel(int i) {
     game_box = boundingBoxSWNE(0.5, 0.01, (float)level_h+0.5, (level_h+1) * game_ratio - 0.01);
     load_box = boundingBoxSWNE(game_box.sw.y-5, game_box.sw.x-5, game_box.ne.y+5, game_box.ne.x+5);
     player = copyEntity(&stats_player);
-    player->anchor.x = 2;
+    player->anchor.x = 5;
     player->anchor.y = level_h/2;
 
     EntityList tmp = level_mobs;
@@ -39,6 +39,8 @@ void loadLevel(int i) {
         tmp = tmp->next;
     }
     level_boss = tmp2;
+    level_boss->hp *= 4;
+    level_boss->shootDelay *= 0.7;
 
     //music init
 
@@ -156,7 +158,6 @@ void gameRender() {
 
         // drawing bonuses
         drawEntityList(level_bonuses);
-
         // drawing mobs 
         drawEntityList(level_mobs);
 
@@ -168,16 +169,16 @@ void gameRender() {
 
         drawEntityList(level_mobBullets);
         
-        /*
-        drawEntityListHitBoxes(level_mobBullets);
-        drawEntityListHitBoxes(level_walls);
-        drawEntityListHitBoxes(player);
-        drawEntityListHitBoxes(level_bonuses);
-        drawEntityListHitBoxes(level_mobs);
-        drawEntityListHitBoxes(level_playerBullets);
-        drawBoundinBox(game_box);
-        drawBoundinBox(load_box);
-        */
+        if (SHOWBOUNDINGBOXES) {
+	        drawEntityListHitBoxes(level_mobBullets);
+	        drawEntityListHitBoxes(level_walls);
+	        drawEntityListHitBoxes(player);
+	        drawEntityListHitBoxes(level_bonuses);
+	        drawEntityListHitBoxes(level_mobs);
+	        drawEntityListHitBoxes(level_playerBullets);
+	        drawBoundinBox(game_box);
+	        drawBoundinBox(load_box);
+		}        
     exitview();
     
     //dessin des bordures de UI

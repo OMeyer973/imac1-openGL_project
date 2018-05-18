@@ -35,26 +35,26 @@ void doBehaviors(EntityList entity, int dt) {
     for (i=0; i<entity->behaviorsNb; i++) {
          switch(entity->behaviors[i]) {
 
-        case 0: //YSINE
+        case YSINE:
             entity->anchor.y += 0.005*dt*sin(((float)curr_frame_tick)/(float)500);
             break;
-        case 1: //XSINE
+        case XSINE:
             entity->anchor.x += 0.005*dt*cos(((float)curr_frame_tick)/(float)500);
             break;
-        case 2: //ROTATE
+        case ROTATE:
             entity->angle = ((float)curr_frame_tick)/(float)500;
             break;
-        case 3: //AIMPLAYER
+        case AIMPLAYER: 
             x = player->anchor.x - entity->anchor.x;
             y = player->anchor.y - entity->anchor.y;
             entity->angle = atan2(y,x);
             break;
-        case 4: //AIMTGTPLAYER
+        case AIMTGTPLAYER:
             y = player->anchor.x - entity->anchor.x;
             x = - player->anchor.y + entity->anchor.y;
             entity->angle = atan2(y,x)-0.1;
             break;
-        case 5: //GOFWD
+        case GOFWD:
             moveEntity(entity, dt, entity->angle, entity->speed);
             break;
 
@@ -265,21 +265,8 @@ void doWallsPhysics(EntityList* list, int dt) {
             } 
             // optimisation : ne calcule pas les mobs à droite de l'écran mais fait des bugs
             else if (tmp != NULL) 
-                tmp = tmp->next;
-            
+                tmp = tmp->next;   
         }
-
-        /*
-        //ARCHIVE
-        if (!collisionEB(*tmp2, load_box)) {
-            if (!screenPassed) {
-                removeEntity(&tmp2, list);
-            } 
-            else tmp = NULL; 
-        } else {
-            screenPassed = 1;
-        }
-        */
     }
 }
 
