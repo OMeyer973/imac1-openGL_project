@@ -40,8 +40,8 @@ int writeHighScore()
     int currentHighscore=0; // Tableau des 3 meilleurs scores
     fichier = fopen("./highscore.txt", "r");
     if (fichier != NULL)
-    {
-        fscanf(fichier, "%d ", &currentHighscore);
+    {   
+        if (fscanf(fichier, "%d ", &currentHighscore));
         fclose(fichier);
 
 	

@@ -17,7 +17,7 @@ void loadMenu() {
 
     //input    
     Sourisx=0;
-     Sourisy=0;
+    Sourisy=0;
 
     //game
     gameIsRunning=0;
@@ -95,6 +95,15 @@ void menuRender() {
     glScalef(350,50,1);
     drawTexturedSquare(textures[10]);
     glPopMatrix();
+
+    // HOVER NEW GAME
+    if (Sourisx>(WINDOW_WIDTH/2)-350/2 && Sourisx<(WINDOW_WIDTH/2)+350/2 && Sourisy>(WINDOW_HEIGHT/1.75)-50/2 && Sourisy<(WINDOW_HEIGHT/1.75)+50/2 && gameIsRunning==0) {
+        glPushMatrix();
+            glTranslatef(screen_w/2,screen_h/2.5,0);
+            glScalef(355,55,1);
+            drawTexturedSquare(textures[15]);
+        glPopMatrix();        
+                }  
 }
 
 void menuEvents(SDL_Event e) {
@@ -129,13 +138,8 @@ void menuEvents(SDL_Event e) {
             break;
 
             case SDL_MOUSEMOTION:
-                if (e.button.x>(WINDOW_WIDTH/2)-350/2 && e.button.x<(WINDOW_WIDTH/2)+350/2 && e.button.y>(WINDOW_HEIGHT/1.75)-50/2 && e.button.y<(WINDOW_HEIGHT/1.75)+50/2 && gameIsRunning==0) {
-                    glPushMatrix();
-                    glTranslatef(screen_w/2,screen_h/2.5,0);
-                    glScalef(355,55,1);
-                    drawTexturedSquare(textures[15]);
-                    glPopMatrix();        
-                }                    
+                Sourisx=e.button.x;
+                Sourisy=e.button.y;  
                 break;
 
             default:
