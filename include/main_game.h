@@ -42,6 +42,7 @@ extern int score;
 //menu
 extern int menu_isLoaded;
 
+
 void loadLevel(int i);
     //chargement du niveau i
 int gameUpdate(int dt);

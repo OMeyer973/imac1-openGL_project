@@ -14,9 +14,18 @@ void drawScore(int score,int posY) {
 		puiss ++;
 	}
 	int i = 0;
+    int start=60;
+    if(posY==100){
+    glPushMatrix();
+        glTranslatef(90 , posY, 0);
+        glScalef(100, 20, 1);
+        drawTexturedSquare(textures[9]);
+    glPopMatrix();
+    start=220;
+    }
 	for (i=puiss; i>0; i--) {
 	glPushMatrix();
-		glTranslatef(60 + 20 * (puiss - i), posY, 0);
+		glTranslatef(start + 20 * (puiss - i), posY, 0);
 		glScalef(20, 20, 1);
 		drawNumber(score % (int)pow(10, i) / pow(10, i - 1));
 	glPopMatrix();

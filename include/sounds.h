@@ -15,7 +15,7 @@
 #define MUSICCANAL 0
 #define SFXCANAL 1
 
-#define NBSOUNDS 6
+#define NBSOUNDS 5  
 #define MAXVOLUME 100
 
 //Game options 

@@ -184,19 +184,20 @@ void gameRender() {
     //dessin des bordures de UI
     drawBorders();
 
-    drawStats(player,01);
-    drawScore(score,680);
-
+    drawStats(player,01,60);
+    drawScore(score,100);
+      
 
     if (reachedEndOfLevel){
-    glPushMatrix();
-        glTranslatef(0,-676,0);   
-        drawStats(level_boss,02);
+    glPushMatrix(); 
+        drawStats(level_boss,02,700);
     glPopMatrix();
+
     }
 
-    if (gameOver) {
-    	drawGameOver();
+    if (gameOver) {     
+        drawGameOver();
+        score=0;
     }
     if (gameWin) {
     	currLevelId = 0;

@@ -145,8 +145,13 @@ void hurtEntity(EntityList entity, float dmg) {
 
 void killDeadEntity(EntityList* entity, EntityList* list) {
     // check if an entity is dead and kill it
-	if ((*entity)->hp <= 0)
+	if ((*entity)->hp <= 0){
+                if((*entity)->type==TYPEMOB){
+             playMusic(SFXCANAL,4,0.5);
+        }
+
 		removeEntity(entity, list);
+    }
 
 }
 

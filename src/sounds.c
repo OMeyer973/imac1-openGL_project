@@ -15,6 +15,7 @@ void loadMusics() {
     sounds[1] = Mix_LoadWAV("./sounds/game.wav");
     sounds[2] = Mix_LoadWAV("./sounds/boss.wav");
     sounds[3] = Mix_LoadWAV("./sounds/bullets.wav");
+    sounds[4] = Mix_LoadWAV("./sounds/destroy.wav");
 }
 
 void playMusic(int canal, int musique, float volume) {
