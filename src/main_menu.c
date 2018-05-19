@@ -51,18 +51,36 @@ void menuRender() {
     glPopMatrix();
 
     //BEST SCORE
+
     glPushMatrix();
-    glTranslatef(screen_w/2-60,screen_h-200,0);
-    glScalef(250,60,1);
+    glTranslatef(screen_w/2-5,screen_h-200,0);
+    glScalef(250,60,1);    
     drawTexturedSquare(textures[19]);
     glPopMatrix();
 
-    //HIGH SCORE
+    //NUMERAL BEST SCORE
     glPushMatrix();
-    glTranslatef(screen_w/2-40,screen_h-78,0);
+    glTranslatef(screen_w/2+5,screen_h-78,0);
     glScalef(1.5,2.5,1);
     drawHighScore();
     glPopMatrix();
+
+    //LAST SCORE
+
+    glPushMatrix();
+    glTranslatef(screen_w/2-5,screen_h-240,0);
+    glScalef(180,30,1);    
+    drawTexturedSquare(textures[8]);
+    glPopMatrix();
+
+    //NUMERAL LAST SCORE
+    glPushMatrix();
+    glTranslatef(screen_w/2+35,screen_h-128,0);
+    glScalef(1,1.6,1);
+    drawScore(score,-70);
+    glPopMatrix();
+
+
 
     // NEW GAME
     glPushMatrix();

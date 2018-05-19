@@ -57,6 +57,10 @@ void loadLevel(int i) {
 	gameWin = 0;
 	reachedEndOfLevel = 0;
     bossTrigger=1;
+    if (i==0)
+    {
+        score=0;
+    }
 
 	//input
 	keyUp=0;
@@ -197,7 +201,6 @@ void gameRender() {
 
     if (gameOver) {     
         drawGameOver();
-        score=0;
     }
     if (gameWin) {
     	currLevelId = 0;

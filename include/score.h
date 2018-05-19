@@ -9,7 +9,6 @@ void drawNumber(int i);
 void drawScore(int score,int posY);
 int writeHighScore();
 void drawHighScore();
-
 extern int score;
 
 #endif

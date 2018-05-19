@@ -62,6 +62,7 @@ int writeHighScore()
     	fprintf(fichier2, "%d", temp);  
     	fclose(fichier2);
     }
+
     return currentHighscore;
 }
 

@@ -141,6 +141,10 @@ void hurtEntity(EntityList entity, float dmg) {
 		entity->invTime = entity->invDelay;
 		entity->hp -= dmg;
 	}
+    if((entity)->type==TYPEMOB){
+            score+=1;
+            printf("%d\n",score);
+    }
 }
 
 void killDeadEntity(EntityList* entity, EntityList* list) {
@@ -165,11 +169,7 @@ void bulletDamageList(Entity* bullet, EntityList* targetList) {
 			hurtEntity(tmpTargetList, bullet->hp);
             bullet->hp = 0;
             printf("tmpTargetList->hp %d\n", tmpTargetList->hp );
-            score+=1;
-            printf("%d\n",score);
-
-
-		}
+    		}
 		if (tmpTargetList != NULL)	
 			tmpTargetList = tmpTargetList->next;
 	}

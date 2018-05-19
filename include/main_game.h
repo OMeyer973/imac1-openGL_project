@@ -39,8 +39,11 @@ extern int player_shooting;
 //game 
 extern int bossTrigger; 
 extern int score;
+
+
 //menu
 extern int menu_isLoaded;
+
 
 
 void loadLevel(int i);
