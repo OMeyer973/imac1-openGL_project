@@ -39,7 +39,7 @@ void loadLevel(int i) {
         tmp = tmp->next;
     }
     level_boss = tmp2;
-    level_boss->hp *= 4;
+    level_boss->hp *= 3;
     level_boss->shootDelay *= 0.7;
 
     //music init
