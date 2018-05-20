@@ -101,6 +101,7 @@ int player_holdAngle = 0; //does the player want to stay at the angle it is ?
 float input_angle = 0;
 
 //game
+int instructions=0;
 int currLevelId = 0;
 int gameIsRunning=0;
 int gameOver = 0;

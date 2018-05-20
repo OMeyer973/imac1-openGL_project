@@ -27,6 +27,7 @@ void loadMenu() {
 
 void menuRender() {
     //print the menu frame
+    if (!instructions){
     if (gameOver) {
         gameOver = 0;
         sleep(3);
@@ -81,7 +82,6 @@ void menuRender() {
     glPopMatrix();
 
 
-
     // NEW GAME
     glPushMatrix();
     glTranslatef(screen_w/2,screen_h/2.5,0);
@@ -104,7 +104,27 @@ void menuRender() {
             drawTexturedSquare(textures[15]);
         glPopMatrix();        
                 }  
+
+    // HOVER INSTRUCTIONS
+  if (Sourisx>(WINDOW_WIDTH/2)-350/2 && Sourisx<(WINDOW_WIDTH/2)+350/2 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.80 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.85) {
+        glPushMatrix();
+            glTranslatef(screen_w/2,screen_h/6,0);
+            glScalef(355,55,1);
+            drawTexturedSquare(textures[10]);
+        glPopMatrix();         
+                 }
 }
+   if(instructions)
+      {
+       glPushMatrix();
+       glTranslatef(screen_w/2, screen_h/2,0);
+       glScalef(screen_w,screen_h,1);
+       drawTexturedSquare(textures[7]);
+       glPopMatrix();
+      }
+}
+
+
 
 void menuEvents(SDL_Event e) {
     //handling menu events
@@ -129,13 +149,18 @@ void menuEvents(SDL_Event e) {
 
             case SDL_MOUSEBUTTONUP:
                 if (e.button.button == SDL_BUTTON_LEFT) {
-                    printf("koisss %d",Sourisy);
                     Sourisx = e.button.x; 
                     Sourisy = e.button.y; 
                     if (Sourisx>(WINDOW_WIDTH/2)-350/2 && Sourisx<(WINDOW_WIDTH/2)+350/2 && Sourisy>(WINDOW_HEIGHT/1.75)-50/2 && Sourisy<(WINDOW_HEIGHT/1.75)+50/2) 
                         gameIsRunning=1;           
                  }
-            break;
+
+                  if (Sourisx>(WINDOW_WIDTH/2)-350/2 && Sourisx<(WINDOW_WIDTH/2)+350/2 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.80 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.85) {
+                    printf("jesuislà");
+                        instructions=1;   
+        
+                 }
+                 break;
 
             case SDL_MOUSEMOTION:
                 Sourisx=e.button.x;

@@ -30,6 +30,7 @@ extern int level_isLoaded;
 
 //menu
 extern int menu_isLoaded;
+extern int instructions;
 
 void loadMenu();
     //load the menu
