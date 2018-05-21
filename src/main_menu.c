@@ -114,6 +114,7 @@ void menuRender() {
         glPopMatrix();         
                  }
 }
+// Ecran d'instructions 
    if(instructions)
       {
        glPushMatrix();
@@ -156,10 +157,17 @@ void menuEvents(SDL_Event e) {
                  }
 
                   if (Sourisx>(WINDOW_WIDTH/2)-350/2 && Sourisx<(WINDOW_WIDTH/2)+350/2 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.80 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.85) {
-                    printf("jesuislà");
+                   
                         instructions=1;   
         
                  }
+
+                 if ((float)(Sourisx)/(float)(WINDOW_HEIGHT)>1.11 &&(float)(Sourisx)/(float)(WINDOW_HEIGHT)<1.39 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.02 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.16 && instructions==1) {
+                   
+                        instructions=0;   
+        
+                 }
+
                  break;
 
             case SDL_MOUSEMOTION:
