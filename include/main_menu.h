@@ -32,6 +32,9 @@ extern int level_isLoaded;
 extern int menu_isLoaded;
 extern int instructions;
 
+//sound
+extern int mute;
+
 void loadMenu();
     //load the menu
 void menuRender();

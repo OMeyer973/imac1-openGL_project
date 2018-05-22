@@ -19,6 +19,7 @@ void loadMusics() {
 }
 
 void playMusic(int canal, int musique, float volume) {
+
     //plays a given music on a given canal
     if (canal == SFXCANAL) {
         currCanal ++;
@@ -28,5 +29,16 @@ void playMusic(int canal, int musique, float volume) {
 
     Mix_VolumeChunk(sounds[musique], MAXVOLUME * volume);
     Mix_PlayChannel(canal,sounds[musique], 0);
+    
+
 }
 
+void muteMusic(){
+    if (mute==1)
+    {
+        Mix_Pause(-1);
+    }
+    else {
+        Mix_Resume(-1);
+    }                
+}

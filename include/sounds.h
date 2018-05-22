@@ -28,6 +28,7 @@ extern int gameIsRunning;
 //sound
 extern Mix_Chunk* sounds[NBSOUNDS];
 extern int currCanal;
+extern int mute;
 
 
 void initSounds();
@@ -36,6 +37,7 @@ void loadMusics();
     //loads the differents sound files on memory 
 void playMusic(int canal, int musique, float volume) ;
     //plays a given music on a given canal
+void muteMusic();
 
 
 #endif

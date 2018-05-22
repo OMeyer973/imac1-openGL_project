@@ -264,3 +264,19 @@ void drawGameWin(){
         drawTexturedSquare(textures[18]);
     glPopMatrix();
 }
+
+void drawMute(){
+
+
+            glPushMatrix(); 
+                glTranslatef(1040,680,0);
+                glScalef(60, 60,1);
+                if (mute==0){    
+                drawTexturedSquare(textures[5]);
+                }
+                if (mute==1){
+                drawTexturedSquare(textures[6]);
+                }
+            glPopMatrix();
+
+}

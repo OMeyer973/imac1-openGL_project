@@ -123,6 +123,8 @@ void menuRender() {
        drawTexturedSquare(textures[7]);
        glPopMatrix();
       }
+
+      drawMute();
 }
 
 
@@ -168,6 +170,18 @@ void menuEvents(SDL_Event e) {
         
                  }
 
+                if ((float)(Sourisx)/(float)(WINDOW_HEIGHT)>1.41 &&(float)(Sourisx)/(float)(WINDOW_HEIGHT)<1.47 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.01 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.09) {
+                    if(mute==0){                   
+                        mute=1;   
+                    }
+                    else{
+                        mute=0;
+                    }
+
+                 }
+
+
+                    printf("Sourisx %f",(float)(Sourisx)/(float)(WINDOW_HEIGHT));
                  break;
 
             case SDL_MOUSEMOTION:

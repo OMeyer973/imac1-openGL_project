@@ -114,6 +114,7 @@ int score=0;
 //sound
 Mix_Chunk* sounds[NBSOUNDS]; //Créer un tableau pointeur pour stocker des .WAV
 int currCanal = 1; //changement de canal pour jouer des sfx les uns par dessus les autres
+int mute=0;
 
 
 //debug 

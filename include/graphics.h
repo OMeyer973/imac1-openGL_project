@@ -44,6 +44,9 @@ extern float border_top;
 extern char* textures_dir;
 extern GLuint textures[NBTEXTURES];
 
+//sound
+extern int mute; 
+
 extern int debug;
 
 
@@ -97,5 +100,8 @@ void drawGameOver();
 
 void drawGameWin();
     // draws Game Win Screen
+
+void drawMute();
+    // draws volume/mute sign
 
 #endif

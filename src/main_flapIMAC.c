@@ -48,6 +48,8 @@ int main(int argc, char** argv) {
         
         
         SDL_Event e;
+
+        muteMusic();
         if (gameIsRunning) { //we are in the game.
             if (!level_isLoaded) {
                 if (currLevelId < NBLEVELS) {
