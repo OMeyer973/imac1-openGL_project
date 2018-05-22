@@ -125,6 +125,8 @@ int gameUpdate(int dt) {
     doBulletsPhysics(&level_playerBullets, dt,  &level_mobs);
  
     doBulletsPhysics(&level_mobBullets, dt,  &player);
+
+    doVFXsPhysics(&level_VFXs, dt);
     
     //moving the viewport
     if (!reachedEndOfLevel) {
@@ -172,12 +174,16 @@ void gameRender() {
         drawEntityList(player);
 
         drawEntityList(level_mobBullets);
+
+        //drawing VFXs
+        drawEntityList(level_VFXs);
         
-        if (SHOWBOUNDINGBOXES) {
+        if (debug) {
 	        drawEntityListHitBoxes(level_mobBullets);
 	        drawEntityListHitBoxes(level_walls);
 	        drawEntityListHitBoxes(player);
 	        drawEntityListHitBoxes(level_bonuses);
+	        drawEntityListHitBoxes(level_VFXs);
 	        drawEntityListHitBoxes(level_mobs);
 	        drawEntityListHitBoxes(level_playerBullets);
 	        drawBoundinBox(game_box);

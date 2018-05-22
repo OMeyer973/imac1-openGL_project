@@ -11,8 +11,6 @@
 #include "sounds.h"
 #include "score.h"
 
-#define SHOWBOUNDINGBOXES 0
-
 //global variables
 extern int loop;
 
@@ -44,7 +42,7 @@ extern int score;
 //menu
 extern int menu_isLoaded;
 
-
+extern int debug;
 
 void loadLevel(int i);
     //chargement du niveau i

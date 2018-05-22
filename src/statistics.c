@@ -17,8 +17,10 @@ void initPlayerStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         400,            //float shootDelay (in ms)
         450,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         1,              //int shootAnglesNb
         tmpShootAngles, //float* shootAngles
         0,              //int behaviorsNb
@@ -47,8 +49,10 @@ void initMobsStats() {
         1,              //int bulletType
         M_PI,           //float angle (radians)
         0.4,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         1000,           //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL,           //float* shootAngles
         2,              //int behaviorsNb
@@ -68,8 +72,10 @@ void initMobsStats() {
         1,              //int bulletType
         M_PI,              //float angle (radians)
         0.2,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         1000,           //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL,            //float* shootAngles
         2,              //int behaviorsNb
@@ -91,8 +97,10 @@ void initMobsStats() {
         2,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         1000,           //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         5,              //int shootAnglesNb
         tmpShootAngles2,//float* shootAngles
         2,              //int behaviorsNb
@@ -112,8 +120,10 @@ void initMobsStats() {
         0,              //int bulletType
         M_PI/2,         //float angle (radians)
         0.4,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         1000,           //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         3,              //int shootAnglesNb
         tmpShootAngles3,//float* shootAngles
         0,              //int behaviorsNb
@@ -134,8 +144,10 @@ void initMobsStats() {
         3,              //int bulletType
         M_PI,           //float angle (radians)
         0.4,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         5000,           //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         7,              //int shootAnglesNb
         tmpShootAngles1,//float* shootAngles
         2,              //int behaviorsNb
@@ -161,8 +173,10 @@ void initWallsStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         0.5,            //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL,//float* shootAngles -> walls need this (else, segfault but why ????)
         0,              //int behaviorsNb
@@ -182,8 +196,10 @@ void initWallsStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         0.5,            //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL,           //float* shootAngles -> walls need this (else, segfault but why ????)
         0,              //int behaviorsNb
@@ -202,8 +218,10 @@ void initWallsStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         0.5,            //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL,           //float* shootAngles -> walls need this (else, segfault but why ????)
         0,              //int behaviorsNb
@@ -222,8 +240,10 @@ void initWallsStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         0.5,            //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL,           //float* shootAngles -> walls need this (else, segfault but why ????)
         0,              //int behaviorsNb
@@ -242,8 +262,10 @@ void initWallsStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         0.5,            //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL,           //float* shootAngles -> walls need this (else, segfault but why ????)
         0,              //int behaviorsNb
@@ -262,8 +284,10 @@ void initWallsStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         0.5,            //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL,           //float* shootAngles -> walls need this (else, segfault but why ????)
         0,              //int behaviorsNb
@@ -282,8 +306,10 @@ void initWallsStats() {
         0,              //int bulletType
         M_PI,           //float angle (radians)
         1.1,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         0.5,            //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL,           //float* shootAngles -> walls need this (else, segfault but why ????)
         0,              //int behaviorsNb
@@ -311,8 +337,10 @@ void initBonusesStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         0.7,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         150,            //float shootDelay (in ms)
         450,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         3,              //int shootAnglesNb
         tmpShootAngles0,//float* shootAngles
         0,              //int behaviorsNb
@@ -332,8 +360,10 @@ void initBonusesStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         0.7,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         50,            //float shootDelay (in ms)
         450,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         3,              //int shootAnglesNb
         tmpShootAngles1,//float* shootAngles
         0,              //int behaviorsNb
@@ -362,8 +392,10 @@ void initBulletsStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         5,              //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         1,              //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL, //float* shootAngles
         1,              //int behaviorsNb
@@ -382,8 +414,10 @@ void initBulletsStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         0.7,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         1,              //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL, //float* shootAngles
         1,              //int behaviorsNb
@@ -402,8 +436,10 @@ void initBulletsStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         0.7,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         1,              //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL, //float* shootAngles
         1,              //int behaviorsNb
@@ -422,12 +458,67 @@ void initBulletsStats() {
         0,              //int bulletType
         0,              //float angle (radians)
         0.7,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
         1,              //float shootDelay (in ms)
         100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL, //float* shootAngles
         1,              //int behaviorsNb
         tmpbehaviors    //int* behaviors
     );
 
+}
+
+
+// ------------ VFX ------------ //
+
+void initVFXsStats() {
+    //initialize the bullets statistics array
+    Point2D anchor = pointXY(0,0);
+    int tmpbehaviors[MAXBEHAVIORS] = {GROW, DISAPEAR};
+    //VFX 0 - (BULLET HIT)
+    
+    stats_VFXs[0]   = *instantiateEntity (
+        anchor,         //Point2D anchor
+        boundingBoxSWNE(-0.5,-0.5,0.5,0.5),   //BoundingBox spriteBox
+        69,              //int textureID 
+        boundingBoxSWNE(-0.5,-0.5,0.5,0.5),      //BoundingBox hitBox        
+        6,     //int type
+        0,              //int subType
+        10,             //int hp
+        0,              //int bulletType
+        0,              //float angle (radians)
+        5,              //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
+        1,              //float shootDelay (in ms)
+        800,            //float invDelay (in ms)
+        800,            //float animDelay (in ms)
+        0,              //int shootAnglesNb
+        NULL, //float* shootAngles
+        2,              //int behaviorsNb
+        tmpbehaviors    //int* behaviors
+    );
+
+    //VFX 1 - (MOB KILLED)
+    stats_VFXs[1] = *instantiateEntity (
+        anchor,         //Point2D anchor
+        boundingBoxSWNE(-0.5,-0.5,0.5,0.5),   //BoundingBox spriteBox
+        61,              //int textureID 
+        boundingBoxSWNE(-0.5,-0.5,0.5,0.5),      //BoundingBox hitBox        
+        6,     //int type
+        0,              //int subType
+        10,             //int hp
+        0,              //int bulletType
+        0,              //float angle (radians)
+        5,              //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
+        1,              //float shootDelay (in ms)
+        800,            //float invDelay (in ms)
+        800,            //float animDelay (in ms)
+        0,              //int shootAnglesNb
+        NULL, //float* shootAngles
+        2,              //int behaviorsNb
+        tmpbehaviors    //int* behaviors
+    );
 }

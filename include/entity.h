@@ -11,6 +11,11 @@ typedef struct point2D {
 } Point2D;
 
 
+typedef struct color4f {
+	float r,g,b,a; //range : [0, 1]
+} Color4f;
+
+
 typedef struct boundingBox {
 	//the 2 bounding box corners : north-west & south-east
 	//sw.x < ne.x, sw.y < ne.y
@@ -31,14 +36,20 @@ typedef struct entity {
 	int bulletType; 		//mob : id of bullet to  instantiate when shooting 
 	float angle; 			//mob - bullet : facing direction
 	float speed; 			//mob - bullet : speed of movement - bonus - new bullet speed of movement
+	Color4f color;			//general : color of the entity
+
 	float shootDelay; 		//mob : delay between 2 shots - bonus : new delay between 2 shots - VFX : second time, may be used for animation
 	float shootTime;		//mob : entity internal time used to compute shots delay
 	float invDelay; 		//mob : delay during wich the entity is invincible - bonus : new invDelay to affect the player - VFX : remaining time of animation
 	float invTime;			//mob : entity internal time used to compute invicible time
+	float animDelay; 		//mob : delay of the entity animation
+	float animTime;			//mob : entity internal time used to compute animation time
+	
 	int shootAnglesNb; 		//mob : nb of shooting angles
 	float shootAngles[16]; 	//mob : array of shooting angles
 	int behaviorsNb;		//general : number of behaviors the entity have
 	int behaviors[8];		//general : ids of behaviors the entity have (movement, rotation, opacity)
+	
 	struct entity* next;	//next entity in the linked list
 	struct entity* prev;	//previous entity in the linked list (used to simplify the remove function)
 } Entity, *EntityList;
@@ -47,6 +58,8 @@ typedef struct entity {
 
 Point2D pointXY(float x, float y);
 	//returns a point defined by its coordinates
+Color4f colorRGBA(float r, float g, float b, float a);
+	//returns a color defined by its 4 components (range [0,1])
 BoundingBox boundingBoxSWNE(float s, float w, float n, float e);
 	//returns a boundingbox defined by its sides
 void scaleBoundingBox(BoundingBox *b, float scale);
@@ -63,8 +76,10 @@ EntityList instantiateEntity (
 		int bulletType,
 		float angle,
 		float speed,
+		Color4f color,
 		float shootDelay,
 		float invDelay,
+		float animDelay,
 		int shootAnglesNb,
 		float* shootAngles,
 		int behaviorsNb,

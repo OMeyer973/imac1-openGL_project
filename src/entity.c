@@ -13,6 +13,17 @@ Point2D pointXY(float x, float y) {
 }
 
 
+Color4f colorRGBA(float r, float g, float b, float a) {
+	//returns a color defined by its 4 components (range [0,1])
+	Color4f c;
+	c.r = r;
+	c.g = g;
+	c.b = b;
+	c.a = a;
+	return c;
+}
+
+
 BoundingBox boundingBoxSWNE(float s, float w, float n, float e) {
 	//returns a boundingbox defined by its sides
 	Point2D sw = pointXY(w,s);
@@ -45,8 +56,10 @@ EntityList instantiateEntity (
 		int bulletType,
 		float angle,
 		float speed,
+		Color4f color,
 		float shootDelay,
 		float invDelay,
+		float animDelay,
 		int shootAnglesNb,
 		float* shootAngles,
 		int behaviorsNb,
@@ -66,10 +79,13 @@ EntityList instantiateEntity (
 		list->bulletType 	= bulletType;
 		list->angle 		= angle;
 		list->speed 		= speed;
+		list->color 		= color;
 		list->shootDelay	= shootDelay;
 		list->shootTime  	= 0.0;
 		list->invDelay		= invDelay;
 		list->invTime   	= 0.0;
+		list->animDelay		= animDelay;
+		list->animTime   	= animDelay;
 		list->shootAnglesNb = shootAnglesNb;
 		int i = 0;
 		for (i=0; i<shootAnglesNb; i++) {

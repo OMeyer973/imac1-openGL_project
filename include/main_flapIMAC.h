@@ -41,7 +41,7 @@ Entity stats_walls[NBWALLTYPES];
 Entity stats_mobs[NBMOBTYPES];
 Entity stats_bonuses[NBBONUSTYPES];
 Entity stats_bullets[NBBULLETTYPES];
-Entity stats_bosses[NBBOSSTYPES];
+Entity stats_VFXs[NBVFXTYPES];
 
 //level
 int level_isLoaded = 0;
@@ -59,6 +59,7 @@ EntityList level_mobs;
 EntityList level_bonuses;
 EntityList level_mobBullets;
 EntityList level_playerBullets;
+EntityList level_VFXs;
 Entity* level_boss;
 
 //menu
@@ -113,5 +114,9 @@ int score=0;
 //sound
 Mix_Chunk* sounds[NBSOUNDS]; //Créer un tableau pointeur pour stocker des .WAV
 int currCanal = 1; //changement de canal pour jouer des sfx les uns par dessus les autres
+
+
+//debug 
+int debug = 1;
 
 #endif

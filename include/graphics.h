@@ -11,6 +11,7 @@
 #include <dirent.h>
 #include <time.h> 
 #include <math.h> 
+#include "entity.h"
 
 extern unsigned int WINDOW_WIDTH;
 extern unsigned int WINDOW_HEIGHT;
@@ -43,7 +44,9 @@ extern float border_top;
 extern char* textures_dir;
 extern GLuint textures[NBTEXTURES];
 
-#include "entity.h"
+extern int debug;
+
+
 
 void resizeViewport();
     //initial viewport setup
@@ -67,6 +70,8 @@ void exitview();
 
 void drawEntityList(EntityList list);
     //draws a list of entities on screen. the view must be setup to gamespace prior to this function call
+void drawVFXList(EntityList list);
+    //draws a list of VFX on screen. the view must be setup to gamespace prior to this function call
 
 void drawSquare();
     //dessine un carré de 1x1 centré sur l'origine

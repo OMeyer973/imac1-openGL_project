@@ -13,6 +13,9 @@
 #define AIMPLAYER 3 
 #define AIMTGTPLAYER 4
 #define GOFWD 5
+#define GOBKWD 6
+#define GROW 7
+#define DISAPEAR 8
 
 extern int player_goX;
 extern int player_goY;
@@ -21,17 +24,23 @@ extern float player_speed;
 extern float input_angle;
 extern int player_holdAngle;
 
-extern EntityList level_walls;	
+extern EntityList level_walls;
+extern EntityList level_VFXs;	
 extern BoundingBox game_box;
 extern BoundingBox load_box;
 
 extern EntityList player;
 
 extern Entity stats_bullets[];
+
+
 extern Entity stats_player;
 extern int curr_frame_tick;
 
 extern int score;
+
+
+extern int debug;
 
 //define physics elements : bounding boxes, internections
 
@@ -55,6 +64,10 @@ void doMobsPhysics(EntityList* list, int dt, EntityList* bulletList);
 	// do all of the physics computation for the given Mob list during the time dt, and affecting the target list
 void doWallsPhysics(EntityList* list, int dt);
     // do all of the physics computation for the given Wall list during the time dt
+void doVFXsPhysics(EntityList * list, int dt);
+	// do all of the physics computation for the given VFX list during the time dt	
+void entityInstantiateVFX(EntityList entity, int VFXType);
+	//instantiate a vfx emited by an entity
 void entityShootsBullet(EntityList entity, int dt, EntityList* bulletList);
 	//manage the shooting in the dt time interval for the given entity and add the bullet to the given bulletList 
 int collision(Entity A, Entity B);

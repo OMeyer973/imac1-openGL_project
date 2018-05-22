@@ -29,6 +29,7 @@ int main(int argc, char** argv) {
     initBulletsStats();
     initBonusesStats();
     initPlayerStats();
+    initVFXsStats();
 
     // Remplissage du tableau de textures 
     getSurfaces(textures_dir,textures);

@@ -128,10 +128,15 @@ void drawEntityList(EntityList list) {
     //draws a list of entities on screen. the view must be setup to gamespace prior to this function call
     while(list != NULL) {
         if (list->invTime > 0) {
-            float c = 255 -50 - 150 * list->invTime / list->invDelay; 
-            glColor3ub(255,c,c);
-        }
+            float g = 255 -50 - 150 * list->color.g * list->invTime / list->invDelay; 
+            float b = 255 -50 - 150 * list->color.b * list->invTime / list->invDelay; 
+            float a = list->invTime / list->invDelay;
+            if (a <= list->color.a) a = list->color.a;
 
+            glColor4ub(255,g,b,255 * a);
+        } else {
+            glColor4ub(255 * list->color.r, 255 * list->color.g, 255 * list->color.b, 255 * list->color.a);
+        }
         glPushMatrix();
             glTranslatef(
                 (list->anchor.x + (list->spriteBox.ne.x+list->spriteBox.sw.x)/2) * game_scale,
@@ -143,7 +148,26 @@ void drawEntityList(EntityList list) {
             drawTexturedSquare(textures[list->textureID]);
         glPopMatrix();
 
-        glColor3ub(255,255,255);
+        glColor4ub(255,255,255,255);
+        list = list->next;
+    }       
+}
+
+void drawVFXList(EntityList list) {
+    //draws a list of VFX on screen. the view must be setup to gamespace prior to this function call
+    while(list != NULL) {
+        glColor4ub(255 * list->color.r, 255 * list->color.g, 255 * list->color.b, 255 * list->color.a * list->animTime / list->animDelay);
+        glPushMatrix();
+            glTranslatef(
+                (list->anchor.x + (list->spriteBox.ne.x+list->spriteBox.sw.x)/2) * game_scale,
+                (list->anchor.y + (list->spriteBox.ne.y+list->spriteBox.sw.y)/2) * game_scale, 0);
+            glRotatef(list->angle / 2 / M_PI * 360,0,0,1);
+            glScalef(
+                (list->spriteBox.ne.x-list->spriteBox.sw.x) * game_scale,
+                (list->spriteBox.ne.y-list->spriteBox.sw.y) * game_scale,1);
+            drawTexturedSquare(textures[list->textureID]);
+        glPopMatrix();
+        glColor4ub(255,255,255,255);
         list = list->next;
     }       
 }
@@ -160,8 +184,8 @@ void drawSquare() {
 
 void drawBoundinBox(BoundingBox box) {
     //draws a bounding box on screen. the view must be setup to the box parent (entity anchor) prior to this function call
-    glColor3ub(255, 0, 0);
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glColor3ub(255, 0, 0);
     glPushMatrix();
         glTranslatef(
             (box.ne.x+box.sw.x) / 2 * game_scale,
@@ -171,8 +195,8 @@ void drawBoundinBox(BoundingBox box) {
             (box.ne.y-box.sw.y) * game_scale,1);
         drawSquare();
     glPopMatrix();
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glColor3ub(255, 255, 255);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void drawEntityListHitBoxes(EntityList list) {

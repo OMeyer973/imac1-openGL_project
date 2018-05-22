@@ -30,19 +30,20 @@ void moveEntity(Entity* entity, int dt, float angle, float speed) {
 }
 
 void doBehaviors(EntityList entity, int dt) {
+    if (entity->behaviorsNb == 0) return;
     int i = 0;
     float x,y;
     for (i=0; i<entity->behaviorsNb; i++) {
          switch(entity->behaviors[i]) {
 
         case YSINE:
-            entity->anchor.y += 0.005*dt*sin(((float)curr_frame_tick)/(float)500);
+            entity->anchor.y += 0.2 * sin(entity->animTime / entity->animDelay * 2 * M_PI);
             break;
         case XSINE:
-            entity->anchor.x += 0.005*dt*cos(((float)curr_frame_tick)/(float)500);
+            entity->anchor.x += 0.2 * cos(entity->animTime / entity->animDelay * 2 * M_PI);
             break;
         case ROTATE:
-            entity->angle = ((float)curr_frame_tick)/(float)500;
+            entity->angle = entity->animTime / entity->animDelay * 2 * M_PI;
             break;
         case AIMPLAYER: 
             x = player->anchor.x - entity->anchor.x;
@@ -57,12 +58,22 @@ void doBehaviors(EntityList entity, int dt) {
         case GOFWD:
             moveEntity(entity, dt, entity->angle, entity->speed);
             break;
+        case GOBKWD:
+            moveEntity(entity, dt, entity->angle, -entity->speed);
+            break;
+        case GROW:
+            scaleBoundingBox(&entity->spriteBox, 1 + 0.003 * dt * entity->animTime / entity->animDelay);
+            scaleBoundingBox(&entity->hitBox, 1 + 0.003 * dt * entity->animTime / entity->animDelay);
+            break;
+        case DISAPEAR:
+            entity->color.a = entity->animTime / entity->animDelay;
+            break;
 
         default:
             break;
         }
-
-    } 
+    }
+    entity->animTime -= dt;
 }
 
 //------------ PLAYER FUNCTIONS ------------//
@@ -139,19 +150,21 @@ void hurtEntity(EntityList entity, float dmg) {
 	// hurt the entity if touched by a bullet or else
 	if (entity->invTime <= 0) {
 		entity->invTime = entity->invDelay;
-		entity->hp -= dmg;
-	}
-    if((entity)->type==TYPEMOB){
-            score+=1;
-            printf("%d\n",score);
+        entity->hp -= dmg;
+
+        if(entity->type == TYPEMOB)
+            score += dmg;
+        else if (entity->type == TYPEPLAYER) 
+            score -= dmg;
     }
 }
 
 void killDeadEntity(EntityList* entity, EntityList* list) {
     // check if an entity is dead and kill it
 	if ((*entity)->hp <= 0){
-                if((*entity)->type==TYPEMOB){
-             playMusic(SFXCANAL,4,0.5);
+        if((*entity)->type == TYPEMOB){
+            playMusic(SFXCANAL, 4, 0.5);
+            entityInstantiateVFX(*entity, VFXDEAD);
         }
 
 		removeEntity(entity, list);
@@ -165,10 +178,13 @@ void bulletDamageList(Entity* bullet, EntityList* targetList) {
 	while (tmpTargetList != NULL) {		
 
 		if (collision(*bullet, *tmpTargetList)) {
-            printf("collision\n");
-			hurtEntity(tmpTargetList, bullet->hp);
+            if (debug) printf("collision\n");
+           
+            hurtEntity(tmpTargetList, bullet->hp);
             bullet->hp = 0;
-            printf("tmpTargetList->hp %d\n", tmpTargetList->hp );
+            entityInstantiateVFX(tmpTargetList, VFXHIT);
+           
+            if (debug) printf("target hp %d\n", tmpTargetList->hp );
     		}
 		if (tmpTargetList != NULL)	
 			tmpTargetList = tmpTargetList->next;
@@ -324,4 +340,43 @@ void applyBonus(Entity bonus) {
     printf("i\n");  
         player->shootAngles[i] = bonus.shootAngles[i];
     }
+}
+
+
+//------------ BONUSES FUNCTIONS ------------//
+
+void doVFXsPhysics(EntityList* list, int dt) {
+    // do all of the physics computation for the given VFX list  during the time dt
+    EntityList tmp = *list;
+    EntityList tmp2 = tmp;
+    while (tmp != NULL) {
+        //printf("VFX x:%f, y:%f\n", tmp->anchor.x, tmp->anchor.y);
+
+        doBehaviors(tmp, dt);
+
+        tmp->invTime -= dt;
+
+        if (tmp->animTime <= 0) 
+            tmp->hp = 0;
+
+        tmp2 = tmp;
+        tmp = tmp->next;
+
+        killDeadEntity(&tmp2, list);
+        if (tmp2 !=NULL && !collisionEB(*tmp2, load_box)) {
+            removeEntity(&tmp2, list);
+        }
+        
+    }
+}
+
+void entityInstantiateVFX(EntityList entity, int VFXType) {
+    //manage the shooting in the dt time interval for the given entity and add the bullet to the given bulletList 
+    
+    EntityList tmpEntity = copyEntity(&stats_VFXs[VFXType]);
+    
+    tmpEntity->anchor = pointXY(entity->anchor.x,entity->anchor.y);
+    tmpEntity->animTime = tmpEntity->animDelay; 
+    tmpEntity->angle = tmpEntity->angle + entity->angle;
+    addEntityStart(&level_VFXs, tmpEntity);
 }
