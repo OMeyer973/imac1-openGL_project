@@ -62,11 +62,18 @@ void doBehaviors(EntityList entity, int dt) {
             moveEntity(entity, dt, entity->angle, -entity->speed);
             break;
         case GROW:
-            scaleBoundingBox(&entity->spriteBox, 1 + 0.003 * dt * entity->animTime / entity->animDelay);
-            scaleBoundingBox(&entity->hitBox, 1 + 0.003 * dt * entity->animTime / entity->animDelay);
+            scaleBoundingBox(&entity->spriteBox, 1 + 0.1 * entity->animTime / entity->animDelay);
+            scaleBoundingBox(&entity->hitBox, 1 + 0.1 * entity->animTime / entity->animDelay);
             break;
         case DISAPEAR:
             entity->color.a = entity->animTime / entity->animDelay;
+            break;
+        case SINALPHA:
+            entity->color.a = 0.6 + 0.4 * cos(entity->animTime / entity->animDelay * 2 * M_PI);
+            break;
+        case SINSCALE:
+            scaleBoundingBox(&entity->spriteBox, 1 + 0.05 * sin(entity->animTime / entity->animDelay * 2 * M_PI));
+            scaleBoundingBox(&entity->hitBox, 1 + 0.05 * sin(entity->animTime / entity->animDelay * 2 * M_PI));
             break;
 
         default:
@@ -154,8 +161,10 @@ void hurtEntity(EntityList entity, float dmg) {
 
         if(entity->type == TYPEMOB)
             score += dmg;
-        else if (entity->type == TYPEPLAYER) 
+        else if (entity->type == TYPEPLAYER) { 
             score -= dmg;
+            if (score < 0) score = 0;
+        }
     }
 }
 
@@ -275,7 +284,7 @@ void doWallsPhysics(EntityList* list, int dt) {
     while (tmp != NULL) {
 
         if (collision(*tmp, *player)) {
-            hurtEntity(player, stats_bullets[tmp->bulletType].hp);
+            hurtEntity(player, tmp->hp);
         }
 
         keepPlayerOutOfWall(*tmp);

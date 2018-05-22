@@ -70,8 +70,6 @@ void exitview();
 
 void drawEntityList(EntityList list);
     //draws a list of entities on screen. the view must be setup to gamespace prior to this function call
-void drawVFXList(EntityList list);
-    //draws a list of VFX on screen. the view must be setup to gamespace prior to this function call
 
 void drawSquare();
     //dessine un carré de 1x1 centré sur l'origine

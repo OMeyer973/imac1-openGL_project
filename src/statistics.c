@@ -37,7 +37,7 @@ void initMobsStats() {
      
 
     //MOB 0 (LANTERN FISH)
-    int tmpbehaviors4[MAXBEHAVIORS] = {AIMPLAYER,GOFWD};
+    int tmpbehaviors0[MAXBEHAVIORS] = {AIMPLAYER,GOFWD, SINALPHA};
     stats_mobs[0] = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.6,-0.7,0.6,0.7),   //BoundingBox spriteBox
@@ -55,12 +55,12 @@ void initMobsStats() {
         1500,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL,           //float* shootAngles
-        2,              //int behaviorsNb
-        tmpbehaviors4   //int* behaviors
+        3,              //int behaviorsNb
+        tmpbehaviors0   //int* behaviors
     );
 
     //MOB 1 - SHARK
-    int tmpbehaviors0[MAXBEHAVIORS] = {YSINE,GOFWD};
+    int tmpbehaviors1[MAXBEHAVIORS] = {YSINE,GOFWD};
     stats_mobs[1] = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.8,-0.8,0.8,0.8),   //BoundingBox spriteBox
@@ -78,8 +78,8 @@ void initMobsStats() {
         1500,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL,            //float* shootAngles
-        2,              //int behaviorsNb
-        tmpbehaviors0   //int* behaviors
+        3,              //int behaviorsNb
+        tmpbehaviors1   //int* behaviors
     );
 
     //MOB 2 (SUBMARINE)
@@ -131,8 +131,8 @@ void initMobsStats() {
     );
     
     //MOB 4 - SPONGE FISH
-    int tmpbehaviors1[MAXBEHAVIORS] = {ROTATE,GOFWD};    
-    float tmpShootAngles1[MAXSHOOTANGLES] = {0, 1, 2, 3, 4, 5};
+    int tmpbehaviors4[MAXBEHAVIORS] = {ROTATE,GOFWD, SINSCALE};    
+    float tmpShootAngles4[MAXSHOOTANGLES] = {0, 1, 2, 3, 4, 5};
     stats_mobs[4] = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.5,-0.6,0.5,0.6),   //BoundingBox spriteBox
@@ -149,9 +149,9 @@ void initMobsStats() {
         100,            //float invDelay (in ms)
         1500,            //float animDelay (in ms)
         7,              //int shootAnglesNb
-        tmpShootAngles1,//float* shootAngles
-        2,              //int behaviorsNb
-        tmpbehaviors1   //int* behaviors
+        tmpShootAngles4,//float* shootAngles
+        4,              //int behaviorsNb
+        tmpbehaviors4   //int* behaviors
     );
 
 }
@@ -169,7 +169,7 @@ void initWallsStats() {
         boundingBoxSWNE(-0.5,-0.3,0.3,0.3),      //BoundingBox hitBox        
         TYPEWALL,       //int type
         0,              //int subType
-        30,             //int hp
+        10,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -192,7 +192,7 @@ void initWallsStats() {
         boundingBoxSWNE(-0.6,-0.5,0.6,0.5),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         1,              //int subType
-        30,             //int hp
+        5,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -213,7 +213,7 @@ void initWallsStats() {
         42,              //int textureID 
         boundingBoxSWNE(-0.5,-0.8,0.5,0.8),      //BoundingBox hitBox        
         TYPEWALL,        //int type
-        2,              //int subType
+        5,              //int subType
         30,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
@@ -236,7 +236,7 @@ void initWallsStats() {
         boundingBoxSWNE(-0.6,-0.5,0.6,0.5),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         3,              //int subType
-        30,             //int hp
+        5,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -258,7 +258,7 @@ void initWallsStats() {
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         4,              //int subType
-        30,             //int hp
+        5,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -280,7 +280,7 @@ void initWallsStats() {
         boundingBoxSWNE(-0.8,-3.8,0.8,3.8),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         5,              //int subType
-        30,             //int hp
+        5,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -302,7 +302,7 @@ void initWallsStats() {
         boundingBoxSWNE(-0.8,-3.8,0.8,3.8),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         6,              //int subType
-        30,             //int hp
+        5,             //int hp
         0,              //int bulletType
         M_PI,           //float angle (radians)
         1.1,            //float speed
@@ -324,7 +324,7 @@ void initWallsStats() {
 void initBonusesStats() {
     //initialize the bullets statistics array
     Point2D anchor = pointXY(0,0);
-    float tmpShootAngles0[MAXSHOOTANGLES] = {-0.8,0,0.8};
+    float tmpShootAngles0[MAXSHOOTANGLES] = {-0.5,-0.1,0.1,0.5};
     //Bonus 0
     stats_bonuses[0]  = *instantiateEntity (
         anchor,         //Point2D anchor
@@ -341,7 +341,7 @@ void initBonusesStats() {
         150,            //float shootDelay (in ms)
         450,            //float invDelay (in ms)
         1500,            //float animDelay (in ms)
-        3,              //int shootAnglesNb
+        4,              //int shootAnglesNb
         tmpShootAngles0,//float* shootAngles
         0,              //int behaviorsNb
         NULL            //int* behaviors

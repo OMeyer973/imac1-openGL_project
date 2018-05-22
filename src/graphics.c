@@ -153,25 +153,6 @@ void drawEntityList(EntityList list) {
     }       
 }
 
-void drawVFXList(EntityList list) {
-    //draws a list of VFX on screen. the view must be setup to gamespace prior to this function call
-    while(list != NULL) {
-        glColor4ub(255 * list->color.r, 255 * list->color.g, 255 * list->color.b, 255 * list->color.a * list->animTime / list->animDelay);
-        glPushMatrix();
-            glTranslatef(
-                (list->anchor.x + (list->spriteBox.ne.x+list->spriteBox.sw.x)/2) * game_scale,
-                (list->anchor.y + (list->spriteBox.ne.y+list->spriteBox.sw.y)/2) * game_scale, 0);
-            glRotatef(list->angle / 2 / M_PI * 360,0,0,1);
-            glScalef(
-                (list->spriteBox.ne.x-list->spriteBox.sw.x) * game_scale,
-                (list->spriteBox.ne.y-list->spriteBox.sw.y) * game_scale,1);
-            drawTexturedSquare(textures[list->textureID]);
-        glPopMatrix();
-        glColor4ub(255,255,255,255);
-        list = list->next;
-    }       
-}
-
 void drawSquare() {
     //dessine un carré de 1x1 centré sur l'origine
     glBegin(GL_QUADS);

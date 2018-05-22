@@ -16,6 +16,8 @@
 #define GOBKWD 6
 #define GROW 7
 #define DISAPEAR 8
+#define SINALPHA 9
+#define SINSCALE 10
 
 extern int player_goX;
 extern int player_goY;
