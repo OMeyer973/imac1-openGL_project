@@ -117,6 +117,6 @@ int currCanal = 1; //changement de canal pour jouer des sfx les uns par dessus l
 
 
 //debug 
-int debug = 1;
+int debug = 0;
 
 #endif

@@ -72,8 +72,8 @@ void doBehaviors(EntityList entity, int dt) {
             entity->color.a = 0.6 + 0.4 * cos(entity->animTime / entity->animDelay * 2 * M_PI);
             break;
         case SINSCALE:
-            scaleBoundingBox(&entity->spriteBox, 1 + 0.05 * sin(entity->animTime / entity->animDelay * 2 * M_PI));
-            scaleBoundingBox(&entity->hitBox, 1 + 0.05 * sin(entity->animTime / entity->animDelay * 2 * M_PI));
+            scaleBoundingBox(&entity->spriteBox, 1 + 0.05 * cos(entity->animTime / entity->animDelay * 2 * M_PI));
+            scaleBoundingBox(&entity->hitBox, 1 + 0.05 * cos(entity->animTime / entity->animDelay * 2 * M_PI));
             break;
 
         default:
@@ -283,6 +283,8 @@ void doWallsPhysics(EntityList* list, int dt) {
 
     while (tmp != NULL) {
 
+        doBehaviors(tmp, dt);
+
         if (collision(*tmp, *player)) {
             hurtEntity(player, tmp->hp);
         }
@@ -313,11 +315,13 @@ void doBonusesPhysics(EntityList* list, int dt) {
     
     while (tmp != NULL) {
 
+        doBehaviors(tmp, dt);
+
         tmp2 = tmp;
         tmp = tmp->next;
 
         if (collision(*tmp2, *player)) {
-            printf("picked up bonus\n");
+            if (debug) printf("picked up bonus\n");
             applyBonus(*tmp2);
             removeEntity(&tmp2, list);
         }
