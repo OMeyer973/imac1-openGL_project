@@ -256,7 +256,7 @@ void drawGameOver(){
 }
 
 
-void drawGameWin(){
+void drawGameWin() {
     // GAME WIN
     glPushMatrix();
         glTranslatef(screen_w/2,screen_h/2.5+50,0);
@@ -265,18 +265,16 @@ void drawGameWin(){
     glPopMatrix();
 }
 
-void drawMute(){
-
-
-            glPushMatrix(); 
-                glTranslatef(1040,680,0);
-                glScalef(60, 60,1);
-                if (mute==0){    
-                drawTexturedSquare(textures[5]);
-                }
-                if (mute==1){
-                drawTexturedSquare(textures[6]);
-                }
-            glPopMatrix();
+void drawMute() {
+    glPushMatrix(); 
+        glTranslatef(1040,680,0);
+        glScalef(60, 60,1);
+        if (mute==0){    
+        drawTexturedSquare(textures[5]);
+        }
+        if (mute==1){
+        drawTexturedSquare(textures[6]);
+        }
+    glPopMatrix();
 
 }

@@ -75,7 +75,7 @@ void initMobsStats() {
         colorRGBA(1,1,1,1),   //Color4f color
         1000,           //float shootDelay (in ms)
         100,            //float invDelay (in ms)
-        1500,            //float animDelay (in ms)
+        2000,            //float animDelay (in ms)
         0,              //int shootAnglesNb
         NULL,            //float* shootAngles
         3,              //int behaviorsNb
@@ -86,7 +86,7 @@ void initMobsStats() {
     float tmpShootAngles2[MAXSHOOTANGLES] = {0, 0.5, -0.8, 0.5, 0.8};
     
     int tmpbehaviors2[MAXBEHAVIORS] = {AIMPLAYER,YSINE};
-        stats_mobs[2] =  *instantiateEntity (
+    stats_mobs[2] =  *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-1.2,-1.2,1.2,1.2),   //BoundingBox spriteBox
         22,              //int textureID 
@@ -98,7 +98,7 @@ void initMobsStats() {
         0,              //float angle (radians)
         1.1,            //float speed
         colorRGBA(1,1,1,1),   //Color4f color
-        1000,           //float shootDelay (in ms)
+        1800,           //float shootDelay (in ms)
         100,            //float invDelay (in ms)
         1500,            //float animDelay (in ms)
         5,              //int shootAnglesNb

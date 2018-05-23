@@ -118,6 +118,6 @@ int mute=0;
 
 
 //debug 
-int debug = 0;
+int debug = 1;
 
 #endif

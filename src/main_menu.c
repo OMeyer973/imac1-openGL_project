@@ -27,7 +27,17 @@ void loadMenu() {
 
 void menuRender() {
     //print the menu frame
-    if (!instructions){
+
+    // Ecran d'instructions 
+    if(instructions) {
+       glPushMatrix();
+       glTranslatef(screen_w/2, screen_h/2,0);
+       glScalef(screen_w,screen_h,1);
+       drawTexturedSquare(textures[7]);
+       glPopMatrix();
+       return;
+    }
+
     if (gameOver) {
         gameOver = 0;
         sleep(3);
@@ -103,28 +113,18 @@ void menuRender() {
             glScalef(355,55,1);
             drawTexturedSquare(textures[15]);
         glPopMatrix();        
-                }  
+    }  
 
     // HOVER INSTRUCTIONS
-  if (Sourisx>(WINDOW_WIDTH/2)-350/2 && Sourisx<(WINDOW_WIDTH/2)+350/2 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.80 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.85) {
+    if (Sourisx>(WINDOW_WIDTH/2)-350/2 && Sourisx<(WINDOW_WIDTH/2)+350/2 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.80 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.85) {
         glPushMatrix();
             glTranslatef(screen_w/2,screen_h/6,0);
             glScalef(355,55,1);
             drawTexturedSquare(textures[10]);
         glPopMatrix();         
-                 }
-}
-// Ecran d'instructions 
-   if(instructions)
-      {
-       glPushMatrix();
-       glTranslatef(screen_w/2, screen_h/2,0);
-       glScalef(screen_w,screen_h,1);
-       drawTexturedSquare(textures[7]);
-       glPopMatrix();
-      }
-
-      drawMute();
+    }
+    
+    drawMute();
 }
 
 
@@ -158,17 +158,13 @@ void menuEvents(SDL_Event e) {
                         gameIsRunning=1;           
                  }
 
-                  if (Sourisx>(WINDOW_WIDTH/2)-350/2 && Sourisx<(WINDOW_WIDTH/2)+350/2 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.80 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.85) {
-                   
-                        instructions=1;   
+                if (Sourisx>(WINDOW_WIDTH/2)-350/2 && Sourisx<(WINDOW_WIDTH/2)+350/2 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.80 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.85) {   
+                    instructions=1;   
         
-                 }
-
-                 if ((float)(Sourisx)/(float)(WINDOW_HEIGHT)>1.11 &&(float)(Sourisx)/(float)(WINDOW_HEIGHT)<1.39 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.02 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.16 && instructions==1) {
-                   
-                        instructions=0;   
-        
-                 }
+                }
+                if ((float)(Sourisx)/(float)(WINDOW_HEIGHT)>1.11 &&(float)(Sourisx)/(float)(WINDOW_HEIGHT)<1.39 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.02 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.16 && instructions==1) {
+                    instructions=0;   
+                }
 
                 if ((float)(Sourisx)/(float)(WINDOW_HEIGHT)>1.41 &&(float)(Sourisx)/(float)(WINDOW_HEIGHT)<1.47 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.01 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.09) {
                     if(mute==0){                   
@@ -179,10 +175,7 @@ void menuEvents(SDL_Event e) {
                     }
 
                  }
-
-
-                    printf("Sourisx %f",(float)(Sourisx)/(float)(WINDOW_HEIGHT));
-                 break;
+                break;
 
             case SDL_MOUSEMOTION:
                 Sourisx=e.button.x;

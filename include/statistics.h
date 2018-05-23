@@ -4,7 +4,7 @@
 #include "level.h"
 #include "entity.h"
 
-#define NBLEVELS 2
+#define NBLEVELS 3
 #define MAXSHOOTANGLES 16
 #define MAXBEHAVIORS 8
 // Statistics of the differents ships types
