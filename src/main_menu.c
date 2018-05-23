@@ -162,11 +162,12 @@ void menuEvents(SDL_Event e) {
                     instructions=1;   
         
                 }
-                if ((float)(Sourisx)/(float)(WINDOW_HEIGHT)>1.11 &&(float)(Sourisx)/(float)(WINDOW_HEIGHT)<1.39 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.02 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.16 && instructions==1) {
+             
+               if ((float)(Sourisx)/(float)(WINDOW_WIDTH)>0.74 &&(float)(Sourisx)/(float)(WINDOW_WIDTH)<0.98 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.02 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.16 && instructions==1) {
                     instructions=0;   
                 }
 
-                if ((float)(Sourisx)/(float)(WINDOW_HEIGHT)>1.41 &&(float)(Sourisx)/(float)(WINDOW_HEIGHT)<1.47 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.01 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.09) {
+                if ((float)(Sourisx)/(float)(WINDOW_WIDTH)>0.94 && ((float)(Sourisx)/(float)(WINDOW_WIDTH)) <0.98 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)>0.01 && (float)(Sourisy)/(float)(WINDOW_HEIGHT)<0.09 && (instructions==0)) {
                     if(mute==0){                   
                         mute=1;   
                     }
@@ -175,6 +176,9 @@ void menuEvents(SDL_Event e) {
                     }
 
                  }
+
+
+
                 break;
 
             case SDL_MOUSEMOTION:
