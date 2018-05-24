@@ -339,6 +339,35 @@ void doBonusesPhysics(EntityList* list, int dt) {
 
 void applyBonus(Entity bonus) {
     //apply the bonus to the player
+    switch(bonus.subType) {
+        case 0: //bonus points
+            score += bonus.hp;
+            break;
+        case 1: //bonus life
+            player->hp = fmin(player->hp + bonus.hp, stats_player.hp);
+            break;
+        case 2: //size & speed change
+            player->spriteBox = bonus.spriteBox;
+            player->hitBox = bonus.hitBox;
+            player->speed = 1.8/(bonus.spriteBox.ne.x-bonus.spriteBox.sw.x);
+            break;
+        case 3: //big bombs
+        case 4: //shotgun
+            printf("DA BOMB\n");
+            player->speed = bonus.speed;
+            player->shootDelay    = bonus.shootDelay;
+            player->shootAnglesNb = bonus.shootAnglesNb;
+            player->bulletType    = bonus.bulletType;
+
+            for (int i=0; i< player->shootAnglesNb; i++) {
+            printf("i\n");  
+                player->shootAngles[i] = bonus.shootAngles[i];
+            }
+            break;
+        default:
+            break;
+    }
+    /*
     player->spriteBox     = bonus.spriteBox;
     player->hitBox        = bonus.hitBox;
     player->hp            = fmin(player->hp + bonus.hp, stats_player.hp);
@@ -353,6 +382,7 @@ void applyBonus(Entity bonus) {
     printf("i\n");  
         player->shootAngles[i] = bonus.shootAngles[i];
     }
+    */
 }
 
 

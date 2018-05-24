@@ -27,6 +27,7 @@ void loadLevel(int i) {
     game_box = boundingBoxSWNE(0.5, 0.01, (float)level_h+0.5, (level_h+1) * game_ratio - 0.01);
     load_box = boundingBoxSWNE(game_box.sw.y-1, game_box.sw.x-1, game_box.ne.y+1, game_box.ne.x+1);
     player = copyEntity(&stats_player);
+    player->hp = 100;
     player->anchor.x = 5;
     player->anchor.y = level_h/2;
 

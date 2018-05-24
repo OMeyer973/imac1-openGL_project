@@ -22,7 +22,7 @@ void initPlayerStats() {
         boundingBoxSWNE(-0.6,-0.7,0.6,0.7),      //BoundingBox hitBox        
         TYPEPLAYER,     //int type
         0,              //int subType
-        100,           //int hp
+        150,           //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -54,7 +54,7 @@ void initMobsStats() {
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),      //BoundingBox hitBox        
         TYPEMOB,        //int type
         1,              //int subType
-        50,             //int hp
+        30,             //int hp
         1,              //int bulletType
         M_PI,           //float angle (radians)
         0.4,            //float speed
@@ -102,7 +102,7 @@ void initMobsStats() {
         boundingBoxSWNE(-0.8,-0.8,0.8,0.8),      //BoundingBox hitBox        
         TYPEMOB,       //int type
         2,              //int subType
-        50,             //int hp
+        70,             //int hp
         2,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -126,7 +126,7 @@ void initMobsStats() {
         TYPEMOB,        //int type
         3,              //int subType
         50,             //int hp
-        0,              //int bulletType
+        1,              //int bulletType
         M_PI/2,         //float angle (radians)
         0.4,            //float speed
         colorRGBA(1,1,1,1),   //Color4f color
@@ -334,8 +334,9 @@ void initWallsStats() {
 void initBonusesStats() {
     //initialize the bullets statistics array
     Point2D anchor = pointXY(0,0);
-    float tmpShootAngles0[MAXSHOOTANGLES] = {-0.5,-0.1,0.1,0.5};
-    //Bonus 0 : SHOTGUN
+
+    //Bonus 0 : CHEST POINTS
+    int tmpbehaviors0[MAXBEHAVIORS] = {SINALPHA};
     stats_bonuses[0]  = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-1,-1,1,1),   //BoundingBox spriteBox
@@ -343,26 +344,26 @@ void initBonusesStats() {
         boundingBoxSWNE(-0.6,-0.7,0.6,0.7),      //BoundingBox hitBox        
         TYPEBONUS,      //int type
         0,              //int subType
-        30,             //int hp
+        200,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         0.7,            //float speed
-        colorRGBA(1,0.8,0.8,1),   //Color4f color
+        colorRGBA(1,1,1,1),//Color4f color
         150,            //float shootDelay (in ms)
         450,            //float invDelay (in ms)
         1500,            //float animDelay (in ms)
-        4,              //int shootAnglesNb
-        tmpShootAngles0,//float* shootAngles
-        0,              //int behaviorsNb
-        NULL            //int* behaviors
+        0,              //int shootAnglesNb
+        NULL,           //float* shootAngles
+        1,              //int behaviorsNb
+        tmpbehaviors0   //int* behaviors
     );
 
-    float tmpShootAngles1[MAXSHOOTANGLES] = {0};
     //Bonus 1 : HP BONUS
+    int tmpbehaviors1[MAXBEHAVIORS] = {SINALPHA};
     stats_bonuses[1]  = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-1,-1,1,1),   //BoundingBox spriteBox
-        50,              //int textureID 
+        01,              //int textureID 
         boundingBoxSWNE(-0.6,-0.7,0.6,0.7),      //BoundingBox hitBox        
         TYPEBONUS,      //int type
         1,              //int subType
@@ -374,22 +375,21 @@ void initBonusesStats() {
         300,            //float shootDelay (in ms)
         450,            //float invDelay (in ms)
         1500,            //float animDelay (in ms)
-        3,              //int shootAnglesNb
-        tmpShootAngles1,//float* shootAngles
-        0,              //int behaviorsNb
-        NULL            //int* behaviors
+        0,              //int shootAnglesNb
+        NULL,           //float* shootAngles
+        1,              //int behaviorsNb
+        tmpbehaviors1   //int* behaviors
     );
 
-    float tmpShootAngles2[MAXSHOOTANGLES] = {0};
-    int tmpbehaviors2[MAXBEHAVIORS] = {SINSCALE};
     //Bonus 2 : SIZE CHANGE !
+    int tmpbehaviors2[MAXBEHAVIORS] = {SINALPHA, SINSCALE};
     stats_bonuses[2]  = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-1,-1,1,1),   //BoundingBox spriteBox
-        50,              //int textureID 
+        52,              //int textureID 
         boundingBoxSWNE(-0.6,-0.7,0.6,0.7),      //BoundingBox hitBox        
         TYPEBONUS,      //int type
-        1,              //int subType
+        2,              //int subType
         0,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
@@ -398,10 +398,58 @@ void initBonusesStats() {
         300,            //float shootDelay (in ms)
         450,            //float invDelay (in ms)
         1500,            //float animDelay (in ms)
-        3,              //int shootAnglesNb
-        tmpShootAngles2,//float* shootAngles
-        1,              //int behaviorsNb
+        0,              //int shootAnglesNb
+        NULL,           //float* shootAngles
+        2,              //int behaviorsNb
         tmpbehaviors2 //int* behaviors
+    );
+
+    //Bonus 3 : BIG BOMBS
+    int tmpbehaviors3[MAXBEHAVIORS] = {SINALPHA, YSINE};
+    float tmpShootAngles3[MAXSHOOTANGLES] = {0};
+    stats_bonuses[3]  = *instantiateEntity (
+        anchor,         //Point2D anchor
+        boundingBoxSWNE(-1,-1,1,1),   //BoundingBox spriteBox
+        53,              //int textureID 
+        boundingBoxSWNE(-0.6,-0.7,0.6,0.7),      //BoundingBox hitBox        
+        TYPEBONUS,      //int type
+        3,              //int subType
+        0,              //int hp
+        4,              //int bulletType
+        0,              //float angle (radians)
+        0.9,            //float speed
+        colorRGBA(0.8,1,0.9,1),   //Color4f color
+        600,            //float shootDelay (in ms)
+        450,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
+        1,              //int shootAnglesNb
+        tmpShootAngles3,//float* shootAngles
+        2,              //int behaviorsNb
+        tmpbehaviors3 //int* behaviors
+    );
+
+    //Bonus 4 : SHOTGUN
+    int tmpbehaviors4[MAXBEHAVIORS] = {SINALPHA, XSINE};
+    float tmpShootAngles4[MAXSHOOTANGLES] = {0.1,0.5,-0.1,-0.5};
+    stats_bonuses[4]  = *instantiateEntity (
+        anchor,         //Point2D anchor
+        boundingBoxSWNE(-1,-1,1,1),   //BoundingBox spriteBox
+        54,              //int textureID 
+        boundingBoxSWNE(-0.6,-0.7,0.6,0.7),      //BoundingBox hitBox        
+        TYPEBONUS,      //int type
+        4,              //int subType
+        0,              //int hp
+        0,              //int bulletType
+        0,              //float angle (radians)
+        0.9,            //float speed
+        colorRGBA(1,1,1,1),   //Color4f color
+        200,            //float shootDelay (in ms)
+        450,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
+        4,              //int shootAnglesNb
+        tmpShootAngles4,//float* shootAngles
+        2,              //int behaviorsNb
+        tmpbehaviors4   //int* behaviors
     );
 }
 
@@ -458,7 +506,7 @@ void initBulletsStats() {
         tmpbehaviors    //int* behaviors
     );
 
-    //BULLET  2 - (BULLETS FOR SUBMARINE)
+    //BULLET  2 - (BOMBS FOR SUBMARINE)
     stats_bullets[2] = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.5,-0.6,0.5,0.6),   //BoundingBox spriteBox
@@ -502,6 +550,29 @@ void initBulletsStats() {
         tmpbehaviors    //int* behaviors
     );
 
+
+    //BULLET  4 - (BOMBS FOR PLAYER)
+    stats_bullets[4] = *instantiateEntity (
+        anchor,         //Point2D anchor
+        boundingBoxSWNE(-0.7,-0.8,0.6,0.8),   //BoundingBox spriteBox
+        31,              //int textureID 
+        boundingBoxSWNE(-0.5,-0.6,0.5,0.6),      //BoundingBox hitBox        
+        TYPEBULLET,     //int type
+        2,              //int subType
+        30,             //int hp
+        0,              //int bulletType
+        0,              //float angle (radians)
+        3,            //float speed
+        colorRGBA(0.5,1,0.5,1),   //Color4f color
+        1,              //float shootDelay (in ms)
+        100,            //float invDelay (in ms)
+        1500,            //float animDelay (in ms)
+        0,              //int shootAnglesNb
+        NULL,           //float* shootAngles
+        1,              //int behaviorsNb
+        tmpbehaviors    //int* behaviors
+    );
+
 }
 
 
@@ -516,7 +587,7 @@ void initVFXsStats() {
     stats_VFXs[0]   = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),   //BoundingBox spriteBox
-        52,              //int textureID 
+        70,              //int textureID 
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),      //BoundingBox hitBox        
         6,     //int type
         0,              //int subType
@@ -538,7 +609,7 @@ void initVFXsStats() {
     stats_VFXs[1] = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),   //BoundingBox spriteBox
-        51,              //int textureID 
+        71,              //int textureID 
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),      //BoundingBox hitBox        
         6,     //int type
         0,              //int subType

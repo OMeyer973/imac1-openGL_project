@@ -21,8 +21,8 @@
 //number of every entity type
 #define NBWALLTYPES 7
 #define NBMOBTYPES 5
-#define NBBONUSTYPES 3
-#define NBBULLETTYPES 4
+#define NBBONUSTYPES 5
+#define NBBULLETTYPES 5
 #define NBVFXTYPES 2
 
 #define VFXHIT 0
