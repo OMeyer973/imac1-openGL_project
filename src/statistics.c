@@ -507,7 +507,7 @@ void initVFXsStats() {
     stats_VFXs[0]   = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),   //BoundingBox spriteBox
-        69,              //int textureID 
+        52,              //int textureID 
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),      //BoundingBox hitBox        
         6,     //int type
         0,              //int subType
@@ -529,7 +529,7 @@ void initVFXsStats() {
     stats_VFXs[1] = *instantiateEntity (
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),   //BoundingBox spriteBox
-        61,              //int textureID 
+        51,              //int textureID 
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),      //BoundingBox hitBox        
         6,     //int type
         0,              //int subType
