@@ -118,6 +118,6 @@ int currCanal = 1; // Changes canals for sounds
 int mute=0;
 
 //debug 
-int debug = 1;
+int debug = 0;
 
 #endif
