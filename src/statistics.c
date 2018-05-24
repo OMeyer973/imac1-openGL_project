@@ -13,7 +13,7 @@ void initPlayerStats() {
         boundingBoxSWNE(-0.6,-0.7,0.6,0.7),      //BoundingBox hitBox        
         TYPEPLAYER,     //int type
         0,              //int subType
-        100,            //int hp
+        10000,            //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed

@@ -38,6 +38,7 @@ extern int player_shooting;
 //game 
 extern int bossTrigger; 
 extern int score;
+extern int currLevelId;
 
 
 //menu
