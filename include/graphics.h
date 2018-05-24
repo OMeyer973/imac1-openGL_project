@@ -58,14 +58,14 @@ void resizeViewport();
     //initial viewport setup
 
 int getImgId(char* filename);
-    //retourne l'id de l'image à partir de son nom de fichier (inscrit dans les 2 premiers caractères)
-    //si les 2 premiers caractère sont des entier, on calcule et on retourne
+    // returns image id from the file name (the 2 first char)
+
 int isLoaded (SDL_Surface* image);
     //returns 1 if the SDL-Surface is corectly loaded
 int getSurfaces(char* dirPath, GLuint textureIDs[]);
-	//créé les surfaces texturées openGL des textures du dossier donné en entrée et les retourne le tableaux textureIDs
-	//ouverture et parcours du dossier contenant les textures    
-
+    // Creates the openGL textures of the folder given and put them on the textureIDs array
+    // Open and browse the folder
+	
 void drawTexturedSquare(GLuint textureID);
     //draws a textured square of size 1x1
 
@@ -78,7 +78,7 @@ void drawEntityList(EntityList list);
     //draws a list of entities on screen. the view must be setup to gamespace prior to this function call
 
 void drawSquare();
-    //dessine un carré de 1x1 centré sur l'origine
+    //draws a 1x1 square at the origin
 
 void drawBoundinBox(BoundingBox box);
     //draws a bounding box on screen. the view must be setup to the box parent (entity anchor) prior to this function call

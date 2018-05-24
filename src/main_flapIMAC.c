@@ -6,16 +6,16 @@
 
 int main(int argc, char** argv) {
     
-    // Initialisation de la SDL
+    // Initialize SDL
     if(-1 == SDL_Init(SDL_INIT_VIDEO)) {
         fprintf(stderr, "Impossible d'initialiser la SDL. Fin du programme.\n");
         return EXIT_FAILURE;
     }
 
-    //Initiation de la SDL Audio
+    // Initialize audio 
     initSounds();
 
-    // Ouverture d'une fenêtre et création d'un contexte OpenGL
+    // Create new window and Opengl Context
     if(NULL == SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_RESIZABLE)) {
         fprintf(stderr, "Impossible d'ouvrir la fenetre. Fin du programme.\n");
         return EXIT_FAILURE;
@@ -31,12 +31,12 @@ int main(int argc, char** argv) {
     initPlayerStats();
     initVFXsStats();
 
-    // Remplissage du tableau de textures 
+    // Fill tab of textures
     getSurfaces(textures_dir,textures);
 
     loadMusics();
    
-    //Boucle de dessin
+    //Drawing loop
     curr_frame_tick = SDL_GetTicks();
     resizeViewport();
     glClearColor(0.1, 0.1, 0.1 ,1.0);
@@ -81,11 +81,11 @@ int main(int argc, char** argv) {
         }
     }
     
-    // Libération des données GPU
+    // Free GPU
     //glDeleteTextures(1, &textureID);
 
-    Mix_CloseAudio(); //Fermeture de l'API 
-    // Liberation des ressources associées à la SDL
+    Mix_CloseAudio(); //Close Audiol'API 
+    // Close SDL
     SDL_Quit();
 
     return EXIT_SUCCESS;   

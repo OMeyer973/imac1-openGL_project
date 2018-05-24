@@ -37,7 +37,7 @@ int writeHighScore()
 {	
  FILE* fichier, *fichier1, *fichier2 = NULL;
 
-    int currentHighscore=0; // Tableau des 3 meilleurs scores
+    int currentHighscore=0; // Array of the 3 best scores
     fichier = fopen("./highscore.txt", "r");
     if (fichier != NULL)
     {   

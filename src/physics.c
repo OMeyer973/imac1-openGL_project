@@ -299,7 +299,7 @@ void doWallsPhysics(EntityList* list, int dt) {
             if (tmp2->anchor.x + tmp2->hitBox.sw.x < load_box.ne.x) {
                 removeEntity(&tmp2, list);
             } 
-            // optimisation : ne calcule pas les mobs à droite de l'écran mais fait des bugs
+            //optimization : doesnt calculate the mobs at the right of the screen (some bugs)
             else if (tmp != NULL) 
                 tmp = tmp->next;   
         }
@@ -330,7 +330,7 @@ void doBonusesPhysics(EntityList* list, int dt) {
             if (tmp2->anchor.x + tmp2->hitBox.sw.x < load_box.ne.x) {
                 removeEntity(&tmp2, list);
             } 
-            // optimisation : ne calcule pas les mobs à droite de l'écran mais fait des bugs
+            //optimization : doesnt calculate the mobs at the right of the screen (some bugs)
             else if (tmp != NULL) 
                 tmp = tmp->next;   
         }

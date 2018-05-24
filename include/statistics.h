@@ -8,7 +8,7 @@
 #define MAXSHOOTANGLES 16
 #define MAXBEHAVIORS 8
 // Statistics of the differents ships types
-//identifiants des types d'entités
+// ids of each entity type
 #define TYPEWALL 0
 #define TYPEMOB 1
 #define TYPEBONUS 2
@@ -18,7 +18,7 @@
 #define TYPEBULLET 5
 #define TYPEVFX 6
 
-//nombre de chaque type d'entité
+//number of every entity type
 #define NBWALLTYPES 7
 #define NBMOBTYPES 5
 #define NBBONUSTYPES 3

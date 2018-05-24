@@ -14,7 +14,7 @@ int makeLevelFromPPM(char* filename) {
 		int r, g, b;
 		char tmpc;
 		int nbcolors; //img height, width and number of colors for each chanel
-		//début du traitement du fichier ppm
+		//treatment of the PPM file
 		//stripping the 2 header characters from the file (P6 or P3) && the gimp header
 		int i =0;
 		for (i=0; i < 42; i++) {

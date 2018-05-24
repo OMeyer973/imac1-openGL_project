@@ -46,7 +46,7 @@ extern int menu_isLoaded;
 extern int debug;
 
 void loadLevel(int i);
-    //chargement du niveau i
+    //loads lvl 1 
 int gameUpdate(int dt);
     //all of the game physics calculations for the time dt. returns 1 if we can proceed to the render. 0 of not
 void gameRender();
