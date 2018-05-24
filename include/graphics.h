@@ -47,6 +47,9 @@ extern GLuint textures[NBTEXTURES];
 //sound
 extern int mute; 
 
+//game 
+extern int currLevelId;
+
 extern int debug;
 
 
@@ -107,4 +110,6 @@ void drawMute();
 void drawLevelWin();
     // draws when a level is won 
 
+void drawCurrentLevel();
+    // indicate current level
 #endif

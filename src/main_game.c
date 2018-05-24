@@ -198,7 +198,7 @@ void gameRender() {
     
     //dessin des bordures de UI
     drawBorders();
-
+    drawCurrentLevel();
     drawStats(player,01,60);
     drawScore(score,100);
       
