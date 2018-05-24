@@ -292,14 +292,14 @@ void drawLevelWin() {
 void drawCurrentLevel() {
     // LEVEL WIN
     glPushMatrix();
-        glTranslatef(screen_w/2+400,screen_h/2.5+400,0);
+        glTranslatef(screen_w/2+470,screen_h/2.5+400,0);
         glScalef(60,30,1);
         drawTexturedSquare(textures[3]);
     glPopMatrix();
 
     glPushMatrix();
-        glTranslatef(screen_w/2+450,screen_h/2.5+400,0);
-        glScalef(30,30,1);
+        glTranslatef(screen_w/2+510,screen_h/2.5+400,0);
+        glScalef(20,30,1);
         drawNumber(currLevelId+1); 
     glPopMatrix();
 }

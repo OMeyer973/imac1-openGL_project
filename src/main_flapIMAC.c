@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
         fprintf(stderr, "Impossible d'ouvrir la fenetre. Fin du programme.\n");
         return EXIT_FAILURE;
             }
-    SDL_WM_SetCaption("Fimac-o-fish", NULL);
+    SDL_WM_SetCaption("FISHIMAC", NULL);
             
     //initialisation des stats
     printf("initiating stats\n");
