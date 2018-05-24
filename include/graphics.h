@@ -104,4 +104,7 @@ void drawGameWin();
 void drawMute();
     // draws volume/mute sign
 
+void drawLevelWin();
+    // draws when a level is won 
+
 #endif

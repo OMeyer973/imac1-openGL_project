@@ -278,3 +278,12 @@ void drawMute() {
     glPopMatrix();
 
 }
+
+void drawLevelWin() {
+    // LEVEL WIN
+    glPushMatrix();
+        glTranslatef(screen_w/2,screen_h/2.5+50,0);
+        glScalef(650,350,1);
+        drawTexturedSquare(textures[4]);
+    glPopMatrix();
+}

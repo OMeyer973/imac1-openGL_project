@@ -13,6 +13,7 @@ void loadMenu() {
 
     // ---- logic reset ---- //
     level_isLoaded = 0;
+
     menu_isLoaded = 1;
 
     //input    
@@ -47,6 +48,7 @@ void menuRender() {
         gameWin = 0;
         sleep(3);
     }
+
     //BACKGROUND
     glPushMatrix();
     glTranslatef(screen_w/2, screen_h/2,0);

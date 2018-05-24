@@ -6,6 +6,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdio.h>  
+#include <unistd.h> 
 #include "physics.h"
 #include "graphics.h"
 #include "sounds.h"

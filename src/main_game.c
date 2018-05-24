@@ -47,6 +47,9 @@ void loadLevel(int i) {
     playMusic(MUSICCANAL,1,1);
 
     // ------------ logic reset ------------ //
+    if (i!=0){
+    sleep(3);
+    }
 	level_isLoaded = 1;
 	menu_isLoaded = 0;
     level_windowOffset = 0.00;
@@ -127,6 +130,8 @@ int gameUpdate(int dt) {
     doBulletsPhysics(&level_mobBullets, dt,  &player);
 
     doVFXsPhysics(&level_VFXs, dt);
+
+
     
     //moving the viewport
     if (!reachedEndOfLevel) {
@@ -211,6 +216,11 @@ void gameRender() {
     if (gameWin) {
     	currLevelId = 0;
     	drawGameWin();
+    }
+    if(!level_isLoaded)
+    {
+         drawLevelWin();
+               
     }
 }
 
