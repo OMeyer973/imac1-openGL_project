@@ -361,8 +361,8 @@ void applyBonus(Entity bonus) {
             player->shootDelay    = bonus.shootDelay;
             player->shootAnglesNb = bonus.shootAnglesNb;
             player->bulletType    = bonus.bulletType;
-
-            for (int i=0; i< player->shootAnglesNb; i++) {
+            int i=0;
+            for (i; i< player->shootAnglesNb; i++) {
             printf("i\n");  
                 player->shootAngles[i] = bonus.shootAngles[i];
             }
