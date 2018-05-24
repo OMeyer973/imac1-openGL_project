@@ -23,6 +23,7 @@ extern float screen_h;
 
 extern int level_w;
 extern int level_h;
+extern Color4f levelColors[];
 
 extern float level_windowSpeed;
 extern float level_windowOffset;

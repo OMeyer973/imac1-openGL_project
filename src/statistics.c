@@ -1,5 +1,14 @@
 #include "statistics.h"
 
+// ------------ LEVELS ------------ //
+
+void initLevelsColors() {
+    //initialyse the list of the levels bg colors
+    levelColors[0] = colorRGBA(0.3,0.4,0.6,1);
+    levelColors[1] = colorRGBA(0.5,0.7,1,1);
+    levelColors[2] = colorRGBA(0.5,1,0.7,1);    
+}
+
 // ------------ PLAYER ------------ //
 
 void initPlayerStats() {
@@ -13,7 +22,7 @@ void initPlayerStats() {
         boundingBoxSWNE(-0.6,-0.7,0.6,0.7),      //BoundingBox hitBox        
         TYPEPLAYER,     //int type
         0,              //int subType
-        10000,            //int hp
+        100,           //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed

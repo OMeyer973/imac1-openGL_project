@@ -214,6 +214,9 @@ void drawBorders() {
 
 void drawBG() {
     //draws the background of the game space
+    glColor3ub(255 * levelColors[currLevelId].r, 
+               255 * levelColors[currLevelId].g,
+               255 * levelColors[currLevelId].b);
     glPushMatrix();
         glTranslatef(screen_w*1.5, screen_h/2,0);
         glTranslatef(-(int)((level_windowOffset*game_scale*(level_bgSpeed))+screen_w)%(int)(screen_w*2),0,0);
@@ -227,6 +230,7 @@ void drawBG() {
         glScalef(-screen_w, screen_h,1);
         drawTexturedSquare(textures[14]);
     glPopMatrix();
+    glColor3ub(255,255,255);
 }
 
 void drawStats(EntityList player, int Id, int posY) {

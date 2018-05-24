@@ -58,7 +58,7 @@ int writeHighScore()
 
     	// We put the new highscore in the file
     	fichier2=fopen("./highscore.txt","w");
-    	printf("Nv record battu %d",temp);
+    	if (debug) printf("Nouveau record battu ! %d\n",temp);
     	fprintf(fichier2, "%d", temp);  
     	fclose(fichier2);
     }

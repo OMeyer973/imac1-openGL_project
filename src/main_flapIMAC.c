@@ -25,6 +25,7 @@ int main(int argc, char** argv) {
             
     //initialisation des stats
     if (debug) printf("initiating stats\n");
+    initLevelsColors();
     initMobsStats();
     initWallsStats();
     initBulletsStats();
