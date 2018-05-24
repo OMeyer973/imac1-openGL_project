@@ -90,6 +90,7 @@ int gameUpdate(int dt) {
     //logic update
 
     if (player->hp <= 0) {
+        writeHighScore();
         gameOver = 1;
         currLevelId = 0;
         gameIsRunning = 0;
@@ -97,6 +98,7 @@ int gameUpdate(int dt) {
     }
 
     if (gameWin) {
+        writeHighScore();
         currLevelId = 0;
         gameIsRunning = 0;
         level_isLoaded = 0;

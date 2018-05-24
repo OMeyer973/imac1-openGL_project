@@ -74,7 +74,6 @@ int main(int argc, char** argv) {
             menuRender();
             menuEvents(e);
         }
-        writeHighScore();
         SDL_GL_SwapBuffers();
         Uint32 elapsedTime = SDL_GetTicks() - curr_frame_tick;
         if(elapsedTime < FRAMERATE_MILLISECONDS) {
