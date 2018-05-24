@@ -227,14 +227,17 @@ void doMobsPhysics(EntityList* list, int dt, EntityList* bulletList) {
     EntityList tmp2 = tmp;
     
     while (tmp != NULL) {
-        entityShootsBullet(tmp, dt, bulletList);
-        if (tmp->invTime > 0)
-            tmp->invTime -= dt;
+        
+        if (collisionEB(*tmp, load_box)) {
+            entityShootsBullet(tmp, dt, bulletList);
+            if (tmp->invTime > 0)
+                tmp->invTime -= dt;
 
-        if (collision(*tmp, *player)) {
-            hurtEntity(player, stats_bullets[tmp->bulletType].hp);
+            if (collision(*tmp, *player)) {
+                hurtEntity(player, stats_bullets[tmp->bulletType].hp);
+            }
+            doBehaviors(tmp, dt);
         }
-        doBehaviors(tmp, dt);
 
         tmp2 = tmp;
         tmp = tmp->next;
@@ -349,7 +352,7 @@ void applyBonus(Entity bonus) {
         case 2: //size & speed change
             player->spriteBox = bonus.spriteBox;
             player->hitBox = bonus.hitBox;
-            player->speed = 1.8/(bonus.spriteBox.ne.x-bonus.spriteBox.sw.x);
+            player->speed = 2/(bonus.spriteBox.ne.x-bonus.spriteBox.sw.x);
             break;
         case 3: //big bombs
         case 4: //shotgun

@@ -102,7 +102,7 @@ void initMobsStats() {
         boundingBoxSWNE(-0.8,-0.8,0.8,0.8),      //BoundingBox hitBox        
         TYPEMOB,       //int type
         2,              //int subType
-        70,             //int hp
+        50,             //int hp
         2,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -443,7 +443,7 @@ void initBonusesStats() {
         0,              //float angle (radians)
         0.9,            //float speed
         colorRGBA(1,1,1,1),   //Color4f color
-        200,            //float shootDelay (in ms)
+        170,            //float shootDelay (in ms)
         450,            //float invDelay (in ms)
         1500,            //float animDelay (in ms)
         4,              //int shootAnglesNb
@@ -470,7 +470,7 @@ void initBulletsStats() {
         tmpHitBox,      //BoundingBox hitBox        
         TYPEBULLET,     //int type
         0,              //int subType
-        10,             //int hp
+        8,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         5,              //float speed
