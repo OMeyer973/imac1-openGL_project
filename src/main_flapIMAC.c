@@ -1,6 +1,7 @@
 #include "main_flapIMAC.h"
 
 
+
 // ------------ MAIN CODE ------------ //
 // *********************************** //
 
@@ -23,7 +24,7 @@ int main(int argc, char** argv) {
     SDL_WM_SetCaption("FISHIMAC", NULL);
             
     //initialisation des stats
-    printf("initiating stats\n");
+    if (debug) printf("initiating stats\n");
     initMobsStats();
     initWallsStats();
     initBulletsStats();

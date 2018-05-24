@@ -61,7 +61,7 @@ int getSurfaces(char* dirPath, GLuint textureIDs[]) {
             char strTmp[50];
             strcpy(strTmp, dirPath);
             strcat(strTmp, dir->d_name);
-            printf("Loading tex %s\n", strTmp);
+            if (debug) printf("Loading tex %s\n", strTmp);
             
             textures[i] = IMG_Load(strTmp);
             if (!isLoaded(textures[i])) return 0;   

@@ -15,6 +15,8 @@
 extern int level_w;
 extern int level_h;
 
+extern int debug;
+
 //different entities in the level
 
 extern EntityList level_walls;

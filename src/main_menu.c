@@ -3,7 +3,7 @@
 
 
 void loadMenu() {
-    printf("loading menu\n");
+    if (debug) printf("loading menu\n");
     //load the menu
 
     //music

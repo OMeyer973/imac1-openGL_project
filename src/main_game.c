@@ -5,7 +5,7 @@
 // ***************************************** //
 
 void loadLevel(int i) {
-	printf("loading level\n");
+	if (debug) printf("loading level\n");
     //chargement du niveau
 
     // ------------ reseting existing entities ------------ //
@@ -21,7 +21,7 @@ void loadLevel(int i) {
     sprintf(levelPath, "map/level%d.ppm", i);
     
     makeLevelFromPPM(levelPath);
-    printf("level grid : %d, %d\n",level_w, level_h);
+    if (debug) printf("level grid : %d, %d\n",level_w, level_h);
     
     game_scale = game_h / (level_h+1);
     game_box = boundingBoxSWNE(0.5, 0.01, (float)level_h+0.5, (level_h+1) * game_ratio - 0.01);
@@ -91,6 +91,7 @@ int gameUpdate(int dt) {
 
     if (player->hp <= 0) {
         gameOver = 1;
+        currLevelId = 0;
         gameIsRunning = 0;
         return 0;
     }
@@ -242,7 +243,7 @@ void gameEvents(SDL_Event e) {
                 resizeViewport();
 
             case SDL_KEYDOWN:
-                printf("touche pressée (code = %d)\n", e.key.keysym.sym);
+                if (debug) printf("touche pressée (code = %d)\n", e.key.keysym.sym);
                 
                 if (e.key.keysym.sym==273){ //up
                     keyUp = 1;
@@ -275,7 +276,7 @@ void gameEvents(SDL_Event e) {
                 break;
 
             case SDL_KEYUP:
-                printf("touche levée (code = %d)\n", e.key.keysym.sym);
+                if (debug) printf("touche levée (code = %d)\n", e.key.keysym.sym);
                 
                 if (e.key.keysym.sym == 273){ //up
                     keyUp = 0;

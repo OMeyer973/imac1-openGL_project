@@ -193,7 +193,7 @@ void initWallsStats() {
         boundingBoxSWNE(-0.6,-0.5,0.6,0.5),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         1,              //int subType
-        5,             //int hp
+        5,              //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -214,8 +214,8 @@ void initWallsStats() {
         42,              //int textureID 
         boundingBoxSWNE(-0.5,-0.8,0.5,0.8),      //BoundingBox hitBox        
         TYPEWALL,        //int type
-        5,              //int subType
-        30,             //int hp
+        2,              //int subType
+        5,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -237,7 +237,7 @@ void initWallsStats() {
         boundingBoxSWNE(-0.6,-0.5,0.6,0.5),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         3,              //int subType
-        5,             //int hp
+        5,              //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed

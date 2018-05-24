@@ -35,6 +35,9 @@ extern int instructions;
 //sound
 extern int mute;
 
+//debug
+extern int debug;
+
 void loadMenu();
     //load the menu
 void menuRender();

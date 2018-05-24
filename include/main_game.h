@@ -43,6 +43,7 @@ extern int score;
 //menu
 extern int menu_isLoaded;
 
+//debug
 extern int debug;
 
 void loadLevel(int i);

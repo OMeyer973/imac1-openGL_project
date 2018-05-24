@@ -6,7 +6,7 @@
 
 int makeLevelFromPPM(char* filename) {
 	//takes a PPM filepath as input and add objects to the 3 lists describing a level : walls list, mobs list, bonus list
-	printf("lecture du fichier PPM ... \n");
+	if (debug) printf("lecture du fichier PPM ... \n");
 	FILE *in = NULL;
 	in = fopen(filename, "r");
 
@@ -25,10 +25,11 @@ int makeLevelFromPPM(char* filename) {
 		if (fscanf(in,"%d", &level_w) == EOF) return 0;
 		if (fscanf(in,"%d", &nbcolors) == EOF) return 0;
 		//w & h are inverted in order to rotate the image
-		/* //debug
+		if (debug) {
 			printf("width : %d\n", level_w);
 			printf("height : %d\n", level_h);
-			printf("nbcolors : %d\n", nbcolors); */
+			printf("nbcolors : %d\n", nbcolors);
+		}
 		//getting pixels data
 		int x = 0, y = 0;
 		for (x=0; x < level_w; x++) {
@@ -50,7 +51,7 @@ int makeLevelFromPPM(char* filename) {
 		printf("Impossible de charger le fichier \"%s\" \n", filename);
 		return 0;
 	}
-	printf("OK\n");
+	if (debug) printf("OK\n");
 	return 1;
 }
 
@@ -75,9 +76,8 @@ int addObjectToLevel(int x, int y, int type, int subType, float scale){
 }
 
 int addWall(int x, int y, int subType, float scale){
-	//printf("adding wall\n");
 	if (subType < NBWALLTYPES){
-		//printf("subtype %d\n", subType);
+		//printf("adding wall\n");
 		EntityList tmpEntity = copyEntity(&stats_walls[subType]);
 		tmpEntity->anchor = pointXY(x,y);
 		if (scale < 0.2) scale = 0.2;
@@ -86,13 +86,13 @@ int addWall(int x, int y, int subType, float scale){
 		addEntityEnd(&level_walls, tmpEntity);
 		return 1;
 	}
-	printf("tried to add invalid wall of subtype %d at %d %d\n", subType, x, y);
+	if (debug) printf("tried to add invalid wall of subtype %d at %d %d\n", subType, x, y);
 	return 0;
 }
 
 int addBonus(int x, int y, int subType, float scale){
 	if (subType < NBBONUSTYPES){
-		printf("adding bonus\n");
+		//printf("adding bonus\n");
 		EntityList tmpEntity = copyEntity(&stats_bonuses[subType]);
 		tmpEntity->anchor = pointXY(x,y);
 		if (scale < 0.2) scale = 0.2;
@@ -101,13 +101,13 @@ int addBonus(int x, int y, int subType, float scale){
 		addEntityEnd(&level_bonuses, tmpEntity);
 		return 1;
 	}
-	printf("tried to add invalid bonus of subtype %d at %d %d\n", subType, x, y);
+	if (debug) printf("tried to add invalid bonus of subtype %d at %d %d\n", subType, x, y);
 	return 0;
 }
 
 int addMob(int x, int y, int subType, float scale){
-	//printf("adding mob\n");
 	if (subType < NBMOBTYPES){
+		//printf("adding mob\n");
 		EntityList tmpEntity = copyEntity(&stats_mobs[subType]);
 		tmpEntity->anchor = pointXY(x,y);
 		if (scale < 0.2) scale = 0.2;
@@ -117,6 +117,6 @@ int addMob(int x, int y, int subType, float scale){
 		addEntityEnd(&level_mobs, tmpEntity);
 		return 1;
 	}
-	printf("tried to add invalid mob of subtype %d at %d %d\n", subType, x, y);
+	if (debug) printf("tried to add invalid mob of subtype %d at %d %d\n", subType, x, y);
 	return 0;
 }
