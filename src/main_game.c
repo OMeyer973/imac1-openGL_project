@@ -218,13 +218,16 @@ void gameRender() {
     	currLevelId = 0;
     	drawGameWin();
     }
+
+
     if(!level_isLoaded)
     {
-         drawLevelWin();
-               
+    if(currLevelId!=0){
+                 drawLevelWin();
+            }
     }
-}
 
+}
 
 
 void gameEvents(SDL_Event e) {
