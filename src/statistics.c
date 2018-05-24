@@ -107,7 +107,7 @@ void initMobsStats() {
         0,              //float angle (radians)
         1.1,            //float speed
         colorRGBA(1,1,1,1),   //Color4f color
-        1800,           //float shootDelay (in ms)
+        3000,           //float shootDelay (in ms)
         100,            //float invDelay (in ms)
         1500,            //float animDelay (in ms)
         5,              //int shootAnglesNb
@@ -130,7 +130,7 @@ void initMobsStats() {
         M_PI/2,         //float angle (radians)
         0.4,            //float speed
         colorRGBA(1,1,1,1),   //Color4f color
-        1000,           //float shootDelay (in ms)
+        4000,           //float shootDelay (in ms)
         100,            //float invDelay (in ms)
         1500,            //float animDelay (in ms)
         3,              //int shootAnglesNb
@@ -154,7 +154,7 @@ void initMobsStats() {
         M_PI,           //float angle (radians)
         0.4,            //float speed
         colorRGBA(1,1,1,1),   //Color4f color
-        5000,           //float shootDelay (in ms)
+        6000,           //float shootDelay (in ms)
         100,            //float invDelay (in ms)
         1500,            //float animDelay (in ms)
         7,              //int shootAnglesNb
@@ -176,10 +176,10 @@ void initWallsStats() {
         anchor,         //Point2D anchor
         boundingBoxSWNE(-0.8,-1,1.8,1),   //BoundingBox spriteBox
         40,              //int textureID 
-        boundingBoxSWNE(-0.7,-0.4,0.7,0.7),      //BoundingBox hitBox        
+        boundingBoxSWNE(-0.7,-0.4,0.3,0.7),      //BoundingBox hitBox        
         TYPEWALL,       //int type
         0,              //int subType
-        10,             //int hp
+        2,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -202,7 +202,7 @@ void initWallsStats() {
         boundingBoxSWNE(-0.6,-0.5,0.6,0.5),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         1,              //int subType
-        5,              //int hp
+        3,              //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -224,7 +224,7 @@ void initWallsStats() {
         boundingBoxSWNE(-0.5,-0.8,0.5,0.8),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         2,              //int subType
-        5,             //int hp
+        3,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -246,7 +246,7 @@ void initWallsStats() {
         boundingBoxSWNE(-0.6,-0.5,0.6,0.5),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         3,              //int subType
-        5,              //int hp
+        3,              //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -268,7 +268,7 @@ void initWallsStats() {
         boundingBoxSWNE(-0.5,-0.5,0.5,0.5),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         4,              //int subType
-        5,             //int hp
+        3,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -290,7 +290,7 @@ void initWallsStats() {
         boundingBoxSWNE(-0.8,-3.8,0.8,3.8),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         5,              //int subType
-        5,             //int hp
+        3,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         1.1,            //float speed
@@ -312,7 +312,7 @@ void initWallsStats() {
         boundingBoxSWNE(-0.8,-3.8,0.8,3.8),      //BoundingBox hitBox        
         TYPEWALL,        //int type
         6,              //int subType
-        5,             //int hp
+        3,             //int hp
         0,              //int bulletType
         M_PI,           //float angle (radians)
         1.1,            //float speed
@@ -470,7 +470,7 @@ void initBulletsStats() {
         tmpHitBox,      //BoundingBox hitBox        
         TYPEBULLET,     //int type
         0,              //int subType
-        8,             //int hp
+        15,             //int hp
         0,              //int bulletType
         0,              //float angle (radians)
         5,              //float speed

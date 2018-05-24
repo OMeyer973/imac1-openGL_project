@@ -19,7 +19,6 @@ extern int Sourisx;
 extern int Sourisy;
 
 //game
-
 extern int gameIsRunning;
 extern int gameOver;
 extern int gameWin;

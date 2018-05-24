@@ -44,8 +44,8 @@ void loadLevel(int i) {
     level_boss->shootDelay *= 0.7;
 
     //music init
-
     playMusic(MUSICCANAL,1,1);
+	prev_frame_tick = curr_frame_tick;
 
     // ------------ logic reset ------------ //
     if (i!=0){
@@ -134,8 +134,6 @@ int gameUpdate(int dt) {
     doBulletsPhysics(&level_mobBullets, dt,  &player);
 
     doVFXsPhysics(&level_VFXs, dt);
-
-
     
     //moving the viewport
     if (!reachedEndOfLevel) {
@@ -157,9 +155,6 @@ void gameRender() {
     //painting the current frame
     //drawing code
     glClear(GL_COLOR_BUFFER_BIT);
-        
-    //TODO
-    //drawVFX();
 
     // Background
     drawBG(); 
@@ -225,9 +220,9 @@ void gameRender() {
 
     if(!level_isLoaded)
     {
-    if(currLevelId!=0){
-                 drawLevelWin();
-            }
+    	if(currLevelId!=0){
+    		drawLevelWin();
+        }
     }
 
 }

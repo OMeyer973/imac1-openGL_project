@@ -36,6 +36,9 @@ extern int player_shooting;
 
 
 //game 
+extern int curr_frame_tick;
+extern int prev_frame_tick;
+
 extern int bossTrigger; 
 extern int score;
 extern int currLevelId;

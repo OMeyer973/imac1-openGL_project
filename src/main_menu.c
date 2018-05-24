@@ -40,11 +40,12 @@ void menuRender() {
     }
 
     if (gameOver) {
+        if (debug) printf("GAME OVER\n");
         gameOver = 0;
         sleep(3);
     }
     if (gameWin) {
-        printf("YOU WIIIN\n");
+        if (debug) printf("YOU WIIIN\n");
         gameWin = 0;
         sleep(3);
     }
