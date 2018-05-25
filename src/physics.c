@@ -356,14 +356,12 @@ void applyBonus(Entity bonus) {
             break;
         case 3: //big bombs
         case 4: //shotgun
-            printf("DA BOMB\n");
             player->speed = bonus.speed;
             player->shootDelay    = bonus.shootDelay;
             player->shootAnglesNb = bonus.shootAnglesNb;
             player->bulletType    = bonus.bulletType;
-            int i=0;
-            for (i; i< player->shootAnglesNb; i++) {
-            printf("i\n");  
+            int i;
+            for (i=0; i< player->shootAnglesNb; i++) {
                 player->shootAngles[i] = bonus.shootAngles[i];
             }
             break;

@@ -12,6 +12,8 @@
 #include <time.h> 
 #include <math.h> 
 #include "entity.h"
+#include "score.h"
+
 
 extern unsigned int WINDOW_WIDTH;
 extern unsigned int WINDOW_HEIGHT;
